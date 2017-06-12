@@ -1,0 +1,103 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage[margin=0.5in]{geometry}
+\usepackage{breakcites}
+\usepackage{natbib}
+
+\begin{document}
+
+\title{Application of Network Smoothing to Glycan LC-MS Profiling}
+\author{Joshua Klein}
+\begin{abstract}
+    \textbf{Motivation:} Glycosylation is one of the most heterogenous
+    and complex post-translational modifications, but .\\
+    \textbf{Results:} These are the resutls for this article.\\
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+Glycosylation is one of the most pervasive forms of post-translational
+modification.
+
+
+\section{Methods}
+
+\subsection{Glycan Hypothesis Generation}
+N-glycans start with a common core, but growing outwards, they can become quite
+complex \cite{Stanley2009}. Starting with the core motif of {\bf HexNAc2 Hex3}, all
+combinations of monosaccharides ranging between:$$
+\begin{tabular}{c c c}
+    Monosaccharide & Lower Limit & Upper Limit \\
+    {\bf HexNAc} & 2 & 9 \\
+    {\bf Hex} & 3 & 10 \\
+    {\bf Fuc} & 0 & 4 \\
+    {\bf NeuAc} & 0 & 5 \\
+\end{tabular}
+$$subject to to the limitation ${\bf HexNAc} > {\bf Fuc}$ and $({\bf HexNAc} - 1) > 
+{\bf NeuAc}$. We created a copy of this database for native, reduced and permethylated,
+and deuteroreduced and permethylated.
+
+\subsection{LC-MS Preprocessing}
+Raw LC-MS data must be preprocessed in a number of ways before it can readily be
+compared to theoretical glycan compositions. We applied a background reduction
+method based upon \cite{Kaur2006}, using a window length of 2 m/z. Next, we picked
+peaks using a simple gaussian model. Scans were then subjected to iterative charge
+state deconvolution and deisotoping using an averagine \cite{Senko1995} formula
+appropriate to the molecule under study. For native glycans, the formula was
+{\bf H 1.690 C 1.0 O 0.738 N 0.071}, for permethylated glycans, the formula was
+{\bf H 1.819 C 1.0 O 0.431 N 0.042}. We used an iterative approach which combines
+aspects of the dependence graph method \cite{Liu2010} and with subtraction. 
+
+\subsection{LC-MS Feature Aggregation}
+We aggregated deconvoluted peaks over time to construct LC-MS features. We clustered
+peaks whose neutral masses were within 15 parts-per-million error (PPM) of each other.
+When there were multiple candidate clusters for a single peak, we used the cluster
+with the lowest mass error. After all peaks were clustered, we sorted each cluster
+by time, creating a list of LC-MS features.
+
+\subsection{Glycan Composition Matching}
+For each LC-MS feature, we queried the target glycan database for compositions whose
+masses were within $\delta_{mass} = 10$ PPM mass error for QTOF data, $5$ PPM mass error
+for Orbitrap data. We merged all features matching the same composition. Then, for
+each adduct combination, we searched the target glycan database for compositions
+whose neutral mass were within $\delta_{mass}$ of the observed neutral mass - adduct
+combination mass, followed by another round of merging LC-MS features with the same
+assigned composition. We reduced the data by splitting each feature where the time
+between sequential observation was greater than $\delta_{rt} = 0.25$ minutes and
+removed features with fewer than $k = 5$ data points. We termed the remaining assigned
+and unassigned LC-MS features {\em candidate features}.
+
+\subsection{Feature Evaluation}
+For each candidate feature, we computed several statistics to estimate how distinguishable
+the observed signal was from random noise.
+
+\subsubsection{Chromatographic Peak Shape}
+An LC-MS elution profile should be composed of one or more peak-like components, each
+following a bi-Gaussian peak shape model \cite{Yu2010} or in less ideal chromatographic
+circumstances, a skewed Gaussian peak shape model. We fit these models using non-linear
+least squares (NLS). As measures of goodness of fit are not generally available for NLS,
+we used the following criterion:\begin{align}
+    {\hat y_i} &= NLS(intensity_i, time_i) \\
+    e_{i, NLS} &= intensity_i - {\hat y_i} \\
+    {\bar y_i} &= \frac{1}{|intensity_i|}\sum(intensity_i) \\
+    e_{i, null} &= intensity_i - {\bar y_i} \\
+    \text{line score}_i &= 1 - \frac{\sum{e_{i, NLS}^2}}{\sum{e_{i, null}^2}}
+\end{align}
+We applied two competitive peak fitting strategies to address distorted, overlapping, or
+multimodal elution profiles. The first worked iteratively by finding a best-matching peak
+shape using non-linear least squares, subtracting the fitted signal and checked if there was
+another peak with at least half as tall as the removed peak, if so repeating the process until
+no peak can be found, saving each peak model so constructed. The second approach started
+by locating local minima between putative peaks, and partitioning the LC-MS feature into
+sub-groups which would be fitted independently. This method generates a candidate list of
+minima, and selects the case which has the greatest difference between the minimum and its
+pair of maxima to split the feature at.
+
+\subsubsection{Composition Dependent Charge State Distribution}
+
+
+\bibliographystyle{natbib}
+\bibliography{bibliography}
+
+\end{document}
