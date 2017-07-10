@@ -4,11 +4,32 @@
 \usepackage{breakcites}
 \usepackage{natbib}
 \usepackage{mathtools}
+\usepackage{mathrsfs}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage[bottom]{footmisc}
+\usepackage[export]{adjustbox}
+\usepackage{todonotes}
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
-
+\DeclareMathAlphabet\mathbfcal{OMS}{cmsy}{b}{n}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\includeonly{discussion}
 \begin{document}
 \newcommand{\monosaccharide}[1]{{\bf #1}}
+\newcommand{\nglycan}[0]{\textit{N}-glycan }
+\newcommand{\nglycans}[0]{\textit{N}-glycans }
+
+% Sample Name Shortcuts
+\newcommand{\agp}[0]{\textit{20150930-06-AGP} }
+\newcommand{\phil}[0]{\textit{20141031-07-Phil-82} }
+\newcommand{\philbs}[0]{\textit{20141101-04-Phil-BS} }
+\newcommand{\igg}[0]{\textit{20151002-02-IGG} }
+\newcommand{\dpphil}[0]{\textit{20141128-11-Phil-82} }
+\newcommand{\dpagp}[0]{\textit{AGP-DR-Perm-glycans-1} }
+\newcommand{\rpagp}[0]{\textit{AGP-permethylated-2ul-inj-55-SLens} }
+\newcommand{\rphumanserum}[0]{\textit{Perm-BS-070111-04-Human-Serum} }
+
 
 \title{Application of Network Smoothing to Glycan LC-MS Profiling}
 \author{Joshua Klein}
@@ -25,151 +46,12 @@ Glycosylation is one of the most pervasive forms of post-translational
 modification.
 
 
-\section{Methods}
+\include{methods}
 
-\subsection{Glycan Hypothesis Generation}
-N-glycans start with a common core, but growing outwards, they can become quite
-complex \cite{Stanley2009}. Starting with the core motif of {\bf HexNAc2 Hex3}, all
-combinations of monosaccharides ranging between:$$
-\begin{tabular}{c c c}
-    Monosaccharide & Lower Limit & Upper Limit \\
-    \monosaccharide{HexNAc} & 2 & 9 \\
-    \monosaccharide{Hex} & 3 & 10 \\
-    \monosaccharide{Fuc} & 0 & 4 \\
-    \monosaccharide{NeuAc} & 0 & 5 \\
-\end{tabular}
-$$subject to to the limitation $\monosaccharide{HexNAc} > \monosaccharide{Fuc}$ and $(\monosaccharide{HexNAc} - 1) > 
-\monosaccharide{NeuAc}$. We created a copy of this database for native, reduced and permethylated,
-and deuteroreduced and permethylated.
+\include{results}
 
-\subsection{LC-MS Preprocessing}
-Raw LC-MS data must be preprocessed in a number of ways before it can readily be
-compared to theoretical glycan compositions. We applied a background reduction
-method based upon \cite{Kaur2006}, using a window length of 2 m/z. Next, we picked
-peaks using a simple gaussian model. Scans were then subjected to iterative charge
-state deconvolution and deisotoping using an averagine \cite{Senko1995} formula
-appropriate to the molecule under study. For native glycans, the formula was
-{\bf H 1.690 C 1.0 O 0.738 N 0.071}, for permethylated glycans, the formula was
-{\bf H 1.819 C 1.0 O 0.431 N 0.042}. We used an iterative approach which combines
-aspects of the dependence graph method \cite{Liu2010} and with subtraction. 
+\include{discussion}
 
-\subsection{LC-MS Feature Aggregation}
-We aggregated deconvoluted peaks over time to construct LC-MS features. We clustered
-peaks whose neutral masses were within 15 parts-per-million error (PPM) of each other.
-When there were multiple candidate clusters for a single peak, we used the cluster
-with the lowest mass error. After all peaks were clustered, we sorted each cluster
-by time, creating a list of LC-MS features.
-
-\subsection{Glycan Composition Matching}
-For each LC-MS feature, we queried the target glycan database for compositions whose
-masses were within $\delta_{mass} = 10$ PPM mass error for QTOF data, $5$ PPM mass error
-for Orbitrap data. We merged all features matching the same composition. Then, for
-each adduct combination, we searched the target glycan database for compositions
-whose neutral mass were within $\delta_{mass}$ of the observed neutral mass - adduct
-combination mass, followed by another round of merging LC-MS features with the same
-assigned composition. We reduced the data by splitting each feature where the time
-between sequential observation was greater than $\delta_{rt} = 0.25$ minutes and
-removed features with fewer than $k = 5$ data points. We termed the remaining assigned
-and unassigned LC-MS features {\em candidate features}.
-
-% This section runs quite long but is necessary to define the "Observed Score"
-% which the network smoothing method is supposed to smooth over. I doubt I'll be
-% able to include all of this section, the definition of the steps involved in
-% defining the network, and the network smoothing itself.
-\subsection{Feature Evaluation}
-For each candidate feature, we computed several statistics to estimate how distinguishable
-the observed signal was from random noise. We use the following quantities from each LC-MS
-feature:
-
-\begin{center}
-\begin{tabular}{l | p{9cm}}
-    \hline
-    $\text{neutral mass}_i$ & The neutral mass of the $i$th chromatogram\\
-    $\text{intensity}_i$ & The total intensity array assigned to the $i$th chromatogram\\
-    $\text{node intensity}_{i, j}$ & The sum of all peak intensities for peaks observed in
-                                     the $j$th scan for the $i$th chromatogram\\
-    $\text{intensity}_{i, \text{charge}=j}$ & The total intensity assigned to the $i$th
-                                              chromatogram with charge state $j$\\
-    $\text{time}_{i, j}$ & The time of the $j$th scan of the $i$th chromatogram\\
-    $\text{charges}_i$ & The set of charge states observed for the $i$th chromatogram\\
-    $\text{peak}_{i, j}$ & The $j$th deconvoluted MS peak assigned to the $i$th chromatogram\\
-    $\text{peak intensity}_{i, j}$ & The intensity assigned to $\text{peak}_{i, j}$\\
-    $\text{envelope}_{i, j}$ & The normalized experimental isotopic envelope composing
-                               $\text{peak}_{i, j}$, a sequence of size $K$, whose members
-                               sum to $1$\\
-    $\text{adducts}_i$ & The set of adduction states observed for the $i$th chromatogram\\
-    $\text{intensity}_{i, \text{adduct}=j}$ & The total intensity assigned to the $i$th
-                                              chromatogram with adduct $j$\\
-\end{tabular}
-\end{center}
-
-\subsubsection{Chromatographic Peak Shape}
-An LC-MS elution profile should be composed of one or more peak-like components, each
-following a bi-Gaussian peak shape model \cite{Yu2010} or in less ideal chromatographic
-circumstances, a skewed Gaussian peak shape model. We fit these models using non-linear
-least squares (NLS). As measures of goodness of fit are not generally available for NLS,
-we used the following criterion:\begin{align}
-    {\hat y_i} &= NLS(\text{node intensity}_i, \text{time}_i) \\
-    e_{i, NLS} &= \text{node intensity}_i - {\hat y_i} \\
-    {\bar y_i} &= \frac{1}{n}\sum_j^n(\text{node intensity}_{i, j}) \\
-    e_{i, null} &= \text{node intensity}_i - {\bar y_i} \\
-    \text{line score}_i &= 1 - \frac{\sum{e_{i, NLS}^2}}{\sum{e_{i, null}^2}}
-\end{align} where line score describes how much the peak shape fit improves on a flat line
-fit null model.
-
-We applied two competitive peak fitting strategies to address distorted, overlapping, or
-multimodal elution profiles. The first worked iteratively by finding a best-matching peak
-shape using non-linear least squares, subtracting the fitted signal and checked if there was
-another peak with at least half as tall as the removed peak, if so repeating the process until
-no peak can be found, saving each peak model so constructed. The second approach started
-by locating local minima between putative peaks, and partitioning the LC-MS feature into
-sub-groups which would be fitted independently. This method generates a candidate list of
-minima, and selects the case which has the greatest difference between the minimum and its
-pair of maxima to split the feature at. The strategy which produced the maximum {\em line score}
-was chosen.
-
-\subsubsection{Composition Dependent Charge State Distribution}
-% Does this principle need a citation?
-As the number of monosaccharides composing a glycan increases, the number of possible sites
-for charge localization increases. Under normal conditions, we would expect to observe the
-same molecule in multiple charge states \cite{Maxwell2012}. Which charge states are
-expected would depend upon the size of the molecule and it's constituent units'
-electronegativity. In it's native state, \monosaccharide{NeuAc}'s acidic group causes
-glycans with one or more \monosaccharide{NeuAc} to have a propensity for higher negative
-charge states\cite{Varki2009}. To capture this relationship, we modeled the probability of
-observing a glycan composition for sialylated and unsialylated compositions separately.
-\begin{align}
-    m_i &= (\floor*{(\text{neutral mass}_i / w) / 10} + 1) * 10 \\
-    \text{charged intensity}_{i,j} &= \frac{
-        \text{intensity}_{i, \text{charge}=j}}{\text{intensity}_i} \\
-    P(c, m) &= |m|\sum_{m_i \in m} \text{charged intensity}_{i, j} \\
-    \text{charge score}_i &= \sum_{c_{i, j} \in \text{charges}_i}{P(c_{i, j}, m_i)} \\
-\end{align} where $w$ is the width of the mass bin divided by 10 and $P(c, m)$ is defined as
-part of the model estimation procedure.
-
-\subsubsection{Isotopic Pattern Consistency}
-Our ahead-of-time deconvolution procedure uses an averagine isotopic model and does not
-capture the consistency of the isotopic pattern that was fit with the isotopic pattern
-of the glycan composition that matched that peak. The criterion \begin{align}
-    \text{isotope score}_i &= 1 - \frac{2}{\text{intensity}_i}\sum_j^J{
-        \text{peak intensity}_{i, j}\sum_k^K{
-            |\text{envelope}_{i, j, k}(
-                \ln(\text{envelope}_{i, j, k}) - \ln(\text{tid}_{i, k})
-                )|
-        }
-    }
-\end{align} where {\em tid} is the theoretical isotopic pattern derived from either the $i$th
-glycan composition or an averagine interpolated for $\text{neutral mass}_i$. This computes an
-peak intensity weighted mean G-test comparing the goodness of fit between the experimental
-envelope and the theoretical isotopic pattern.
-
-\subsubsection{Observation Spacing Score}
-The less time between observations of a glycan composition the less likely the LC-MS feature
-is to contain peaks missing or caused by isotopic pattern interference or missing information.
-\begin{align}
-    \text{spacing score}_i &= 1 - \frac{2}{\text{intensity}_i}\sum_{j=1}^J\text{node intensity}_{i, j}(
-        \text{time}_{i, j} - \text{observed time}_{i, j - 1})
-\end{align}
 
 \bibliographystyle{natbib}
 \bibliography{bibliography}
