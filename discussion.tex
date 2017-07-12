@@ -14,10 +14,26 @@
     larger $\mathbf{\tau}$ estimates, with good support for all observations with the
     exception of \texttt{\{Hex:5; HexNAc:4; Neu5Ac:1\}} which depends upon the
     asialo-bi-antennary neighborhoods, and is also the only observed member of this
-    neighborhoods. The related sample \dpagp, shows similar distributions for tri-,
-    tetra, and penta-antennary forms with low abundance of the bi-antennary forms. The
-    low abundance mono-sialylated tetra-antennary case is 
+    neighborhoods. The deutero-reduced and permethylated sample \dpagp shows similar
+    distributions for tri-, tetra, and penta-antennary forms with low abundance of
+    the bi-antennary forms.
 
+    The reduced and permethylated sample \rpagp has these groups
+    as well, though it also shows higher ammoniation and supports the presence of
+    hybrid N-glycans not found in the other AGP samples. Several of them are
+    ambiguous assignments of the same signal due to the mass shift imposed by ammonium
+    ($17.026$ Da, \texttt{H3 N1}) compared to a proton adduct, is nearly the same as the
+    difference between a permethylated \monosaccharide{Neu5Ac} and permethylated
+    \monosaccharide{FucHex} ($17.015$ Da, \texttt{H3 C1 O1 N-1}).
+
+    Without high quality tandem mass spectra, it is not possible to definitively
+    resolve this ambiguity. As we do not require or interpret for our method, we
+    conservatively assume that if the ambiguous adducted chromatogram's score is less than the score
+    of the score of the chromatogram which uses it as an adduct of, its signal is reported
+    for both the un-adducted and and adducted chromatograms, otherwise the adducted
+    chromatogram's signal is deducted from the unadducted chromatogram and is reported
+    independently. Our tables show those cases where either the glycan composition is
+    unambiguous, or the highest scoring member of an ambiguous chromatogram group.
 
     \subsubsection{Influenza Strains}
         In \phil, the unregularized case contains some ambiguous matches where the biological
@@ -34,8 +50,11 @@
     in \cite{Khatri2016a},  but the automated procedure drops these compositions while estimating
     ${\hat \gamma}$ leading to empty neighborhoodss when estimating $\mathbf{\tau}$. A user-generated
     $\mathbf{\tau}$ would contain a value greater than 5 in those neighborhoods.
-    \todo[inline]{This would be another table entry in \verb|tbl:phil82_score_table|, already computed but
-    uncertain how to integrate into the flow yet}
+
+    \begin{verbatim}
+        This would be another table entry in tbl:phil82_score_table, already computed but uncertain
+        how to integrate into the flow yet
+    \end{verbatim}
 
         We are justified in \texttt{\{Hex:7; HexNAc:6; Neu5Ac:4\}}'s removal based on its lack of supporting
     intermediary glycoforms and relatives above the selected $\hat{\gamma}$. If its own score exceeded $\hat{\gamma}$,
@@ -50,10 +69,11 @@
     sialylated glycan compositions in this sample which do not satisfy any of the neighborhood conditions
     in Table \ref{tbl:neighborhood_definitions}, which results in their score decaying rapidly as $\lambda\rightarrow1$.
     If these compositions were viable under the user's glycome model, then a different set of neighborhood
-    rules would need to be specified which covered this group. In this case, several of them are ambiguous
-    assignments of the same signal due to the mass shift imposed by ammonium ($17.026$ Da, \texttt{H3 N1}) compared to a proton
-    adduct, is nearly the same as the difference between a permethylated \monosaccharide{Neu5Ac} and permethylated
-    \monosaccharide{FucHex} ($17.015$ Da, \texttt{H3 C1 O1 N-1}). In other cases, monosialylated compositions
+    rules would need to be specified which covered this group. %In this case, several of them are ambiguous
+    % assignments of the same signal due to the mass shift imposed by ammonium ($17.026$ Da, \texttt{H3 N1}) compared to a proton
+    % adduct, is nearly the same as the difference between a permethylated \monosaccharide{Neu5Ac} and permethylated
+    %\monosaccharide{FucHex} ($17.015$ Da, \texttt{H3 C1 O1 N-1}).
+    In other cases, monosialylated compositions
     are either not eliminated or receive a larger score after smoothing because they are connected to the
     asialo neighborhoods, which are strongly supported in this glycome. We manually confirmed that the
     signal assigned to \texttt{\{{Fuc:1; Hex:5; HexNAc:4; Neu5NAc:1}\}} is not a deconvolution artefact,

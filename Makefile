@@ -78,6 +78,11 @@ figure/rp_human_serum_abundances.pdf:
 FIGURES += figure/rp_human_serum_abundances.pdf
 
 
+figure/process_flowchart.pdf:
+	inkscape -z -f "figure/process_flowchart.svg" -A "figure/process_flowchart.pdf"	
+FIGURES += figure/process_flowchart.pdf
+
+
 figures: $(FIGURES)
 	@echo $(FIGURES)
 
