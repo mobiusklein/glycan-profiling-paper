@@ -1,0 +1,173 @@
+\subsubsection{Parameter Estimation}
+        We model the relationship between $\mathbf{s}$, $\mathbf{\phi_o}$, and
+    $\mathbf{\tau}$ as a set of gaussian distribution.
+    \begin{align}
+        \left(\mathbf{s}|\mathbf{\phi_o}, \mathbf{\tau}\right) &\sim
+            \mathcal{N}(\mathbf{\phi_o}, \Sigma)\\
+        \Sigma &= \rho\mathbf{I}
+    \end{align}
+    \begin{align}
+        \left(\begin{bmatrix}
+            \mathbf{\phi_o}\\
+            \mathbf{\phi_m}
+        \end{bmatrix}\middle|\mathbf{\tau}\right) &\sim
+            \mathcal{N}(\mathbf{A\tau}, \lambda^{-1}\mathbf{L}^-)\\
+        \left(\mathbf{\phi_o}\middle|\mathbf{\tau}\right) &\sim
+            \mathcal{N}\left(\mathbf{A_o}\mathbf{\tau}, \Sigma_{\phi_o}\right)\\
+        \Sigma_{\phi_o} &= \lambda^{-1}\left(
+            \mathbf{L_{oo}} - \mathbf{L_{om}L_{mm}^{-1}L_{mo}}\right)^{-1}\\
+        \mathbf{\tau} &\sim \mathcal{N}\left(0, \sigma^2\mathbf{I}\right)
+    \end{align}
+
+    \noindent Fully expanded, this becomes
+    \begin{equation}
+        \begin{bmatrix}
+            \mathbf{s}\\
+            \mathbf{\phi_o}\\
+            \mathbf{\tau}
+        \end{bmatrix} \sim \mathcal{N}\left(
+            \begin{bmatrix}0\\0\\0\end{bmatrix},
+            \begin{bmatrix}
+                \Sigma + \Sigma_{\phi_o} + \sigma^2\mathbf{A_oA_o}^t &
+                \Sigma_{\phi_o} + \sigma^2\mathbf{A_oA_o}^t &
+                \sigma^2\mathbf{A_o}\\
+                \Sigma_{\phi_o} + \sigma^2\mathbf{A_oA_o}^t &
+                \Sigma_{\phi_o} + \sigma^2\mathbf{A_oA_o}^t &
+                \sigma^2\mathbf{A_o}\\
+                \sigma^2\mathbf{A_o}^t & \sigma^2\mathbf{A_o}^t & \sigma^2\mathbf{I}\\
+            \end{bmatrix}
+        \right)\label{eqn:multivariate_gaussian_model}
+    \end{equation}
+
+    We can form the conditional distribution $\tau|\mathbf{s}$ which has a mean
+
+    \begin{align}
+        \mu_{\tau|\mathbf{s}} &= 0 + (\sigma^2\mathbf{A_o}^t)\left(
+            \Sigma + \Sigma_{\phi_o} + \sigma^2\mathbf{A_oA_o^t}\right)^{-1}\mathbf{s}\\
+        % &= \mathbf{A_o}^t\left(
+        %     \frac{\rho}{\sigma^2}\mathbf{I} + \frac{1}{\lambda\sigma^2}\mathbf{L_{oo}^-} + 
+        %     \mathbf{A_oA_o^t}
+        %     \right)^{-1}\mathbf{s} \nonumber\\
+        &= \mathbf{A_o}^t\left(
+            {\tilde\rho}\mathbf{I} + \frac{1}{{\tilde\lambda}}\mathbf{L_{oo}^-} + 
+            \mathbf{A_oA_o^t}
+            \right)^{-1}\mathbf{s} \label{eqn:tau_given_s}
+    \end{align}
+
+        We assume that $\sigma^2 \gg 1$, and treat $\lambda$ and $\rho$
+    as relative to $\sigma^2$, as ${\tilde \rho}$ and ${\tilde \lambda}$.
+    This model gives us an estimate for $\tau$ given a value for
+    $\rho$ and $\lambda$. As $\rho$ has no direct role in the central
+    tendency of $\mathbf{\phi}$ or $\mathbf{s}$, we choose to fix the
+    value of ${\tilde \rho} = 0.1$, which leaves only ${\tilde \lambda}$.
+    We estimate the optimal ${\tilde \lambda}$ by grid search, minimizing
+    the predicted residual error sum of squares (PRESS) statistic.
+
+    \begin{align}
+        \argmin_{\tilde \lambda} & \frac{\mathbf{s - {\hat \phi_o}}}{\left(
+            1 - \left(
+                \mathbf{I} + {\tilde \lambda}\mathbf{L}
+            \right)^{-1}
+        \right)^2}
+        % \\
+        % Since within this procedure, we are dealing with not the full
+        % Laplacian matrix but the Laplacian matrix of the reduced network
+        % should the notation for \mathbf{L}'s blocks be altered to reflect
+        % this?
+        % 
+        % This full expansion of the expression is not necessary in the main text
+        % \argmin_{\tilde \lambda} & \frac{\mathbf{s} - \left(\left[
+        %     \mathbf{I} + {\tilde \lambda}\left(\mathbf{L_{oo}} -
+        %         \mathbf{L_{om}}\mathbf{L_{mm}^{-1}}\mathbf{L_{mo}}
+        %     \right)\right]^{-1}(\mathbf{s} - \tau_o) + \tau_o\right)}{\left(
+        %     1 - \left(
+        %         \mathbf{I} + {\tilde \lambda}\mathbf{L}
+        %     \right)^{-1}
+        % \right)^2} \nonumber\\
+        % \argmin_{\tilde \lambda} & \frac{
+        %     \mathbf{s} - \left(\left[
+        %         \mathbf{I} + {\tilde \lambda}\left(\mathbf{L_{oo}} -
+        %             \mathbf{L_{om}}\mathbf{L_{mm}^{-1}}\mathbf{L_{mo}}
+        %         \right)\right]^{-1}\left(\mathbf{s} - \mathbf{A_o}^t\left(
+        %         {\tilde\rho}\mathbf{I} + \frac{1}{{\tilde\lambda}}\mathbf{L_{oo}^-} + 
+        %         \mathbf{A_oA_o^t}
+        %         \right)^{-1}\mathbf{s}\right) + \mathbf{A_o}^t\left(
+        %         {\tilde\rho}\mathbf{I} + \frac{1}{{\tilde\lambda}}\mathbf{L_{oo}^-} + 
+        %         \mathbf{A_oA_o^t}
+        %         \right)^{-1}\mathbf{s}\right)}{
+        %         \left(
+        %             1 - \left(
+        %                 \mathbf{I} + {\tilde \lambda}\mathbf{L}
+        %             \right)^{-1}
+        %         \right)^2} \label{eqn:press_for_lambda}
+    \end{align}
+
+        This formulation depends upon the value of \textbf{s} and is
+    sensitive to low scoring matches, which can lead to incorrect
+    estimates of $\tau$ and PRESS. We therefore perform a grid
+    search over both ${\tilde \lambda}$ and a minimum threshold
+    for \textbf{s}, $\gamma$.
+
+    % Does this network pruning merit a pseudo-code section?
+        As we increase $\gamma$ we remodel the graph $\mathcal{G}$,
+    removing nodes whose score is below $\gamma$. For each pair
+    of neighbors of removed node $g_m$, $(g_u, g_v)$, if
+    $L_1(g_u, g_v) >  L_1(g_u, g_m) + L_1(g_m, g_v)$, we add an
+    edge from $g_u$ to $g_v$ with weight $\frac{1}{L_1(g_u, g_m)
+    + L_1(g_m, g_v)}$, up to a limit of $L_1(g_k, g_m) < 5$.
+    We give the result of this grid search the name $\mathbf{r}$.
+    At each point, on the grid, we save the value of $\tau$ in
+    $r_{\lambda_i, \gamma_j, \tau}$ and the PRESS in $r_{
+    \lambda_i, \gamma_j, PRESS}$. To select the optimal parameters,
+    we traverse the grid along $\gamma$, computing $\mathbf{\tau_\gamma}$:
+
+    \begin{align}
+        {\bar \lambda_j} &= \argmin_{\lambda_i}{r_{\lambda_i, \gamma_j, PRESS}} \\
+        \tau_{\gamma_j} &= |r_{{\bar \lambda_j}, \gamma_j, \tau}| * \left(
+            \frac{\gamma_j}{b} + (1 - \frac{1}{b})\right)
+    \end{align}
+
+    \noindent where $b$ is a bias factor defining how much
+    weight to give to higher values of $\gamma$ which
+    correspond to networks made up of higher confidence
+    assignments. We chose $b = 4$. We define ${\bar \tau_\gamma} =
+    \max{\mathbf{\tau_\gamma}}$ and define the  vector
+    $\mathbf{\bar \gamma} = \left[\gamma_j \leftarrow\tau_{\gamma_j}
+    \ge {\bar \tau_\gamma} * 0.9\right]$. This favors values of
+    $\gamma$ where large values of $\tau$ are selected, meaning that
+    the neighborhoods are well populated, while also giving an estimate
+    for ${\tilde \lambda}$ that is non-zero. We term the values of
+    $\gamma$ in $\mathbf{{\bar \gamma}}$ the {\em target thresholds}
+    of \textbf{s}.
+
+        To estimate ${\tilde \lambda}$ and $\tau$ from these results,
+    we select the columns of the grid $\mathbf{r}$ at each $\gamma_j
+    \in \mathbf{{\bar \gamma}}$.
+
+    \begin{align}
+    % The maximum tau from the grid search over gamma
+    {\bar \tau_\gamma} &= \max{\mathbf{\tau_\gamma}}\\
+    % Those values of gamma whose tau is within 10% of the maximum value of tau
+    % observed
+    \mathbf{\bar \gamma} &= \left\{\gamma_j \leftarrow\tau_{\gamma_j}
+        \ge {\bar \tau_\gamma} * 0.9\right\}\\
+    % The PRESS minimizing lambda values assocaited with these selected gamma
+    {\bar \lambda} &= \left\{ {\bar \lambda_j} \leftarrow \gamma_j \in {\bar \gamma}\right\}\\
+    % The observed scores in the partitions which exceed the threshold gamma
+    \mathbf{s_{\gamma_j}} &= \left\{s_i \leftarrow s_i > \gamma_j\right\} \\
+    % The new estimated tau based upon the selected partion
+    \mathbf{{\bar \tau_j}} &= \mu_{\tau|\mathbf{s}_{\gamma_j}, {\bar \lambda}_j}\\
+    % The average selected lambda
+    {\hat \lambda} &= \frac{1}{|\mathbf{{\bar \lambda}}|}\sum_j {\bar \lambda}_j\\
+    % The average selected tau
+    {\hat \tau} &= \frac{1}{|\mathbf{{\bar \tau}}|}\sum_j \mathbf{{\bar \tau_j}}\\
+    % The average threshold gamma
+    {\hat \gamma} &= \frac{1}{|\mathbf{{\bar \gamma}}|}\sum_j {\bar \gamma}_j
+    \end{align}
+
+    \noindent where $\mathbf{s}_{\gamma_j}$ is the set of observed
+    scores which are greater than $\gamma_j$, but where the estimation
+    of is carried out with the complete Laplacian $\mathbf{L}$,
+    not the reduced network used to compute $\mathbf{r}$. This set of
+    averaged estimates of ${\hat \lambda}$ and ${\hat \tau}$ are then
+    used to estimate ${\hat \phi_o}$ by \eqref{eqn:estimate_of_phi_o}.

@@ -1,11 +1,20 @@
 .SECONDEXPANSION:
 
 
-all: $(FIGURES)
+all: $(FIGURES) supplement.pdf
+	# pdflatex -draftmode supplement.tex
 	pdflatex -draftmode draft.tex
 	bibtex draft
 	pdflatex -draftmode draft.tex
 	pdflatex draft.tex
+
+
+supplement:
+	pdflatex -draftmode supplement.tex
+	bibtex supplement
+	pdflatex -draftmode supplement.tex
+	pdflatex supplement.tex
+
 
 clean:
 	@rm -f draft.pdf draft.aux draft.blg draft.bbl

@@ -1,0 +1,77 @@
+    \subsubsection{Neighborhood Definition}
+        Our definition of distance connects glycan compositions which differ
+        by a single monosaccharide, but we can assert larger collections of
+        glycan compositions are related. We define the following neighborhoods
+        for {\em N}-glycans:
+
+        \begin{table}
+            \centering
+            \begin{tabular}[h]{l | p{8cm}}
+                Name & Bounds \\
+                \hline
+                High Mannose & $\monosaccharide{HexNAc} = 2 \land
+                                \monosaccharide{Hex} \in [3, 10]
+                                \land \monosaccharide{NeuAc} = 0$\\
+                Hybrid & $\monosaccharide{HexNAc} \in [2, 4] \land
+                          \monosaccharide{Hex} \in [2, 6]
+                          \land \monosaccharide{NeuAc} \in [0, 2]$\\
+                Bi-Antennary & $\monosaccharide{HexNAc} \in [3, 5]
+                                \land \monosaccharide{Hex} \in [3, 6]
+                                \land \monosaccharide{NeuAc} \in [1, 3]$\\
+                Asialo-Bi-Antennary & $\monosaccharide{HexNAc} \in [3, 5]
+                                \land \monosaccharide{Hex} \in [3, 6]
+                                \land \monosaccharide{NeuAc} \in [0, 1]$\\
+                Tri-Antennary & $
+                    \monosaccharide{HexNAc} \in [4, 6]
+                    \land \monosaccharide{Hex} \in [4, 7]
+                    \land \monosaccharide{NeuAc} \in [1, 4]
+                $\\
+                Asialo-Tri-Antennary & $
+                    \monosaccharide{HexNAc} \in [4, 6]
+                    \land \monosaccharide{Hex} \in [4, 7]
+                    \land \monosaccharide{NeuAc} \in [0, 0]
+                $\\
+                Tetra-Antennary & $
+                    \monosaccharide{HexNAc} \in [5, 7]
+                    \land \monosaccharide{Hex} \in [5, 8]
+                    \land \monosaccharide{NeuAc} \in [1, 5]
+                $\\
+                Asialo-Tetra-Antennary & $
+                    \monosaccharide{HexNAc} \in [5, 7]
+                    \land \monosaccharide{Hex} \in [5, 8]
+                    \land \monosaccharide{NeuAc} \in [0, 0]
+                $\\
+                Penta-Antennary & $
+                    \monosaccharide{HexNAc} \in [6, 8]
+                    \land \monosaccharide{Hex} \in [6, 9]
+                    \land \monosaccharide{NeuAc} \in [1, 5]
+                $\\
+                Asialo-Penta-Antennary & $
+                    \monosaccharide{HexNAc} \in [6, 8]
+                    \land \monosaccharide{Hex} \in [6, 9]
+                    \land \monosaccharide{NeuAc} \in [0, 0]
+                $
+            \end{tabular}
+            \caption{N-Glycan Neighborhoods}
+            \label{tbl:neighborhood_definitions}
+        \end{table}
+
+        Glycan compositions may belong to zero or more neighborhoods,
+        as there are unusual glycan compositions which do not satisfy
+        any neighborhood's rules, and several neighborhoods intentionally
+        overlap to express broad relationships between groups. We define
+        a matrix $\mathbf{A}$ as an $n \times k$ matrix where $A_{i, k}$
+        to be the degree to which $g_i$ belongs $k$th neighborhood:
+
+        \begin{align}
+            A_{i, k} &= \frac{1}{|\text{neighborhood}_k|}\sum_{
+                g^* \in \text{neighborhood}_k}{L_1(g_i, g^*)}
+        \end{align}
+
+        To reduce the impact of neighborhood size on the elements
+        of $\mathbf{A}$, the columns of $\mathbf{A}$ are first
+        normalized to sum to 1, and then the rows of $\mathbf{A}$
+        are normalized to sum to 1.
+
+        We assume that members of the same neighborhood will
+        share a central tendency, $\mathbf{\tau}$.

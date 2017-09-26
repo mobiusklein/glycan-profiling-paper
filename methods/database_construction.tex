@@ -1,0 +1,33 @@
+\subsection{Glycan Hypothesis Generation}
+        In eukaryotes, \nglycans start with a common, conserved core of \textbf{HexNAc2 Hex3},
+    building up to \textbf{HexNAc2 Hex9} (\cite{Stanley2009}). This structure is refined by
+    sequentially removing monosaccharides and replacing them with more complex structures
+    through a series of glycosidase and glycosyltransferase reactions, the enumeration of
+    which as shown in \cite{Akune2016} yields over a million of possible \nglycan topologies
+    and epitopes. These topologies define the geometry of the glycan, affecting the glycan's
+    binding affinities and how the glycan may influence protein folding and accessibility,
+    the glycan's functional aspects. The medium through which we observe \nglycan does not
+    capture the full tree or graph structure of an \nglycan, so we reduce the topology to
+    a count of each type of residue.
+
+        Starting with the core motif, we generate all combinations of monosaccharides ranging
+    between the limits in Table \ref{tbl:glycan_composition_rules}. We created a copy of
+    this database for native, reduced and permethylated, and deuteroreduced and permethylated.
+    Let $n = 1240$ be the number of glycan compositions $\mathbf{g}$ in the database.
+
+    \renewcommand{\arraystretch}{1.5}
+    \begin{table}
+        \centering
+        \savenotes
+        \caption{Glycan Composition Rule Table}\label{tbl:glycan_composition_rules}
+        \begin{tabular}{c | c | c | c}
+            Monosaccharide & Lower Limit & Upper Limit & Constraints\\
+            \hline
+            \monosaccharide{HexNAc} & 2 & 9 &\\
+            \monosaccharide{Hex} & 3 & 10 & \\
+            \monosaccharide{Fuc} & 0 & 4 & $\monosaccharide{HexNAc} > \monosaccharide{Fuc}$\\
+            \monosaccharide{NeuAc} & 0 & 5 & $(\monosaccharide{HexNAc} - 1) > \monosaccharide{NeuAc}$\\
+        \end{tabular}
+        \spewnotes
+    \end{table}
+    \renewcommand{\arraystretch}{1.0}

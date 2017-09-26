@@ -10,15 +10,29 @@
 \usepackage[bottom]{footmisc}
 \usepackage[export]{adjustbox}
 \usepackage{todonotes}
+\usepackage{footnote}
+\usepackage{threeparttable}
+
+\usepackage{newfloat}
+\DeclareFloatingEnvironment[placement={!ht},name=List]{ordlist}
+
+\usepackage{xr}
+\externaldocument[S-]{supplement}
+
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 \DeclareMathAlphabet\mathbfcal{OMS}{cmsy}{b}{n}
 \DeclareMathOperator*{\argmin}{arg\,min}
-% \includeonly{discussion}
+
 \begin{document}
+
+
 \newcommand{\monosaccharide}[1]{{\bf #1}}
 \newcommand{\nglycan}[0]{\textit{N}-glycan }
 \newcommand{\nglycans}[0]{\textit{N}-glycans }
+
+\newcommand{\msn}[0]{$MS^n$}
+\newcommand{\ms}[1]{$MS^#1$}
 
 % Sample Name Shortcuts
 \newcommand{\agp}[0]{\textit{20150930-06-AGP} }
@@ -46,11 +60,11 @@ Glycosylation is one of the most pervasive forms of post-translational
 modification.
 
 
-\include{methods}
+\include{methods/methods}
 
-\include{results}
+% \include{results}
 
-\include{discussion}
+% \include{discussion}
 
 
 \bibliographystyle{natbib}

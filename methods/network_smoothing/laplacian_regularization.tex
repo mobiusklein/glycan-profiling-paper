@@ -1,0 +1,117 @@
+    \subsubsection{Laplacian Regularization}
+        % Lacking citations for the fundamentals of this material
+        We combine the observed score $\mathbf{s}$ and the structure
+        of $\mathcal{G}$ to estimate a smoothed score $\mathbf{\phi}$
+        that combines the evidence for each individual glycan composition
+        as well as its relatives. As $\mathbf{s}$ is the size of the
+        set of observed glycan composition $p$ while $\mathbf{\phi}$
+        is of size $n$, we partition $\mathbf{\phi}$ into a block
+        vector $\begin{bmatrix}\phi_o\\ \phi_m\end{bmatrix}$ with
+        dimensions $\begin{bmatrix}p\\ n-p\end{bmatrix}$.
+
+        Let $\mathbf{L}$ be the weighted Laplacian matrix of $\mathcal{G}$,
+        which is an $n \times n$ matrix. To ensure $\mathbf{L}$ is
+        invertible, we add $\mathbf{I}_n$ to $\mathbf{L}$. We partition
+        $\mathbf{L}$ into blocks $\begin{bmatrix} \mathbf{L_{oo}} &
+        \mathbf{L_{om}} \\ \mathbf{L_{mo}} & \mathbf{L_{mm}}\end{bmatrix}$.
+        We also partition $\mathbf{A}$ into $\begin{bmatrix}\mathbf{A}_o\\
+        \mathbf{A}_m\end{bmatrix}$ and $\tau_o = \mathbf{A}_o\tau$,
+        $\tau_m = \mathbf{A}_m\tau$.
+
+        We find the $\mathbf{\phi}$ that minimizes the expression
+        \begin{align}
+            \ell &= (\mathbf{s} - \mathbf{\phi_o})^t(\mathbf{s} - \mathbf{\phi_o}) + \lambda
+                \begin{bmatrix}
+                    \phi_o - \tau_o, & \phi_m - \tau_m
+                \end{bmatrix}
+                \begin{bmatrix}
+                    \mathbf{L_{oo}} & \mathbf{L_{om}} \\ \mathbf{L_{mo}} & \mathbf{L_{mm}}
+                \end{bmatrix}
+                \begin{bmatrix}
+                    \phi_o - \tau_o \\ \phi_m - \tau_m
+                \end{bmatrix} \label{eqn:laplacian_regularization_objective_function}
+        \end{align}
+        \noindent where $\lambda$ controls how much weight is
+        placed on the network structure and $\tau$.
+
+        To obtain the optimal $\mathbf{\phi}$, we take the partial
+        derivative of $\ell$ w.r.t $\phi_m$
+
+        \begin{align}
+            0 &= \frac{\partial\ell}{\partial\phi_m}\left((\mathbf{s} - \mathbf{\phi_o})^t(\mathbf{s} - \mathbf{\phi_o}) + \lambda
+                \begin{bmatrix}
+                    \phi_o - \tau_o, & \phi_m - \tau_m
+                \end{bmatrix}
+                \begin{bmatrix}
+                    \mathbf{L_{oo}} & \mathbf{L_{om}} \\ \mathbf{L_{mo}} & \mathbf{L_{mm}}
+                \end{bmatrix}
+                \begin{bmatrix}
+                    \phi_o - \tau_o \\ \phi_m - \tau_m
+                \end{bmatrix}\right)\\
+            % &= \lambda(\phi_o - \tau_o)^t\mathbf{L_{om}} + \lambda\mathbf{L_{mo}}(\phi_o - \tau_o)
+            %      + \lambda(\phi_m - \tau_m)^t(\mathbf{L_{mm}}^t+ \mathbf{L_{mm}}) \nonumber\\
+            % &= 2\lambda\mathbf{L_{mo}}(\phi_o - \tau_o) + 2\lambda\mathbf{L_{mm}}(
+            %     \phi_m - \tau_m) \nonumber\\
+            % -\mathbf{L_{mm}}(\phi_m - \tau_m) &= \mathbf{L_{mo}}(\phi_o - \tau_o) \nonumber\\
+            (\phi_m - \tau_m) &= -\mathbf{L_{mm}}^{-1}\mathbf{L_{mo}}(\phi_o - \tau_o) \nonumber\\
+            {\hat \phi_m} &= -\mathbf{L_{mm}}^{-1}\mathbf{L_{mo}}(\phi_o - \tau_o) + \tau_m
+            \label{eqn:estimate_of_phi_m}
+        \end{align}
+
+        \noindent and w.r.t. $\phi_o$
+
+        \begin{align}
+            0 &= \frac{\partial\ell}{\partial\phi_o}\left((\mathbf{s} - \mathbf{\phi_o}
+                )^t(\mathbf{s} - \mathbf{\phi_o}) + \lambda
+                \begin{bmatrix}
+                    \phi_o - \tau_o, & \phi_m - \tau_m
+                \end{bmatrix}
+                \begin{bmatrix}
+                    \mathbf{L_{oo}} & \mathbf{L_{om}} \\ \mathbf{L_{mo}} & \mathbf{L_{mm}}
+                \end{bmatrix}
+                \begin{bmatrix}
+                    \phi_o - \tau_o \\ \phi_m - \tau_m
+                \end{bmatrix}\right)\\
+            % &= -2\mathbf{s} + 2\phi_o +\lambda\left(\mathbf{L_{oo}} + \mathbf{L_{oo}}^t\right)(
+            %     \phi_o - \tau_o) + \lambda\mathbf{L_{om}}(\phi_m - \tau_m) + \lambda\mathbf{
+            %     L_{mo}}^t(\phi_m - \tau_m) \nonumber\\
+            % &= -2\mathbf{s} + 2\phi_o + 2\lambda\mathbf{L_{oo}}( \phi_o - \tau_o) + 2\lambda
+            %     \mathbf{L_{om}}(\phi_m - \tau_m) \nonumber\\
+            % \mathbf{s} &= \phi_o + \lambda\left(\mathbf{L_{oo}}( \phi_o - \tau_o) +
+            %     \mathbf{L_{om}}(\phi_m - \tau_m)\right) \nonumber\\
+            % &= \phi_o + \lambda\left(\mathbf{L_{oo}}( \phi_o - \tau_o) +
+            %     \mathbf{L_{om}}(-\mathbf{L_{mm}}^{-1}\mathbf{L_{mo}}(
+            %     \phi_o - \tau_o) + \tau_m - \tau_m)\right) \nonumber\\
+            % &= \phi_o + \lambda\left(\mathbf{L_{oo}}(\phi_o - \tau_o) -
+            %     \mathbf{L_{om}}\mathbf{L_{mm}^{-1}}\mathbf{L_{mo}}(\phi_o - \tau_o)
+            %     \right) \nonumber\\
+            % \mathbf{s} - \tau_o &= \phi_o - \tau_o + \lambda\left(\mathbf{L_{oo}}(\phi_o - \tau_o) -
+            %     \mathbf{L_{om}}\mathbf{L_{mm}^{-1}}\mathbf{L_{mo}}(\phi_o - \tau_o)
+            %     \right) \nonumber\\
+            % &= \mathbf{I}(\phi_o - \tau_o) + \lambda\left(\mathbf{L_{oo}}(\phi_o - \tau_o) -
+            %     \mathbf{L_{om}}\mathbf{L_{mm}^{-1}}\mathbf{L_{mo}}(\phi_o - \tau_o)
+            %     \right) \nonumber\\
+            % &= \left[
+            %     \mathbf{I} + \lambda\left(\mathbf{L_{oo}} -
+            %         \mathbf{L_{om}}\mathbf{L_{mm}^{-1}}\mathbf{L_{mo}}
+            %     \right)
+            % \right](\phi_o - \tau_o) \nonumber\\
+            % (\phi_o - \tau_o) &= \left[
+            %     \mathbf{I} + \lambda\left(\mathbf{L_{oo}} -
+            %         \mathbf{L_{om}}\mathbf{L_{mm}^{-1}}\mathbf{L_{mo}}
+            %     \right)
+            % \right]^{-1}(\mathbf{s} - \tau_o) \nonumber\\
+            {\hat \phi_o} &= \left[
+                \mathbf{I} + \lambda\left(\mathbf{L_{oo}} -
+                    \mathbf{L_{om}}\mathbf{L_{mm}^{-1}}\mathbf{L_{mo}}
+                \right)
+            \right]^{-1}(\mathbf{s} - \tau_o) + \tau_o
+            \label{eqn:estimate_of_phi_o}
+        \end{align}
+
+        To use this method, we must provide values for $\lambda$ and $\mathbf{\tau}$.
+        While these values could be chosen based on the expectations of the user for
+        a given experiment, we provide an algorithm for selecting their values.
+        These methods use the topology of the glycan composition graph and the
+        distribution of observed scores, and cannot fully capture boundary cases
+        or related but disconnected parts of the graph.

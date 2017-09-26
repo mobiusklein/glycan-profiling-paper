@@ -1,0 +1,29 @@
+\subsection{Feature Evaluation}
+        For each candidate feature, we compute several metrics to estimate
+    how distinguishable the observed signal was from random noise. The
+    features are mentioned in List~\ref{list:scoring_features}, but for more
+    information see section S\ref{S-sec:feature_evaluation}.
+
+    \begin{ordlist}
+    \begin{enumerate}
+        \caption{Chromatographic Feature Metrics\label{list:scoring_features}}
+        \item Goodness-of-fit of chromatographic peak shape to a model function
+              (\cite{Yu2010,Kronewitter2014,}).
+        \item Goodness-of-fit of isotopic pattern to glycan composition weighted
+              by peak abundance (\cite{Maxwell2012}).
+        \item Observed charge states with respect to glycan composition and mass.
+        \item Time gap between \ms1 observations detecting measuring missing peaks
+              and interference.
+        \item Adduction states with respect to glycan composition and mass.
+    \end{enumerate}
+    \end{ordlist}
+
+        These metrics are bounded in $[0, 1)$. Any observation for which any metric
+    was observed below $0.15$ was discarded as having insufficient evidence for
+    consideration. The \textit{observed score} $s$ for each candidate feature is
+    the sum of the logit-transformation of these metrics. This produces a single
+    value bounded in $[0, \infty)$, whose distribution we assume is asymptotically
+    normal. $s < 8$ reflects a low confidence match, with confidence increasing
+    as $s$ does. As these metrics are tied to reliable detection of the the glycan
+    by the mass spectrometer, they are dependent upon glycan abundance and sample
+    quality and the resolution of the mass spectrometer used.

@@ -1,0 +1,20 @@
+\subsection{Glycan Composition Network Smoothing}
+        Evidence for individual glycan compostions can often be enough to claim
+    that composition had been detected. Lower abundance may score poorly in one
+    or more features, leading to the glycan composition being discarded. Other
+    methods have demonstrated it is advantageous to use relationships between
+    glycans based on biosynthetic or structural rules to adjust the score of a
+    single glycan assignment (\cite{Goldberg2009, Kronewitter2014}). This idea
+    has been explored more generically under the name "Manifold Regularization"
+    (\cite{Belkin2006}) and specifically "Laplacian Regularization" when the
+    Laplacian matrix of a graph is used to influence the parameter scaling. We
+    apply this idea to weighted networks of related glycans with arbitrarily
+    defined and overlapping sub-populations.
+
+    \input{methods/network_smoothing/graph_definition}
+
+    \input{methods/network_smoothing/neighborhood_definition}
+
+    \input{methods/network_smoothing/laplacian_regularization}
+
+    \input{methods/network_smoothing/parameter_estimation}
