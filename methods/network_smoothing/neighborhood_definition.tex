@@ -50,10 +50,30 @@
                     \monosaccharide{HexNAc} \in [6, 8]
                     \land \monosaccharide{Hex} \in [6, 9]
                     \land \monosaccharide{NeuAc} \in [0, 0]
+                $\\
+                Hexa-Antennary & $
+                    \monosaccharide{HexNAc} \in [7, 9]
+                    \land \monosaccharide{Hex} \in [7, 10]
+                    \land \monosaccharide{NeuAc} \in [1, 6]
+                $\\
+                Asialo-Hexa-Antennary & $
+                    \monosaccharide{HexNAc} \in [7, 9]
+                    \land \monosaccharide{Hex} \in [7, 10]
+                    \land \monosaccharide{NeuAc} \in [0, 0]
+                $\\
+                Hepta-Antennary & $
+                    \monosaccharide{HexNAc} \in [8, 10]
+                    \land \monosaccharide{Hex} \in [8, 11]
+                    \land \monosaccharide{NeuAc} \in [1, 7]
+                $\\
+                Asialo-Hepta-Antennary & $
+                    \monosaccharide{HexNAc} \in [8, 10]
+                    \land \monosaccharide{Hex} \in [8, 11]
+                    \land \monosaccharide{NeuAc} \in [0, 0]
                 $
             \end{tabular}
             \caption{N-Glycan Neighborhoods}
-            \label{tbl:neighborhood_definitions}
+            \label{tab:neighborhood_definitions}
         \end{table}
 
         Glycan compositions may belong to zero or more neighborhoods,
@@ -67,6 +87,12 @@
             A_{i, k} &= \frac{1}{|\text{neighborhood}_k|}\sum_{
                 g^* \in \text{neighborhood}_k}{L_1(g_i, g^*)}
         \end{align}
+
+        % The stated reduction is not well tested, and the change
+        % may well be minimal because all that really happens is
+        % the weight of the column for each row is weighted by a
+        % shrinking function of column size. It may be better if
+        % we don't manipulate A at all.
 
         To reduce the impact of neighborhood size on the elements
         of $\mathbf{A}$, the columns of $\mathbf{A}$ are first

@@ -1,0 +1,10 @@
+{
+    "agp-native": "agp",
+    "agp-rp": "rp_agp",
+    "agp-dp": "dp_agp",
+    "phil-82-native": "phil_82",
+    "phil-bs-native": "phil_bs",
+    "phil-82-dr": "phil_82_dp",
+    "igg-native": "igg",
+    "serum-rp": "rp_serum"
+}
