@@ -15,8 +15,8 @@
     this database for native, reduced and permethylated, and deuteroreduced and permethylated.
     Let $n = 1240$ be the number of glycan compositions $\mathbf{g}$ in the database.
 
-    \renewcommand{\arraystretch}{1.5}
     \begin{table}
+        \small
         \centering
         \savenotes
         \caption{Glycan Composition Rule Table}\label{tab:glycan_composition_rules}
@@ -30,4 +30,7 @@
         \end{tabular}
         \spewnotes
     \end{table}
-    \renewcommand{\arraystretch}{1.0}
+
+        We choose to use a combinatorial database for simplicity. The later algorithms can
+    be used with an arbitrary glycan composition list. This places the burden of
+    finding or creating such a list on the user.

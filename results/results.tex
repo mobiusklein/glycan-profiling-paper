@@ -8,13 +8,12 @@ values of both $\mathbf{\tau}$ and $\lambda$.
 
 \subsection{Chromatogram Assignment Performance for \philbs}
     The fitted parameters for the network constructed for \philbs are shown in
-    Table~\ref{tab:philbs_parameters}. The assigned chromatograms and their qunatification
-    are shown in Figure~\ref{fig:philbs_assignments}. The comparison of assignment performance
-    with differing degrees of smoothing is shown n Figure~\ref{fig:philbs_perf}. The ROC AUC
-    for the unreularized case is 0.838, for the partially regularized case is 0.987, and for
-    the fully regularized case is 0.921.
+    Table~\ref{tab:philbs_parameters}. The assigned chromatograms are shown in
+    Figure~\ref{fig:philbs_assignments}. We observe up to seven branch structures in
+    this sample, consistent with these \nglycans being derived from an avian context
+    (\cite{Stanley2009,Khatri2016a}).
 
-    \begin{table}[h]
+    \begin{table}[!htb]
         \begin{threeparttable}
             \caption{Fitted $\lambda$, $\gamma$, and $\mathbf{\tau}$ for
                      \philbs \label{tab:philbs_parameters}}
@@ -42,9 +41,37 @@ values of both $\mathbf{\tau}$ and $\lambda$.
                 \item Fitted $\lambda = 0.99$ and $\gamma = 11.12$.
             \end{tablenotes}
         \end{threeparttable}
+        \hspace{2em}
+        \begin{threeparttable}
+            \caption{Fitted $\lambda$, $\gamma$, and $\mathbf{\tau}$ for
+                     \rpserum \label{tab:rpserum_parameters}}
+            \begin{tabular}{l l}
+                \toprule    
+                Neighborhood Name & $\tau_i$ \\
+                \midrule
+                high-mannose & 19.839321 \\
+                hybrid & 20.154402 \\
+                bi-antennary & 19.288264 \\
+                asialo-bi-antennary & 21.339077 \\
+                tri-antennary & 22.502435 \\
+                asialo-tri-antennary & 19.923334 \\
+                tetra-antennary & 15.617820 \\
+                asialo-tetra-antennary & 3.509291 \\
+                penta-antennary & 8.764010 \\
+                asialo-penta-antennary & 4.244343 \\
+                hexa-antennary & 0.000000 \\
+                asialo-hexa-antennary & 0.000000 \\
+                hepta-antennary & 0.000000 \\
+                asialo-hepta-antennary & 0.000000 \\
+                \bottomrule
+            \end{tabular}
+            \begin{tablenotes}[normal]
+                \item Fitted $\lambda = 0.99$ and $\gamma = 18.962$.
+            \end{tablenotes}
+        \end{threeparttable}
     \end{table}
 
-    \begin{figure}[h]
+    \begin{figure}[!htb]
         \caption{Chromatogram Assignments and Quantification
                  for \philbs\label{fig:philbs_assignments}}
         \centering
@@ -52,10 +79,72 @@ values of both $\mathbf{\tau}$ and $\lambda$.
         \includegraphics[width=0.45\textwidth,valign=t]{figure/phil_bs_abundances.pdf}
     \end{figure}
 
-\begin{figure}[h]
-    \caption{Performance Comparison with and without Network Smoothing for \philbs
-             \label{fig:philbs_perf}}
-    \centering
-    \includegraphics[width=0.42\textwidth,valign=t]{figure/phil_bs_native_roc.pdf}
-    \includegraphics[width=0.45\textwidth,valign=t]{figure/phil_bs_native_prec_rec.pdf}
-\end{figure}
+    \begin{figure}[!htb]
+        \caption{Performance Comparison with and without Network Smoothing for \philbs
+                 \label{fig:philbs_perf}}
+        \centering
+        \includegraphics[width=0.42\textwidth,valign=t]{figure/phil_bs_native_roc.pdf}
+        \includegraphics[width=0.45\textwidth,valign=t]{figure/phil_bs_native_prec_rec.pdf}
+    \end{figure}
+
+    The comparison of assignment performance with differing degrees of smoothing is
+    shown in Figure~\ref{fig:philbs_perf}. The ROC AUC for the unregularized condition is
+    0.838, for the partially regularized condition is 0.987, and for the fully regularized
+    condition is 0.921. This demonstrates a higher true positive rate at the same false positive
+    rate for both regularization conditions compared to the unregularized condition. In
+    this condition, the Precision-Recall curve does not show a substantial difference in
+    performance between conditions.
+
+\subsection{Chromatogram Assignment Performance for \rpserum}
+    The fitted parameters for the network constructed for \rpserum are shown in
+    Table~\ref{tab:rpserum_parameters}. The assigned chromatograms are shown in
+    Figure~\ref{fig:rpserum_assignments}.
+
+    \begin{figure}[!htb]
+        \centering
+        \caption{Chromatogram Assignments for \rpserum\label{fig:rpserum_assignments}}
+        \begin{minipage}{0.45\linewidth}
+            \centering
+            \vspace{0pt}
+            \includegraphics[width=\linewidth]{figure/rp_serum_chromatograms.pdf}
+            \subcaption{Features Assigned After Grid Regularization of \rpserum\label{fig:rpserum_assignment:a}.
+            Layout not finalized}
+        \end{minipage}
+        \begin{minipage}{0.45\linewidth}
+            \centering
+            \begin{subfigure}[t]{\linewidth}  
+                \includegraphics[width=0.75\linewidth, valign=t]{figure/fucosylated_tetra_antennary_structures.pdf}
+                \subcaption{
+                    Low scoring features which may be discarded based on individual evidence alone
+                    may be more reasonable to accept given evidence from related composition, such
+                    as our network smoothing method.\label{fig:rpserum_assignment:b}
+                }
+            \end{subfigure}
+
+            \begin{subfigure}[t]{\linewidth}
+                \includegraphics[width=0.75\linewidth, valign=t]{figure/ammonium_adduct_ambiguity.pdf}
+                \subcaption{
+                    This sample contains heavy ammonium adduction which introduces ambiguity
+                    in intact mass based assignments.\label{fig:rpserum_assignment:c}
+                }
+            \end{subfigure}
+        \end{minipage}
+    \end{figure}
+
+    \begin{figure}[htb]
+        \caption{Performance Comparison with and without Network Smoothing for \rpserum
+                 \label{fig:rpserum_perf}}
+        \centering
+        \includegraphics[width=0.42\textwidth,valign=t]{figure/serum_roc.pdf}
+        \includegraphics[width=0.45\textwidth,valign=t]{figure/serum_prec_rec.pdf}
+    \end{figure}
+
+    The comparison of assignment performance with differing degrees of smoothing is
+    shown in Figure~\ref{fig:rpserum_perf}. The ROC AUC for the unregularized condition
+    is 0.719, for the partially regularized condition is 0.835, and for the fully
+    regularized condition is 0.791. The Precision-Recall AUC for the unregularized condition
+    is 0.834, for the partially regularized condition is 0.896, and for the fully regularized
+    condition is 0.852. This demonstrates that the partially regularized condition has superior
+    performance to the unregularized and fully regularized conditions. This is complicated by
+    the redundancies caused by ammonium adduction, but without high quality \msn this cannot
+    be resolved.

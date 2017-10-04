@@ -9,6 +9,9 @@ draft: $(FIGURES) supplement.pdf
 	pdflatex draft.tex
 
 
+layout:
+	pdflatex draft.tex
+
 supplement:
 	pdflatex -draftmode supplement.tex
 	bibtex supplement

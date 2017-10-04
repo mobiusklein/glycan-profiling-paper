@@ -1,0 +1,79 @@
+\section{Discussion}
+
+    We demonstrate that this regularization method can improve the
+    sensitivity and specificity of glycan composition assignment for
+    LC-MS based experiments. The method we proposed uses similar
+    assumptions about the importance of common substructural elements
+    of \nglycans to \cite{Goldberg2009}, but we extend this concept
+    with the addition of a procedure for learning the relationship
+    strengths and use broader groups of structures.
+
+    The experimental results from the original analysis of \philbs and
+    \phil82 demonstrated that while both strains expressed predominantly
+    high-mannose glycosylation, \philbs expressed more larger complex-type
+    structures (\cite{Khatri2016a}). In our findings, we recapitulate
+    these results while reducing the number of false positive assignments.
+    There are substantial differences in both the mass spectral processing
+    and scoring schemes which contribute to these results, but the regularization
+    procedure is responsible for recovering many low abundance features from
+    this comparison. As these samples are derived from an avian tissue, we
+    may be able to observe larger branching patterns than are observed in
+    normal mammalian tissue (\cite{Stanley2009}). There is evidence for this
+    in the \philbs with HexNAc9Hex10-based compositions suggesting a seven
+    branch pattern, though this cannot be determined without high quality
+    \msn. The $\mathbf{\tau}$ fit for both strains have smaller values
+    in the neighborhoods of their largest glycan compositions as these
+    features tended to be low in abundance and not high scoring in their
+    own right, but were partially supported by the overlap with the next
+    largest neighborhood, as expected.
+
+    We reproduce the majority of the glycan assignments from \cite{Yu2013}.
+    however the ambiguity caused by ammonium adduction as shown in
+    Figure~\ref{fig:rpserum_assignment:c} makes a direct comparison of
+    composition assignment lists difficult. Out of the eight missed compositions,
+    four were missing because of insufficient data points to fit a peak shape,
+    which requires at least five points. The other four were not detected either
+    due to mass error, \cite{Yu2013} used 10 ppm while we used 5 ppm for FT-MS data,
+    or due to low level signal processing decisions. Since we were unable to
+    reproduce the published results from \cite{Yu2013} using their software and
+    accompanying, it was not reasonable to adapt our composition database to work
+    with their software and run a side-by-side test to demonstrate how many
+    additional glycan compositions one algorithm identifies compared to another
+    without bias.
+
+    Of the compositions assigned by this algorithm that were not
+    mentioned in \cite{Yu2013} but were annotated in the original publication
+    of this dataset in \cite{Hu2012} include \textbf{HexNAc3 Hex4},
+    \textbf{HexNAc3 Hex4 NeuAc}, and \textbf{HexNAc5 Hex3}. Because our database
+    was constructed based on combinatorial rules that did not take into account
+    all biosynthetic constraints, we include infeasible compositions in our search
+    space, such as \textbf{HexNAc2 Hex10 Fuc} and \textbf{HexNAc5 Hex3 Fuc1 NeuAc2}.
+    Future work could be done to restrict the database to only biosynthetically
+    feasible glycan compositions. This would also have benefits for the construction
+    of the composition network where only those compositions which have an enzymatic
+    reaction to from one to the other would have an edge connecting them, such that
+    \textbf{HexNAc5 Hex6 NeuAc2} would not have an edge to \textbf{HexNAc5 Hex7 NeuAc2}
+    as in our current model.
+    
+    These invalid glycan compositions can match LC-MS features at any point in
+    the elution profile, though in this dataset the majority of these matches
+    appear to match in the time range between 10 and 22 minutes, and similar glycan
+    compositions that are biosynthetically valid elute later on in the experiment.
+    This indicates a need for a retention-time aware approach to evaluating glycan
+    composition assignments, as described in \cite{Hu2016}, but this is likely dependent
+    upon the experimental workup and separation technique used. The definition of our
+    composition graph and its neighborhoods also mitigates this to some extent, though
+    it depends upon the feature scoring metrics to determine whether a feature is
+    eligble for smoothing. These metrics were based upon a limited sampling of data
+    and could be improved by acquiring more training sets to build more granular
+    models in the case of the charge state and adduct scores.
+
+\section{Conclusions}
+    In this study, we demonstrated the advantages of our application of Laplacian
+    Regularization to smooth LC-MS assignments of glycan compositions across multiple
+    experimental protocols (\cite{Hu2012, Khatri2016a}). Our algorithm's performance is
+    competative with existing tools.
+
+    All of the methods demonstrated in this paper are available as part of the open source,
+    cross-platform glycomics and glycoproteomics software \texttt{GlycReSoft}, freely
+    available at \href{http://www.bumc.bu.edu/msr/glycresoft/}{http://www.bumc.bu.edu/msr/glycresoft/}.
