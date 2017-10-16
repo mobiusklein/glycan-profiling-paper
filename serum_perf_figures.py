@@ -1,10 +1,14 @@
+import csv
+
 import matplotlib
-matplotlib.use("agg")
+try:
+    matplotlib.use("agg")
+except Exception:
+    pass
 
 from glycan_profiling import (
     serialize, chromatogram_tree, plotting, trace, profiler,
     database, scoring, models, composition_distribution_model)
-from glycan_profiling.tandem.glycan.scoring import signature_ion_scoring
 from glycan_profiling.plotting import summaries
 import glypy
 import ms_deisotope
@@ -29,7 +33,6 @@ ads2 = serialize.AnalysisDeserializer("./analysis/results/serum-rp-prior.db")
 ads3 = serialize.AnalysisDeserializer("./analysis/results/serum-rp-grid.db")
 
 
-import csv
 with open("./analysis/multiglycan-match.csv", "rb") as f:
     obs = list(csv.reader(f))
 true_positives = []
@@ -53,6 +56,8 @@ for row in obs:
 
 with open("./analysis/perm_bs_other_sane_matches.csv") as f:
     for line in f:
+        if not line.strip():
+            continue
         gc = glypy.glycan_composition.HashableGlycanComposition.parse(line.strip())
         true_positives.append(gc)
 
@@ -158,7 +163,7 @@ art.ax.figure.savefig("figure/fucosylated_tetra_antennary_structures.pdf", bbox_
 
 print "Generating Ammonium Adduct Plot"
 art = plotting.SmoothingChromatogramArtist([
-    gcs.find_key("{Hex^Me:6; HexNAc^Me:5; Neu5NAc^Me:3}$C1H4").split_sparse()[1],
+    gcs.find_key("{Hex^Me:6; HexNAc^Me:5; Neu5NAc^Me:3}$C1H4"),
     gcs.find_key("{Fuc^Me:1; Hex^Me:7; HexNAc^Me:5; Neu5NAc^Me:2}$C1H4"),
     gcs.find_key("{Fuc^Me:2; Hex^Me:8; HexNAc^Me:5; Neu5NAc^Me:1}$C1H4"),
 ]).draw(label_function=labeler)

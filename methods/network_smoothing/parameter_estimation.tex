@@ -1,6 +1,6 @@
 \subsubsection{Parameter Estimation}
-        We model the relationship between $\mathbf{s}$, $\mathbf{\phi_o}$, and
-    $\mathbf{\tau}$ as a set of gaussian distribution.
+    We model the relationship between $\mathbf{s}$, $\mathbf{\phi_o}$, and
+    $\mathbf{\tau}$ as a set of Gaussian distribution.
     \begin{align}
         \left(\mathbf{s}|\mathbf{\phi_o}, \mathbf{\tau}\right) &\sim
             \mathcal{N}(\mathbf{\phi_o}, \Sigma)\\
@@ -111,7 +111,7 @@
 
         To estimate ${\tilde \lambda}$ and $\tau$ from these results,
     we select the columns of the grid $\mathbf{r}$ at each $\gamma_j
-    \in \mathbf{{\bar \gamma}}$.
+    \in \mathbf{{\bar \gamma}}$ and applied the following procedure:
 
     \begin{align}
     % The maximum tau from the grid search over gamma

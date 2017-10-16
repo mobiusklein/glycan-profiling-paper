@@ -7,38 +7,56 @@
 \usepackage{mathrsfs}
 \usepackage{graphicx}
 \usepackage{caption}
+\usepackage{subcaption}
 \usepackage[bottom]{footmisc}
 \usepackage[export]{adjustbox}
 \usepackage{todonotes}
 \usepackage{footnote}
 \usepackage{threeparttable}
-\usepackage{xr}
-\externaldocument[S-]{supplement}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{xspace}
+% \usepackage{xr}
+\usepackage{xr-hyper}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    citecolor=darkgray
+}
+\urlstyle{same}
+\usepackage{newfloat}
+\DeclareFloatingEnvironment[placement={!ht},name=List]{ordlist}
+
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 \DeclareMathAlphabet\mathbfcal{OMS}{cmsy}{b}{n}
 \DeclareMathOperator*{\argmin}{arg\,min}
 
-\begin{document}
 
-
-\newcommand{\monosaccharide}[1]{{\bf #1}}
-\newcommand{\nglycan}[0]{\textit{N}-glycan }
-\newcommand{\nglycans}[0]{\textit{N}-glycans }
+\newcommand{\monosaccharide}[1]{{\bf #1}\xspace}
+\newcommand{\nglycan}[0]{\textit{N}-glycan\xspace}
+\newcommand{\nglycans}[0]{\textit{N}-glycans\xspace}
 
 \newcommand{\msn}[0]{$MS^n$}
-\newcommand{\ms}[1]{$MS^#1$}
 
 % Sample Name Shortcuts
-\newcommand{\agp}[0]{\textit{20150930-06-AGP} }
-\newcommand{\phil}[0]{\textit{20141031-07-Phil-82} }
-\newcommand{\philbs}[0]{\textit{20141101-04-Phil-BS} }
-\newcommand{\igg}[0]{\textit{20151002-02-IGG} }
-\newcommand{\dpphil}[0]{\textit{20141128-11-Phil-82} }
-\newcommand{\dpagp}[0]{\textit{AGP-DR-Perm-glycans-1} }
-\newcommand{\rpagp}[0]{\textit{AGP-permethylated-2ul-inj-55-SLens} }
-\newcommand{\rphumanserum}[0]{\textit{Perm-BS-070111-04-Human-Serum} }
+\newcommand{\agp}[0]{\textit{20150930-06-AGP}\xspace}
+\newcommand{\phil}[0]{\textit{20141031-07-Phil-82}\xspace}
+\newcommand{\philbs}[0]{\textit{20141103-02-Phil-BS}\xspace}
+\newcommand{\igg}[0]{\textit{20151002-02-IGG}\xspace}
+\newcommand{\dpphil}[0]{\textit{20141128-11-Phil-82}\xspace}
+\newcommand{\dpagp}[0]{\textit{AGP-DR-Perm-glycans-1}\xspace}
+\newcommand{\rpagp}[0]{\textit{AGP-permethylated-2ul-inj-55-SLens}\xspace}
+\newcommand{\rphumanserum}[0]{\textit{Perm-BS-070111-04-Serum}\xspace}
+\newcommand{\rpserum}[0]{\textit{Perm-BS-070111-04-Serum}\xspace}
 
+\newcommand{\reviewfootnote}[1]{\footnote{#1}}
+
+\externaldocument[P-]{draft}[draft.pdf]
+\begin{document}
 
 \section{Chromatographic Feature Evaluation}\label{sec:feature_evaluation}
     For each candidate feature, we computed several statistics to estimate how distinguishable
@@ -73,7 +91,7 @@
     \end{table}
     \renewcommand{\arraystretch}{1.0}
 
-    \subsubsection{Chromatographic Peak Shape}
+    \subsection{Chromatographic Peak Shape}
         An LC-MS elution profile should be composed of one or more peak-like components, each
         following a bi-Gaussian peak shape model (\cite{Yu2010}) or in less ideal chromatographic
         circumstances, a skewed Gaussian peak shape model. We fit these models using non-linear
@@ -106,7 +124,7 @@
         pair of maxima to split the feature at. The strategy which produces the maximum $\mathscr{L}_i$
         is chosen.
 
-    \subsubsection{Composition Dependent Charge State Distribution}
+    \subsection{Composition Dependent Charge State Distribution}
         % Does this principle need a citation?
         As the number of monosaccharides composing a glycan increases, the number of possible sites
         for charge localization increases. Under normal conditions, we would expect to observe the
@@ -137,7 +155,7 @@
             \label{fig:charge_trend_plot}
         \end{figure}
 
-    \subsubsection{Adduction Rate}
+    \subsection{Adduction Rate}
         For the samples \textit{AGP-permethylated-2ul-inj-55-SLens} and \textit{Perm-BS-070111-04-Human-Serum}
         we also include an Adduction Frequency model score $\mathscr{A}_i$, following the same
         pattern as the charge state distribution, with the same extension of justification
@@ -154,7 +172,7 @@
         We fit the adduction rate model on \textit{AGP-permethylated-2ul-inj-55-SLens} in order
         to make our comparison to third-party data less biased given limited sample data.
 
-    \subsubsection{Isotopic Pattern Consistency}
+    \subsection{Isotopic Pattern Consistency}
         Our ahead-of-time deconvolution procedure uses an averagine isotopic model and does not
         capture the consistency of the isotopic pattern that was fit with the isotopic pattern
         of the glycan composition that matched that peak. The criterion
@@ -173,7 +191,7 @@
         per-peak intensity weighted mean G-test comparing the goodness of fit between the experimental
         envelope and the theoretical isotopic pattern.
 
-    \subsubsection{Observation Spacing Score}
+    \subsection{Observation Spacing Score}
         The less time between observations of a glycan composition the less likely the chromatogram
         is to contain peaks missing or caused by isotopic pattern interference or missing information.
         \begin{align}
@@ -181,7 +199,7 @@
                 \mathbf{t}_{i, j} - \mathbf{t}_{i, j - 1})
         \end{align}
 
-    \subsubsection{Summarization Score}
+    \subsection{Summarization Score}
         Each scoring feature $\in \left[\mathscr{L}_i, \mathscr{C}_i, \mathscr{I}_i,
         \mathscr{T}_i\right]$ is penalized by $\epsilon = 1\mathrm{e}{-6}$ bounded in
         the range $[0, 1)$, with values below 0 set to $\epsilon$.
@@ -303,7 +321,152 @@
             \label{eqn:estimate_of_phi_o_complete}
         \end{align}
 
+\section{Estimation of Laplacian Regularization Parameters}\label{sec:laplacian_regularization_parameter_estimation}
+    We model the relationship between $\mathbf{s}$, $\mathbf{\phi_o}$, and
+    $\mathbf{\tau}$ as a set of gaussian distribution.
+    \begin{align}
+        \left(\mathbf{s}|\mathbf{\phi_o}, \mathbf{\tau}\right) &\sim
+            \mathcal{N}(\mathbf{\phi_o}, \Sigma)\\
+        \Sigma &= \rho\mathbf{I}
+    \end{align}
+    \begin{align}
+        \left(\begin{bmatrix}
+            \mathbf{\phi_o}\\
+            \mathbf{\phi_m}
+        \end{bmatrix}\middle|\mathbf{\tau}\right) &\sim
+            \mathcal{N}(\mathbf{A\tau}, \lambda^{-1}\mathbf{L}^-)\\
+        \left(\mathbf{\phi_o}\middle|\mathbf{\tau}\right) &\sim
+            \mathcal{N}\left(\mathbf{A_o}\mathbf{\tau}, \Sigma_{\phi_o}\right)\\
+        \Sigma_{\phi_o} &= \lambda^{-1}\left(
+            \mathbf{L_{oo}} - \mathbf{L_{om}L_{mm}^{-1}L_{mo}}\right)^{-1}\\
+        \mathbf{\tau} &\sim \mathcal{N}\left(0, \sigma^2\mathbf{I}\right)
+    \end{align}
+
+    \noindent Fully expanded, this becomes
+    \begin{equation}
+        \begin{bmatrix}
+            \mathbf{s}\\
+            \mathbf{\phi_o}\\
+            \mathbf{\tau}
+        \end{bmatrix} \sim \mathcal{N}\left(
+            \begin{bmatrix}0\\0\\0\end{bmatrix},
+            \begin{bmatrix}
+                \Sigma + \Sigma_{\phi_o} + \sigma^2\mathbf{A_oA_o}^t &
+                \Sigma_{\phi_o} + \sigma^2\mathbf{A_oA_o}^t &
+                \sigma^2\mathbf{A_o}\\
+                \Sigma_{\phi_o} + \sigma^2\mathbf{A_oA_o}^t &
+                \Sigma_{\phi_o} + \sigma^2\mathbf{A_oA_o}^t &
+                \sigma^2\mathbf{A_o}\\
+                \sigma^2\mathbf{A_o}^t & \sigma^2\mathbf{A_o}^t & \sigma^2\mathbf{I}\\
+            \end{bmatrix}
+        \right)\label{eqn:multivariate_gaussian_model}
+    \end{equation}
+
+    We can form the conditional distribution $\tau|\mathbf{s}$ which has a mean
+
+    \begin{align}
+        \mu_{\tau|\mathbf{s}} &= 0 + (\sigma^2\mathbf{A_o}^t)\left(
+            \Sigma + \Sigma_{\phi_o} + \sigma^2\mathbf{A_oA_o^t}\right)^{-1}\mathbf{s}\\
+        % &= \mathbf{A_o}^t\left(
+        %     \frac{\rho}{\sigma^2}\mathbf{I} + \frac{1}{\lambda\sigma^2}\mathbf{L_{oo}^-} + 
+        %     \mathbf{A_oA_o^t}
+        %     \right)^{-1}\mathbf{s} \nonumber\\
+        &= \mathbf{A_o}^t\left(
+            {\tilde\rho}\mathbf{I} + \frac{1}{{\tilde\lambda}}\mathbf{L_{oo}^-} + 
+            \mathbf{A_oA_o^t}
+            \right)^{-1}\mathbf{s} \label{eqn:tau_given_s}
+    \end{align}
+
+        We assume that $\sigma^2 \gg 1$, and treat $\lambda$ and $\rho$
+    as relative to $\sigma^2$, as ${\tilde \rho}$ and ${\tilde \lambda}$.
+    This model gives us an estimate for $\tau$ given a value for
+    $\rho$ and $\lambda$. As $\rho$ has no direct role in the central
+    tendency of $\mathbf{\phi}$ or $\mathbf{s}$, we choose to fix the
+    value of ${\tilde \rho} = 0.1$, which leaves only ${\tilde \lambda}$.
+    We estimate the optimal ${\tilde \lambda}$ by grid search, minimizing
+    the predicted residual error sum of squares (PRESS) statistic.
+
+    \begin{align}
+        \argmin_{\tilde \lambda} & \frac{\mathbf{s - {\hat \phi_o}}}{\left(
+            1 - \left(
+                \mathbf{I} + {\tilde \lambda}\mathbf{L}
+            \right)^{-1}
+        \right)^2}
+    \end{align}
+
+        This formulation depends upon the value of \textbf{s} and is
+    sensitive to low scoring matches, which can lead to incorrect
+    estimates of $\tau$ and PRESS. We therefore perform a grid
+    search over both ${\tilde \lambda}$ and a minimum threshold
+    for \textbf{s}, $\gamma$.
+
+    % Does this network pruning merit a pseudo-code section?
+        As we increase $\gamma$ we remodel the graph $\mathcal{G}$,
+    removing nodes whose score is below $\gamma$. For each pair
+    of neighbors of removed node $g_m$, $(g_u, g_v)$, if
+    $L_1(g_u, g_v) >  L_1(g_u, g_m) + L_1(g_m, g_v)$, we add an
+    edge from $g_u$ to $g_v$ with weight $\frac{1}{L_1(g_u, g_m)
+    + L_1(g_m, g_v)}$, up to a limit of $L_1(g_k, g_m) < 5$.
+    We give the result of this grid search the name $\mathbf{r}$.
+    At each point, on the grid, we save the value of $\tau$ in
+    $r_{\lambda_i, \gamma_j, \tau}$ and the PRESS in $r_{
+    \lambda_i, \gamma_j, PRESS}$. To select the optimal parameters,
+    we traverse the grid along $\gamma$, computing $\mathbf{\tau_\gamma}$:
+
+    \begin{align}
+        {\bar \lambda_j} &= \argmin_{\lambda_i}{r_{\lambda_i, \gamma_j, PRESS}} \\
+        \tau_{\gamma_j} &= |r_{{\bar \lambda_j}, \gamma_j, \tau}| * \left(
+            \frac{\gamma_j}{b} + (1 - \frac{1}{b})\right)
+    \end{align}
+
+    \noindent where $b$ is a bias factor defining how much
+    weight to give to higher values of $\gamma$ which
+    correspond to networks made up of higher confidence
+    assignments. We chose $b = 4$. We define ${\bar \tau_\gamma} =
+    \max{\mathbf{\tau_\gamma}}$ and define the  vector
+    $\mathbf{\bar \gamma} = \left[\gamma_j \leftarrow\tau_{\gamma_j}
+    \ge {\bar \tau_\gamma} * 0.9\right]$. This favors values of
+    $\gamma$ where large values of $\tau$ are selected, meaning that
+    the neighborhoods are well populated, while also giving an estimate
+    for ${\tilde \lambda}$ that is non-zero. We term the values of
+    $\gamma$ in $\mathbf{{\bar \gamma}}$ the {\em target thresholds}
+    of \textbf{s}.
+
+        To estimate ${\tilde \lambda}$ and $\tau$ from these results,
+    we select the columns of the grid $\mathbf{r}$ at each $\gamma_j
+    \in \mathbf{{\bar \gamma}}$ and applied the following procedure:
+
+    \begin{align}
+    % The maximum tau from the grid search over gamma
+    {\bar \tau_\gamma} &= \max{\mathbf{\tau_\gamma}}\\
+    % Those values of gamma whose tau is within 10% of the maximum value of tau
+    % observed
+    \mathbf{\bar \gamma} &= \left\{\gamma_j \leftarrow\tau_{\gamma_j}
+        \ge {\bar \tau_\gamma} * 0.9\right\}\\
+    % The PRESS minimizing lambda values assocaited with these selected gamma
+    {\bar \lambda} &= \left\{ {\bar \lambda_j} \leftarrow \gamma_j \in {\bar \gamma}\right\}\\
+    % The observed scores in the partitions which exceed the threshold gamma
+    \mathbf{s_{\gamma_j}} &= \left\{s_i \leftarrow s_i > \gamma_j\right\} \\
+    % The new estimated tau based upon the selected partion
+    \mathbf{{\bar \tau_j}} &= \mu_{\tau|\mathbf{s}_{\gamma_j}, {\bar \lambda}_j}\\
+    % The average selected lambda
+    {\hat \lambda} &= \frac{1}{|\mathbf{{\bar \lambda}}|}\sum_j {\bar \lambda}_j\\
+    % The average selected tau
+    {\hat \tau} &= \frac{1}{|\mathbf{{\bar \tau}}|}\sum_j \mathbf{{\bar \tau_j}}\\
+    % The average threshold gamma
+    {\hat \gamma} &= \frac{1}{|\mathbf{{\bar \gamma}}|}\sum_j {\bar \gamma}_j
+    \end{align}
+
+    \noindent where $\mathbf{s}_{\gamma_j}$ is the set of observed
+    scores which are greater than $\gamma_j$, but where the estimation
+    of is carried out with the complete Laplacian $\mathbf{L}$,
+    not the reduced network used to compute $\mathbf{r}$. This set of
+    averaged estimates of ${\hat \lambda}$ and ${\hat \tau}$ are then
+    used to estimate ${\hat \phi_o}$ by \ref{eqn:estimate_of_phi_o_complete}, labeled
+    \ref{P-eqn:estimate_of_phi_o} in the main text.
+
 \section{Algorithmic Performance on All Datasets}\label{sec:algorithm_performance}
+TODO
 
 \bibliographystyle{natbib}
 \bibliography{bibliography}

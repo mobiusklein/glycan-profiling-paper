@@ -1,5 +1,5 @@
 \section{Results}
-The performance of our algorithm is demonstrated on \philbs and \rphumanserum.
+The performance of our algorithm is demonstrated on \philbs \ and \rphumanserum.
 Please refer to section S\ref{S-sec:algorithm_performance} for all other datasets.
 For each comparison, the unregularized case is not smoothed, effectively $\lambda = 0$,
 the partially regularized case uses the grid search fitted values of $\mathbf{\tau}$ but
@@ -14,6 +14,8 @@ values of both $\mathbf{\tau}$ and $\lambda$.
     (\cite{Stanley2009,Khatri2016a}).
 
     \begin{table}[!htb]
+        \small
+        \centering
         \begin{threeparttable}
             \caption{Fitted $\lambda$, $\gamma$, and $\mathbf{\tau}$ for
                      \philbs \label{tab:philbs_parameters}}
@@ -41,7 +43,35 @@ values of both $\mathbf{\tau}$ and $\lambda$.
                 \item Fitted $\lambda = 0.99$ and $\gamma = 11.12$.
             \end{tablenotes}
         \end{threeparttable}
-        \hspace{2em}
+        \hspace{1em}
+        \begin{threeparttable}
+            \caption{Fitted $\lambda$, $\gamma$, and $\mathbf{\tau}$ for
+                     \phil \label{tab:philbs_parameters}}
+            \begin{tabular}{l l}
+                \toprule    
+                Neighborhood Name & $\tau_i$ \\
+                \midrule
+                high-mannose & 17.076439 \\
+                hybrid & 13.706498 \\
+                bi-antennary & 0.0 \\
+                asialo-bi-antennary & 16.624051 \\
+                tri-antennary &  0.0 \\
+                asialo-tri-antennary & 15.671840 \\
+                tetra-antennary & 0.0 \\
+                asialo-tetra-antennary & 7.949766 \\
+                penta-antennary & 0.0 \\
+                asialo-penta-antennary & 0.0 \\
+                hexa-antennary & 0.0 \\
+                asialo-hexa-antennary & 0.0 \\
+                hepta-antennary & 0.0 \\
+                asialo-hepta-antennary & 0.0 \\
+                \bottomrule
+            \end{tabular}
+            \begin{tablenotes}[normal]
+                \item Fitted $\lambda = 0.99$ and $\gamma = 16.26$.
+            \end{tablenotes}
+        \end{threeparttable}
+        \hspace{1em}
         \begin{threeparttable}
             \caption{Fitted $\lambda$, $\gamma$, and $\mathbf{\tau}$ for
                      \rpserum \label{tab:rpserum_parameters}}
@@ -95,8 +125,29 @@ values of both $\mathbf{\tau}$ and $\lambda$.
     this condition, the Precision-Recall curve does not show a substantial difference in
     performance between conditions.
 
+    \begin{table}[h]
+        \centering
+        \small
+        \caption{Comparison of Performance on \philbs \ with Previous Analysis\label{tab:philbs_reanalysis_comparison}}
+        \begin{threeparttable}
+            \begin{tabular}{l l l l l}
+                \toprule
+                Method & \multicolumn{2}{l}{With Asialo-sulfated} & \multicolumn{2}{l}{Without Asialo-sulfated} \\
+                \cmidrule(lr){2-3} \cmidrule(lr){4-5}
+                & Reported & Validated & Reported & Validated \\
+                \midrule
+                Current Method \tnote{1} & 62 &   62  & 42 & 42 \\
+                \cite{Khatri2016a} & 145 & 46 & 136 & 40\\
+                \bottomrule
+            \end{tabular}
+            \begin{tablenotes}
+                \item[1] Using partial regularization with $\lambda = 0.2$ and selected at $\phi_o > 5.0$
+            \end{tablenotes}
+        \end{threeparttable}
+    \end{table}
+
 \subsection{Chromatogram Assignment Performance for \rpserum}
-    The fitted parameters for the network constructed for \rpserum are shown in
+    The fitted parameters for the network constructed for \rpserum \ are shown in
     Table~\ref{tab:rpserum_parameters}. The assigned chromatograms are shown in
     Figure~\ref{fig:rpserum_assignments}.
 
@@ -141,10 +192,10 @@ values of both $\mathbf{\tau}$ and $\lambda$.
 
     The comparison of assignment performance with differing degrees of smoothing is
     shown in Figure~\ref{fig:rpserum_perf}. The ROC AUC for the unregularized condition
-    is 0.719, for the partially regularized condition is 0.835, and for the fully
-    regularized condition is 0.791. The Precision-Recall AUC for the unregularized condition
-    is 0.834, for the partially regularized condition is 0.896, and for the fully regularized
-    condition is 0.852. This demonstrates that the partially regularized condition has superior
+    is 0.687, for the partially regularized condition is 0.831, and for the fully
+    regularized condition is 0.797. The Precision-Recall AUC for the unregularized condition
+    is 0.863, for the partially regularized condition is 0.913, and for the fully regularized
+    condition is 0.838. This demonstrates that the partially regularized condition has superior
     performance to the unregularized and fully regularized conditions. This is complicated by
-    the redundancies caused by ammonium adduction, but without high quality \msn this cannot
+    the redundancies caused by ammonium adduction, but without high quality \msn \ this cannot
     be resolved.

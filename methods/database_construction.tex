@@ -1,36 +1,36 @@
 \subsection{Glycan Hypothesis Generation}
-        In eukaryotes, \nglycans start with a common, conserved core of \textbf{HexNAc2 Hex3},
+    In eukaryotes, \nglycans start with a common, conserved core of \textbf{HexNAc2 Hex3},
     building up to \textbf{HexNAc2 Hex9} (\cite{Stanley2009}). This structure is refined by
     sequentially removing monosaccharides and replacing them with more complex structures
-    through a series of glycosidase and glycosyltransferase reactions, the enumeration of
-    which as shown in \cite{Akune2016} yields over a million of possible \nglycan topologies
-    and epitopes. These topologies define the geometry of the glycan, affecting the glycan's
-    binding affinities and how the glycan may influence protein folding and accessibility,
-    the glycan's functional aspects. The medium through which we observe \nglycan does not
-    capture the full tree or graph structure of an \nglycan, so we reduce the topology to
-    a count of each type of residue.
+    through a series of glycosylase and glycosyltransferase reactions, the enumeration of,
+    which as shown in \cite{Akune2016}, yields over a million of possible \nglycan topologies.
+    These topologies define the geometry of the glycan, affecting the glycan's binding affinities
+    and how the glycan may influence protein folding and accessibility, the glycan's functional
+    aspects. The medium through which we observed glycans did not capture the full tree or
+    graph structure of an \nglycan, so we reduced the topology to a count of each type of residue.
 
-        Starting with the core motif, we generate all combinations of monosaccharides ranging
-    between the limits in Table \ref{tab:glycan_composition_rules}. We created a copy of
-    this database for native, reduced and permethylated, and deuteroreduced and permethylated.
-    Let $n = 1240$ be the number of glycan compositions $\mathbf{g}$ in the database.
+    Starting with the core motif, we generated all combinations of monosaccharides ranging
+    between the limits in Table~\ref{tab:glycan_composition_rules} to build a glycan composition
+    database, which produced 1240 distinct compositions. We created a copy of this database for
+    native, reduced and permethylated, and deuteroreduced and permethylated for each experimental
+    protocol we analyzed in this study. We chose to use a combinatorial database for simplicity.
+    The later algorithms can be used with an arbitrary glycan composition list. This places the
+    burden of finding or creating such a list on the user. The glycan database is stored in a
+    SQLite3 (v3.15.2) database file (\cite{Hipp2016}).
 
     \begin{table}
         \small
         \centering
-        \savenotes
         \caption{Glycan Composition Rule Table}\label{tab:glycan_composition_rules}
+        \begin{threeparttable}
         \begin{tabular}{c | c | c | c}
+            \toprule
             Monosaccharide & Lower Limit & Upper Limit & Constraints\\
-            \hline
+            \midrule
             \monosaccharide{HexNAc} & 2 & 9 &\\
             \monosaccharide{Hex} & 3 & 10 & \\
             \monosaccharide{Fuc} & 0 & 4 & $\monosaccharide{HexNAc} > \monosaccharide{Fuc}$\\
             \monosaccharide{NeuAc} & 0 & 5 & $(\monosaccharide{HexNAc} - 1) > \monosaccharide{NeuAc}$\\
         \end{tabular}
-        \spewnotes
+        \end{threeparttable}
     \end{table}
-
-        We choose to use a combinatorial database for simplicity. The later algorithms can
-    be used with an arbitrary glycan composition list. This places the burden of
-    finding or creating such a list on the user.

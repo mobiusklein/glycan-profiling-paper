@@ -14,6 +14,10 @@
 \usepackage{footnote}
 \usepackage{threeparttable}
 \usepackage{booktabs}
+\usepackage{xspace}
+\usepackage{multirow}
+% \usepackage{xr}
+\usepackage{xr-hyper}
 \usepackage{hyperref}
 \hypersetup{
     colorlinks=true,
@@ -22,13 +26,30 @@
     urlcolor=cyan,
     citecolor=darkgray
 }
+
+\newcommand{\monosaccharide}[1]{{\bf #1}\xspace}
+\newcommand{\nglycan}[0]{\textit{N}-glycan\xspace}
+\newcommand{\nglycans}[0]{\textit{N}-glycans\xspace}
+
+\newcommand{\msn}[0]{$MS^n$}
+
+% Sample Name Shortcuts
+\newcommand{\agp}[0]{\textit{20150930-06-AGP}\xspace}
+\newcommand{\phil}[0]{\textit{20141031-07-Phil-82}\xspace}
+\newcommand{\philbs}[0]{\textit{20141103-02-Phil-BS}\xspace}
+\newcommand{\igg}[0]{\textit{20151002-02-IGG}\xspace}
+\newcommand{\dpphil}[0]{\textit{20141128-11-Phil-82}\xspace}
+\newcommand{\dpagp}[0]{\textit{AGP-DR-Perm-glycans-1}\xspace}
+\newcommand{\rpagp}[0]{\textit{AGP-permethylated-2ul-inj-55-SLens}\xspace}
+\newcommand{\rphumanserum}[0]{\textit{Perm-BS-070111-04-Serum}\xspace}
+\newcommand{\rpserum}[0]{\textit{Perm-BS-070111-04-Serum}\xspace}
+
+\newcommand{\reviewfootnote}[1]{\footnote{#1}}
+\externaldocument[S-]{supplement}[supplement.pdf]
  
 \urlstyle{same}
 \usepackage{newfloat}
 \DeclareFloatingEnvironment[placement={!ht},name=List]{ordlist}
-
-\usepackage{xr}
-\externaldocument[S-]{supplement}
 
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
@@ -37,38 +58,17 @@
 
 \begin{document}
 
-
-\newcommand{\monosaccharide}[1]{{\bf #1}}
-\newcommand{\nglycan}[0]{\textit{N}-glycan }
-\newcommand{\nglycans}[0]{\textit{N}-glycans }
-
-\newcommand{\msn}[0]{$MS^n$}
-
-% Sample Name Shortcuts
-\newcommand{\agp}[0]{\textit{20150930-06-AGP}}
-\newcommand{\phil}[0]{\textit{20141031-07-Phil-82}}
-\newcommand{\philbs}[0]{\textit{20141101-04-Phil-BS}}
-\newcommand{\igg}[0]{\textit{20151002-02-IGG}}
-\newcommand{\dpphil}[0]{\textit{20141128-11-Phil-82}}
-\newcommand{\dpagp}[0]{\textit{AGP-DR-Perm-glycans-1}}
-\newcommand{\rpagp}[0]{\textit{AGP-permethylated-2ul-inj-55-SLens}}
-\newcommand{\rphumanserum}[0]{\textit{Perm-BS-070111-04-Human-Serum}}
-\newcommand{\rpserum}[0]{\textit{Perm-BS-070111-04-Human-Serum}}
-
-
 \title{Application of Network Smoothing to Glycan LC-MS Profiling}
-\author{Joshua Klein}
+\author{Joshua Klein, Luis Carvalho, Joseph Zaia}
 \begin{abstract}
-    \textbf{Motivation:} Glycosylation is one of the most heterogenous
-    and complex post-translational modifications, but.\\
-    \textbf{Results:} These are the resutls for this article.\\
+\textbf{Motivation:} Glycosylation is one of the most heterogeneous
+and complex post-translational modifications.\\
+\textbf{Results:} These are the results for this article.\\
 \end{abstract}
 
 \maketitle
 
-\section{Introduction}
-Glycosylation is one of the most pervasive forms of post-translational
-modification (\cite{Varki2017}).
+\input{introduction/introduction}
 
 \input{methods/methods}
 
