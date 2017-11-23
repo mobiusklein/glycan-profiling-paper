@@ -3,9 +3,12 @@
         by a single monosaccharide, but we can assert larger collections of
         glycan compositions are related. We define neighborhoods for \nglycans
         using intervals over monosaccharide counts defined in
-        Table~\ref{tab:neighborhood_definitions}.
+        Table~\ref{tab:neighborhood_definitions}. These neighborhoods are
+        arranged to span particular epitopes or biosynthetically related
+        subtypes of \nglycans, such as sialylation state or branching
+        pattern.
 
-        \begin{table}
+        \begin{table}[tb]
             \centering
             \small
             \begin{tabular}[h]{l p{8cm}}
@@ -82,9 +85,10 @@
         Glycan compositions may belong to zero or more neighborhoods,
         as there are unusual glycan compositions which do not satisfy
         any neighborhood's rules, and several neighborhoods intentionally
-        overlap to express broad relationships between groups. We define
-        a matrix $\mathbf{A}$ as an $n \times k$ matrix where $A_{i, k}$
-        to be the degree to which $g_i$ belongs $k$th neighborhood:
+        overlap to express broad relationships between groups.
+
+        We define a matrix $\mathbf{A}$ as an $n \times k$ matrix where
+        $A_{i, k}$ to be the degree to which $g_i$ belongs $k$th neighborhood:
 
         \begin{align}
             A_{i, k} &= \frac{1}{|\text{neighborhood}_k|}\sum_{

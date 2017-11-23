@@ -1,92 +1,109 @@
 \section{Discussion}
 
-    We demonstrate that this regularization method improved the
+    We demonstrated that the regularization method improved the
     sensitivity and specificity of glycan composition assignment for
-    LC-MS based experiments. The method used similar
-    assumptions about the importance of common substructural elements
-    of \nglycans to \cite{Goldberg2009}, but we extend this concept
-    with the addition of a procedure for learning the relationship
-    strengths and use broader groups of structures.
+    LC-MS based experiments. The method used similar assumptions about
+    the importance of common substructural elements of \nglycans to
+    \cite{Goldberg2009}, but we extend this concept with the addition
+    of a procedure for learning the relationship strengths and use
+    broader groups of structures.
 
     The experimental results from the original analysis of \philbs and
     \phil82 demonstrated that while both strains expressed predominantly
     high-mannose glycosylation, \philbs expressed more larger complex-type
     structures (\cite{Khatri2016a}). In our findings shown in Figure~\ref{fig:philbs_assignments},
-    we recapitulate these results while reducing the number of false positive
-    assignments, after controlling for sulfated species as shown in
-    Table~\ref{tab:philbs_reanalysis_comparison}\reviewfootnote{
-        Should the description of this procedure be shunted to the supplement
-        or should I describe the creation of a special database for Phil-BS
-        permitting up to one sulfation not bound to a single residue and show
-        the updated annotated chromatograms? The plotted performance does change,
-        as do  the estimates of $\tau$ change just due to the addition of more
-        glycans to contribute to each neighborhood, but the chosen $\lambda$ does
-        not.
-
-        I am leaning towards rewriting the earlier sections to specifically mention
-        this.
-    }. There are substantial
+    we recapitulate these results while reducing the number of false
+    assignments, Table~\ref{tab:philbs_statistics}. There are substantial
     differences in both the mass spectral processing and scoring schemes which
     contribute to these results, but the regularization procedure is responsible
     for recovering many low abundance features from this comparison. As these
-    samples are derived from chicken eggs, we may have observed larger
+    samples are derived from chicken eggs, we have observed larger
     branching patterns than are observed in normal mammalian tissue (\cite{Stanley2009}).
-    There is evidence for this in the \philbs with \textbf{HexNAc9 Hex10}-based compositions suggesting
-    a seven branch pattern, though this cannot be determined without high quality
-    \msn data. The $\mathbf{\tau}$ fit for both strains have smaller values
-    in the neighborhoods of their largest glycan compositions as these
-    features tended to be low in abundance and not high scoring in their
-    own right, but were partially supported by the overlap with the next
-    largest neighborhood, as expected.
+    There is evidence for this in the \philbs with \textbf{HexNAc9 Hex10}-based compositions
+    suggesting a seven branch pattern, though this cannot be determined without high quality
+    \msn data. The $\mathbf{\tau}$ fit for Phil-BS (shown) and Phil-82 (supplement) have
+    smaller values in the neighborhoods of their largest glycan compositions as
+    these features tended to be low in abundance and not high scoring in their own
+    right, but were partially supported by the overlap with the next largest neighborhood,
+    as expected. We observed the best performance with the \textit{Combinatorial + Sulfate}
+    database, which produced more than half-again as many true matches than the other two
+    databases. It produced several false matches as well, but the smoothing process removed
+    these while boosting the score of other low abundance matches which were consistent with
+    higher scoring matches.
+
+    The Krambeck database performed identically in all smoothing conditions as it
+    was only able to match the common species, not including cases that were multiply
+    fucosylated or sulfated. It had no false matches ranked alongside its true matches so
+    smoothing could not change its performance. The \glyspace-derived database produced more true
+    matches, but also lacked some of these more fucosylated and complex compositions. Some of the
+    compositions included by the \glyspace-derived database were lower scoring, but the chosen
+    value of $\gamma$ for that database was greater than 18, causing the fitted values of $\mathbf{\tau}$
+    omit the larger, less abundant complex-type \nglycans. This caused smoothing to lower the scores
+    of these real matches rather than raise them, as with the \textit{Combinatorial + Sulfate} database.
 
     As we show in Figure~\ref{fig:rpserum_perf}, regularization improves the
-    predictive performance of the algorithm.  We reproduce the majority
-    of the glycan assignments from \cite{Yu2013}, but the ambiguity caused
-    by ammonium adduction as shown in Figure~\ref{fig:rpserum_assignment:c}
-    makes a direct comparison of composition assignment lists difficult. Out
-    of the eight missed compositions, four were missing because of insufficient
-    data points to fit a peak shape, which requires at least five points. The
-    other four were not detected either due to mass error, \cite{Yu2013}
-    used 10 ppm while we used 5 ppm for FT-MS data, or due to low level signal
-    processing decisions. Since we were unable to reproduce the published results
-    from \cite{Yu2013} using their software and accompanying database, it was not
-    reasonable to adapt our composition database to work with their software and
-    run a side-by-side test to demonstrate how many additional glycan compositions
-    one algorithm identifies compared to another without bias.
+    predictive performance of the identification algorithm on \rpserum for all databases. 
+    We reproduce the majority of the glycan assignments from \cite{Yu2013}, but the ambiguity
+    caused by ammonium adduction as shown in Figure~\ref{fig:rpserum_assignment:c} makes a
+    direct comparison of composition assignment lists difficult. Our algorithm requires a minimum
+    amount of MS1 information in order to compute a score, which some of the assignments in the
+    original published results do not possess, which are omitted from the count in Table~
+    \ref{tab:serum_statistics}. After accounting for ambiguity, we were able to assign all
+    of the compositions previously reported using the Krambeck database, which was used
+    by \cite{Yu2013}, and with the combinatorial database. The \glyspace-derived database did not
+    contain all of these compositions, but performed competitively with the combinatorial
+    database's ROC AUC. The combinatorial database contained a small number of glycan compositions
+    which were not in Krambeck but which were consistent with other glycan compositions
+    observed nearby in retention time. The combinatorial database also benefited most
+    substantially from smoothing, discarding many false positives while retaining many more
+    true positives at the same false positive rate compared to the other databases. These
+    invalid glycan compositions can match LC-MS features at any point in the elution profile,
+    though in this dataset the majority of these matches appear to be in the time range between
+    10 and 22 minutes, and similar glycan compositions that are biosynthetically valid elute
+    later on in the experiment. Therefore a for a retention-time aware approach to evaluating glycan
+    composition assignments, as described in \cite{Hu2016} could also be useful, but this is
+    likely dependent upon the experimental workup and separation technique used.
 
-    Of the compositions assigned by our algorithm that were not
-    mentioned in \cite{Yu2013} but were annotated in the original publication
-    of this dataset in \cite{Hu2012} include \textbf{HexNAc3 Hex4},
-    \textbf{HexNAc3 Hex4 NeuAc1}, and \textbf{HexNAc5 Hex3}. Because our database
-    was constructed based on combinatorial rules that did not take into account
-    all biosynthetic constraints, we include infeasible compositions in our search
-    space, such as \textbf{HexNAc2 Hex10 Fuc1} and \textbf{HexNAc5 Hex3 Fuc1 NeuAc2}.
-    Future work could be done to restrict the database to only biosynthetically
-    feasible glycan compositions. This would also have benefits for the construction
-    of the composition network where only those compositions which have an enzymatic
-    reaction to from one to the other would have an edge connecting them, such that
-    \textbf{HexNAc5 Hex6 NeuAc2} would not have an edge to \textbf{HexNAc5 Hex7 NeuAc2}
-    as in our current model.
-    
-    These invalid glycan compositions can match LC-MS features at any point in
-    the elution profile, though in this dataset the majority of these matches
-    appear to be in the time range between 10 and 22 minutes, and similar glycan
-    compositions that are biosynthetically valid elute later on in the experiment.
-    This indicates a need for a retention-time aware approach to evaluating glycan
-    composition assignments, as described in \cite{Hu2016}, but this is likely dependent
-    upon the experimental workup and separation technique used. The definition of our
-    composition graph and its neighborhoods also mitigates this to some extent, though
-    it depends upon the feature scoring metrics to determine whether a feature is
-    eligible for smoothing. These metrics were based upon a limited sampling of data
-    and could be improved by acquiring more training sets to build more granular
-    models in the case of the charge state and adduct scores.
+    While the biosynthetically constrained Krambeck database performed better on \rpserum,
+    it did not contain all of the reasonably assignable glycan compositions, and it performed
+    poorly on \philbs with a false negative rate of 50\% compared to the combinatorial database.
+    This is because the necessary enzymatic pathways were either not considered in the original
+    authors' model because either the enzyme was excluded for simplicity (\cite{Krambeck2009}) or
+    because the particular enzymes used were not within the scope of the model used
+    (\cite{Spiro2000,Ichimiya2014}). This highlights the importance of selecting a good reference
+    database, though a post-processing step such as the we described here can help mitigate using
+    too large a database, but not a too small one.
+
+    In this work, we used the same network neighborhood imposed over different underlying sets of
+    composition nodes, and the connectivity of those networks did not take into account the biosynthetic
+    process. It may be possible to obtain better performance by defining network connectivity according
+    to enzymatic relationships. This may also alter how the neighborhoods are defined and how $\mathbf{A}$
+    is parameterized, and in turn how $\mathbf{\tau}$ is learned. Similarly, this procedure depends upon
+    the scoring functions used, so selecting another set of functions for the data to fit may lead
+    to different parameter values.
+
+    Lastly, while these case studies have demonstrated the algorithm's ability to learn network parameters
+    from the data, an expert can define $\mathbf{\tau}$ and $\mathbf{A}$ themselves or obtain a model fitted
+    on related data and apply it directly without a fitting step. An expert could use this model specification
+    to impose prior beliefs on the evaluation process, and adjust $\lambda$ to control the importance of
+    the these beliefs. Similarly, one could also use the derivation of ${\hat \phi_m}$ to estimate the score
+    for an unobserved glycan composition, given $\mathbf{A}$ and $\mathbf{\tau}$.
+
+    We used our glycoinformatics toolkit to produce a richer abstraction of glycans and monosaccharides,
+    including producing standard-compliant textual representations of these structures and compositions.
+    We produced a text file containing all of the glycan compositions found in the Krambeck and Combinatorial
+    database but not the \glyspace-derived database in the above samples (see supplemental information XXX),
+    and have submit it to GlyTouCan (\cite{Tiemeyer2017}) for registration so that future researchers can
+    use these structures.
 
 \section{Conclusions}
     In this study, we demonstrated the advantages of our application of Laplacian
     Regularization to smooth LC-MS assignments of glycan compositions across multiple
     experimental protocols (\cite{Hu2012, Khatri2016a}). Our algorithm's performance is
-    competitive with existing tools for analyzing the same type of data, while being more
-    flexible.
+    competitive with existing tools for analyzing the same type of data, with the added
+    benefit of more flexible evaluation process and broader range of understood monosaccharides.
+    Our tools integrate with \glyspace and allows users to leverage existing glycomics
+    repositories to build databases where applicable.
 
     All of the methods demonstrated in this paper are available as part of the open source,
     cross-platform glycomics and glycoproteomics software \texttt{GlycReSoft}, freely

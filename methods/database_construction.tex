@@ -4,21 +4,27 @@
     sequentially removing monosaccharides and replacing them with more complex structures
     through a series of glycosylase and glycosyltransferase reactions, the enumeration of,
     which as shown in \cite{Akune2016}, yields over a million of possible \nglycan topologies.
-    These topologies define the geometry of the glycan, affecting the glycan's binding affinities
-    and how the glycan may influence protein folding and accessibility, the glycan's functional
-    aspects. The medium through which we observed glycans did not capture the full tree or
-    graph structure of an \nglycan, so we reduced the topology to a count of each type of residue.
+    These topologies define the geometry of the glycan, and it's protein binding properties.
+    Neither $MS^1$ nor collisional tandem $MS$ of glycans can capture the full tree or
+    graph structure of an \nglycan, so we reduced the topology to a count of each type of residue,
+    a composition.
 
     Starting with the core motif, we generated all combinations of monosaccharides ranging
     between the limits in Table~\ref{tab:glycan_composition_rules} to build a glycan composition
-    database, which produced 1240 distinct compositions. We created a copy of this database for
-    native, reduced and permethylated, and deuteroreduced and permethylated for each experimental
-    protocol we analyzed in this study. We chose to use a combinatorial database for simplicity.
-    The later algorithms can be used with an arbitrary glycan composition list. This places the
-    burden of finding or creating such a list on the user. The glycan database is stored in a
-    SQLite3 (v3.15.2) database file (\cite{Hipp2016}).
+    database, which produced 1240 distinct compositions. To perform a side-by-side comparison we
+    also extracted the glycan list from \cite{Yu2013} derived from the biosynthetic rules in
+    \cite{Krambeck2005} with 319 compositions, and another database using all \nglycans from
+    GlyTouCan (\cite{Tiemeyer2017}) containing only \textbf{[Hex, HexNAc, Fuc, Neu5Ac, sulfate]},
+    with 275 distinct compositions. As previous analysis of Influenza A virus samples detected
+    sulfated \nglycans (\cite{Khatri2016a}), we also created a combinatorial database with up to
+    one sulfate included, for a total of 2480 compositions. As our algorithm treats \textbf{HexNAc}
+    and \textbf{HexNAc(S)} as distinct entities, for all monosaccharides with post-attachment
+    substituents such as \textbf{sulfate} and \textbf{phosphate}, we detached the substituent
+    from the core monosaccharide. Our implementation is able to interpret IUPAC trivial names
+    and compositions thereof with standard substituent and unambiguous backbone modifications,
+    permitting a wide range of possible glycan compositions.
 
-    \begin{table}
+    \begin{table}[tb]
         \small
         \centering
         \caption{Glycan Composition Rule Table}\label{tab:glycan_composition_rules}

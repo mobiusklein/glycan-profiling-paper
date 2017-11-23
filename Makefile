@@ -20,7 +20,7 @@ draft: $(FIGURES) supplement.pdf
 layout:
 	pdflatex draft.tex
 
-supplement:
+supplement.pdf:
 	pdflatex supplement.tex
 	bibtex supplement
 	pdflatex supplement.tex

@@ -15,6 +15,7 @@
 \usepackage{threeparttable}
 \usepackage{booktabs}
 \usepackage{xspace}
+\usepackage{siunitx}
 \usepackage{multirow}
 % \usepackage{xr}
 \usepackage{xr-hyper}
@@ -32,6 +33,7 @@
 \newcommand{\nglycans}[0]{\textit{N}-glycans\xspace}
 
 \newcommand{\msn}[0]{$MS^n$}
+\newcommand{\glyspace}[0]{glySpace\xspace}
 
 % Sample Name Shortcuts
 \newcommand{\agp}[0]{\textit{20150930-06-AGP}\xspace}
@@ -62,8 +64,29 @@
 \author{Joshua Klein, Luis Carvalho, Joseph Zaia}
 \begin{abstract}
 \textbf{Motivation:} Glycosylation is one of the most heterogeneous
-and complex post-translational modifications.\\
-\textbf{Results:} These are the results for this article.\\
+and complex post-translational modifications. Liquid chromatography
+coupled mass spectrometry (LC-MS) is a common high throughput method for
+analyzing complex biological samples. Mass spectrometry data is contains
+intricate structure, requiring several transformations before it can be
+used to identify biological molecules, requiring automated tools to analyze
+samples in a high throughput setting. Existing tools for interpreting
+the resulting data do not take into account related glycans when evaluating
+individual observations, limiting their sensitivity.
+\textbf{Results:} We developed an algorithm for assigning glycan compositions
+from LC-MS data that can use information encoding biosynthetic network
+relationships between glycans using Laplacian regularized least squares,
+and optionally prior information about expected glycan families, built atop
+an a set scoring functions that use glycan chemical properties. Our method
+was able to identify as many, or more glycan compositions compared to
+previous approaches, and demonstrated greater sensitivity with regularization.
+Our network definition was tailored to \nglycans but the method may be applied
+to glycomics data from other glycan families like \textit{O}-glycans or heparin
+where the relationships between compositions can be expressed as a graph.
+% \textbf{Availability:}
+%     Built Executable: \href{http://www.bumc.bu.edu/msr/glycresoft/} \\
+%     Source Code: \href{https://github.com/BostonUniversityCBMS/glycresoft}
+% \textbf{Contact:}
+%     \href{mailto:jzaia@bu.edu}{jzaia@bu.edu}
 \end{abstract}
 
 \maketitle

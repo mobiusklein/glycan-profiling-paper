@@ -1,21 +1,25 @@
 \subsection{Chromatogram Aggregation}
-    We clustered peaks whose neutral masses were within 15 parts-per-million error
+    We clustered peaks whose neutral masses were within $\delta_{mass} = 15$ parts-per-million error
     (PPM) of each other. When there were multiple candidate clusters for a single peak,
     we used the cluster with the lowest mass error. Next, we sorted each cluster by time,
     creating a list of aggregated chromatograms. To account for small mass differences,
-    we found all chromatograms which are within 10 PPM of each other and which overlap
-    in time and merge them.
+    we found all chromatograms which are within $\delta_{mass} = 10$ PPM of each other and which overlap
+    in time and merge them. These mass tolerances were selected empirically, and can be
+    adjusted as needed by the user.
 
 \subsection{Glycan Composition Matching}
     For each chromatogram, we searched the glycan database for compositions
     whose masses were within $\delta_{mass} = 10$ PPM for QTOF data, $5$ PPM
     for FTMS data. We merged all features matching the same composition. Then, for
-    each adduct combination, we searched the glycan database for compositions
-    whose neutral mass were within $\delta_{mass}$ of the observed neutral mass - adduct
+    each mass shift combination, we searched the glycan database for compositions
+    whose neutral mass were within $\delta_{mass}$ of the observed neutral mass - mass shift
     combination mass, followed by another round of merging chromatograms with the same
     assigned composition. We reduced the data by splitting each feature where the time
     between sequential observation was greater than $\delta_{rt} = 0.25$ minutes and
-    removed features with fewer than $k = 5$ data points.%
+    removed features with fewer than $k = 5$ data points. The same chromatogram may be
+    given multiple assignments and designated multiple mass shifts, and chromatograms
+    without glycan assignments may use chromatograms with glycan assignments as mass shifted
+    components. This ambiguity information was propagated through each merge and split step.%
     % The MSn filter makes comparison with MultiGlycan-ESI difficult, so this doesn't
     % make sense to include here.
     % 
@@ -23,4 +27,4 @@
     % present, these scans were mapped onto their precursor $MS^1$ features, and evaluated for
     % glycan-like product ions, retaining only those which satisfied the signature ion
     % criterion described in section S\ref{S-sec:signature_ion_criterion}.
-    We term the remaining assigned and unassigned chromatograms \textit{candidate features}.
+    We termed these remaining assigned and unassigned chromatograms \textit{candidate features}.

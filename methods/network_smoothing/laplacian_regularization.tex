@@ -20,8 +20,7 @@
 
         We find the $\mathbf{\phi}$ that minimizes the expression
         \begin{align}
-            \ell &= (\mathbf{s} - \mathbf{\phi_o})^t(\mathbf{s} - \mathbf{\phi_o}) + \lambda
-                \begin{bmatrix}
+            \mathcal{S}(\mathbf{L}, \phi, \tau) &= \begin{bmatrix}
                     \phi_o - \tau_o, & \phi_m - \tau_m
                 \end{bmatrix}
                 \begin{bmatrix}
@@ -29,7 +28,9 @@
                 \end{bmatrix}
                 \begin{bmatrix}
                     \phi_o - \tau_o \\ \phi_m - \tau_m
-                \end{bmatrix} \label{eqn:laplacian_regularization_objective_function}
+                \end{bmatrix} \\
+            \ell &= (\mathbf{s} - \mathbf{\phi_o})^t(\mathbf{s} - \mathbf{\phi_o}) + \lambda
+                \mathcal{S}(\mathbf{L}, \phi, \tau) \label{eqn:laplacian_regularization_objective_function}
         \end{align}
         \noindent where $\lambda$ controls how much weight is
         placed on the network structure and $\tau$.
@@ -39,15 +40,7 @@
 
         \begin{align}
             0 &= \frac{\partial\ell}{\partial\phi_m}\left((\mathbf{s} - \mathbf{\phi_o})^t(\mathbf{s} - \mathbf{\phi_o}) + \lambda
-                \begin{bmatrix}
-                    \phi_o - \tau_o, & \phi_m - \tau_m
-                \end{bmatrix}
-                \begin{bmatrix}
-                    \mathbf{L_{oo}} & \mathbf{L_{om}} \\ \mathbf{L_{mo}} & \mathbf{L_{mm}}
-                \end{bmatrix}
-                \begin{bmatrix}
-                    \phi_o - \tau_o \\ \phi_m - \tau_m
-                \end{bmatrix}\right)\\
+                \mathcal{S}(\mathbf{L}, \phi, \tau)\right)\\
             % (\phi_m - \tau_m) &= -\mathbf{L_{mm}}^{-1}\mathbf{L_{mo}}(\phi_o - \tau_o) \nonumber\\
             {\hat \phi_m} &= -\mathbf{L_{mm}}^{-1}\mathbf{L_{mo}}(\phi_o - \tau_o) + \tau_m
             \label{eqn:estimate_of_phi_m}
@@ -58,15 +51,7 @@
         \begin{align}
             0 &= \frac{\partial\ell}{\partial\phi_o}\left((\mathbf{s} - \mathbf{\phi_o}
                 )^t(\mathbf{s} - \mathbf{\phi_o}) + \lambda
-                \begin{bmatrix}
-                    \phi_o - \tau_o, & \phi_m - \tau_m
-                \end{bmatrix}
-                \begin{bmatrix}
-                    \mathbf{L_{oo}} & \mathbf{L_{om}} \\ \mathbf{L_{mo}} & \mathbf{L_{mm}}
-                \end{bmatrix}
-                \begin{bmatrix}
-                    \phi_o - \tau_o \\ \phi_m - \tau_m
-                \end{bmatrix}\right)\\
+                \mathcal{G}(\mathbf{L}, \phi, \tau)\right)\\
             {\hat \phi_o} &= \left[
                 \mathbf{I} + \lambda\left(\mathbf{L_{oo}} -
                     \mathbf{L_{om}}\mathbf{L_{mm}^{-1}}\mathbf{L_{mo}}
