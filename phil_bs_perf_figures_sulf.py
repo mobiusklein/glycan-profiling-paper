@@ -9,6 +9,8 @@ from glycan_profiling import (
 from glycan_profiling.plotting import summaries
 import numpy as np
 import pandas as pd
+import glypy
+from glypy.composition.composition_transform import strip_derivatization
 from sklearn.metrics import auc as sk_auc, roc_curve, roc_auc_score, precision_recall_curve
 import variable_writer
 from matplotlib import pyplot as plt, rcParams
@@ -67,6 +69,17 @@ true_positive_mask = datasets.index.isin(true_positives)
 detected = datasets.sum(axis=1) != 0
 datasets = datasets[detected]
 true_positive_mask = true_positive_mask[detected]
+
+glyspace_identified = set(datasets[true_positive_mask & (datasets.glyspace_unregularized > 0)].index)
+rest_identified = set(datasets[true_positive_mask & (
+    datasets.combinatorial_partial > 0)].index) - glyspace_identified
+
+print "Writing missing glycan list"
+
+with open("philbs_glycans_not_in_glyspace.txt", 'w') as fh:
+    for gc in (map(strip_derivatization, map(glypy.GlycanComposition.parse, rest_identified))):
+        fh.write("%s\n" % gc)
+
 
 fig = plt.figure()
 print("Drawing ROC")

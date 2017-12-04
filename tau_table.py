@@ -1,8 +1,6 @@
 import sys
 import os
 
-import numpy as np
-
 from glycan_profiling.composition_distribution_model import GridPointSolution
 
 
@@ -19,20 +17,20 @@ def main(point_solution_files, outfile=None):
     def label_cleaner(file_name):
         base = os.path.basename(file_name)
         label = base.replace("-grid-regularization-parameters.txt", '')
-        return label
+        return "{%s}" % label
 
     table = [
         r'\begin{table}',
         r'    \centering',
         r'    \small',
-        r'    \begin{tabular}{%s}' % ("l " + 'c' * (len(point_solutions))),
+        r'    \begin{tabular}{%s}' % ("l " + 'S' * (len(point_solutions))),
         r'        \toprule',
         r"        $\tau_i$ & " + " & ".join(map(label_cleaner,
-                                            point_solution_files)) + r"\\"
+                                            point_solution_files)) + r"\\",
         r'        \midrule'
     ]
     for i, neighborhood_name in enumerate(point_solutions[0].neighborhood_names):
-        row = [neighborhood_name]
+        row = [(" " * 8) + neighborhood_name]
         for j, point in enumerate(point_solutions):
             row.append("%0.3f" % (point.tau[i],))
         line = " & ".join(row) + r"\\"

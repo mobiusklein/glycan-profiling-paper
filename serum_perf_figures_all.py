@@ -11,6 +11,7 @@ from glycan_profiling import (
     database, scoring, models, composition_distribution_model)
 from glycan_profiling.plotting import summaries
 import glypy
+from glypy.composition.composition_transform import strip_derivatization
 import numpy as np
 import pandas as pd
 from sklearn.metrics import auc as sk_auc, roc_curve, roc_auc_score, precision_recall_curve
@@ -76,6 +77,9 @@ ads_map = {
 
 ads_map = {k: serialize.AnalysisDeserializer(v) for k, v in ads_map.items()}
 
+
+print "Loading data"
+
 gcs_map = {
     # k: v.load_glycan_composition_chromatograms()
     k: trace.ChromatogramFilter(
@@ -103,10 +107,16 @@ detected = datasets.sum(axis=1) != 0
 datasets = datasets[detected]
 true_positive_mask = true_positive_mask[detected]
 
-# import IPython
-# IPython.embed()
-
 not_used_as_adduct_mask = ~datasets.index.isin(used_as_adduct) & true_positive_mask
+
+glyspace_identified = set(datasets[not_used_as_adduct_mask & (datasets.glyspace_unregularized > 0)].index)
+rest_identified = set(datasets[not_used_as_adduct_mask & (
+    datasets.combinatorial_partial > 0)].index) - glyspace_identified
+
+with open("serum_glycans_not_in_glyspace.txt", 'w') as fh:
+    for gc in (map(strip_derivatization, map(glypy.GlycanComposition.parse, rest_identified))):
+        gc.reducing_end = None
+        fh.write("%s\n" % gc)
 
 print("Drawing ROC")
 for group in datasets:

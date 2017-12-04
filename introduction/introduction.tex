@@ -1,21 +1,22 @@
 \section{Introduction}
-Glycosylation is one of the most pervasive and diverse forms of
-post-translational modification (\cite{Varki2017}). Their study
-is of great importance for understanding broad classes of biological
-processes. Mass spectrometry (MS) is a powerful tool for glycan
-analysis (\cite{Zaia2008}). MS of unseparated mixtures results in poor
-dynamic range for detection of glycans \cite{Peltoniemi2013}. An online
-separation method like liquid chromatography (LC) or capillary
-electrophoresis (CE) improves dynamic range and reproducibility of
-glycan detection, at the cost of increased analysis time and workflow
-complexity.
+
+Glycosylation modulates the structures and functions of proteins and lipids
+in a broad class of biological processes (\cite{Varki2017}). Accurate mass
+measurement defines monosaccharide composition given assumptions regarding
+glycan class and biosynthesis (\cite{Zaia2008}). For unseparated mixtures,
+mass spectrometry analysis determines the mass-to-charge ratio values for
+only the most abundant glycans; dynamic range for detection of glycans is
+poor because of ion suppression (\cite{Peltoniemi2013}). By contrast, online
+separations coupled with mass spectrometry improve dynamic range and
+reproducibility of glycan analysis, at the cost of increased analysis time
+and workflow complexity. 
 
 There are many tools for interpreting glycan mass spectral datasets (
 \cite{Yu2013,Peltoniemi2013,Kronewitter2014,Goldberg2009,Maxwell2012,Ceroni2008,Frank2010})
 for both unseparated and separated experimental protocols. These programs address
 instrument-specific signal processing requirements. For example SysBioWare
 (\cite{Frank2010}) performs sophisticated baseline removal prior to fitting
-peaks, while GlyQ-IQ (\cite{Kronewitter2014}) was written cleaner Fourier Transform
+peaks, while GlyQ-IQ (\cite{Kronewitter2014}) was written for cleaner Fourier Transform
 MS (FTMS) that does not require such a baseline removal step. Tools that build on
 the THRASH implementation from Decon2LS (\cite{Jaitly2009,Yu2013,Maxwell2012})
 are unable to deal with variable baseline noise or extreme dynamic range.
@@ -25,8 +26,8 @@ some even bundling a large database with their software to remove the burden fro
 the user to build a list of candidates themselves (\cite{Yu2013,Kronewitter2014,Goldberg2009})
 while others define methods for building glycan databases as part of the program (
 \cite{Maxwell2012,Ceroni2008}). Many of these tools are designed for specific glycan
-subclass such as \nglycans or glycosaminoglycans, limiting their vocabulary of
-possible monosaccharides to just those commonly found in that subclass
+subclass such as \nglycans or glycosaminoglycans and/or organisms, limiting their
+vocabulary of possible monosaccharides to just those commonly found in that subgroup
 (\cite{Yu2013,Kronewitter2014,Peltoniemi2013,Goldberg2009}). Often, these tools are
 tailored for analysis of a particular derivatization state, adduction conditions, or
 neutral loss pattern (\cite{Yu2013,Peltoniemi2013,Maxwell2012}). Work has been done
@@ -41,10 +42,10 @@ These spectral processing and glycan library properties are reflected in the
 scoring function that each program uses to discriminate glycan signal from
 the background noise and contaminants. Several methods have been developed
 using different facets of the observed data. \cite{Yu2013} used the isotopic pattern
-goodness-of-fit while \cite{Peltoniemi2013} used intensity features
-of associated \msn scans to. \cite{Kronewitter2014} combined several features of the
-$MS^1$ evidence, including elution profile peak shape goodness-of-fit, isotopic fit,
-mass accuracy, scan count, and in-source fragmentation correlation. Some of these methods
+goodness-of-fit while \cite{Peltoniemi2013} used intensity features of associated \msn
+scans to evaluate partial structure and composition match quality. \cite{Kronewitter2014} combined
+several features of the $MS^1$ evidence, including elution profile peak shape goodness-of-fit,
+isotopic fit, mass accuracy, scan count, and in-source fragmentation correlation. Some of these methods
 are well-defined and invariant from instrument to instrument in this era of high resolution
 mass spectrometry, but others are tightly coupled to the experimental equipment. Missing from
 this list are methods to target a glycan's intrinsic properties, such as charge state distribution
@@ -53,13 +54,13 @@ accounted for. We propose a new scoring function which is able to combine those 
 are independent of experimental setup with these glycan-aware features.
 
 As observed by \cite{Goldberg2009}, there is also value in including related glycan
-composition identifications in how much confidence one assigns to a another glycan
-composition assignment. They use a method to exploit the known biosynthetic rules of
-\nglycans to connect peaks in a MALDI spectrum which could be assigned to a particular \nglycan by
+composition identifications in how much confidence one assigns to a given glycan
+composition assignment. They used a method to exploit the known biosynthetic rules of
+\nglycans to connect peaks in a MALDI spectrum assigned to a particular \nglycan by
 intact mass alone. Their method using the maximum weighted subgraph of the biosynthetic
-network in one of their three had demonstrably better performance than chance with
-their expert system annotation method. \cite{Kronewitter2014} considered a similar idea with
-more emphasis on handling in-source fragmentation observed in LC-MS and LC-MS/MS experiments.
+network had demonstrably better performance than chance with their expert system annotation
+method. \cite{Kronewitter2014} considered a similar idea with more emphasis on handling
+in-source fragmentation observed in LC-MS and LC-MS/MS experiments.
 
 We extend this notion of a glycan family to cover more sectors of the biosynthetic
 landscape which we term "neighborhoods", and present an algorithm for learning the

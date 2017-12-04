@@ -1,0 +1,10 @@
+{Fuc:1; Hex:5; HexNAc:3; Neu5Ac:1}
+{Hex:8; HexNAc:7; Neu5Ac:4}
+{Hex:7; HexNAc:6; Neu5Ac:3}
+{Fuc:2; Hex:5; HexNAc:4; Neu5Ac:2}
+{Fuc:2; Hex:7; HexNAc:6; Neu5Ac:4}
+{Hex:8; HexNAc:7; Neu5Ac:3}
+{Hex:7; HexNAc:6; Neu5Ac:2}
+{Hex:9; HexNAc:8; Neu5Ac:2}
+{Fuc:2; Hex:6; HexNAc:5; Neu5Ac:3}
+{Fuc:2; Hex:7; HexNAc:6; Neu5Ac:3}

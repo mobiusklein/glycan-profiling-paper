@@ -1,0 +1,31 @@
+\section{$MS^n$ Signature Ion Criterion}\label{sec:signature_ion_criterion}
+    \textbf{This feature was not used in the main article in order to make the comparison
+    between our results and previously published work more straight forward.}
+
+    When \msn scans are present, it  may be useful to consider only those $MS^1$
+    features which are associated with \msn scans that contain glycan-like signature
+    ions. We include an algorithm for classifying an \msn scan as being "glycan-like":
+
+    \begin{align}
+        I &= max(intensity(p)) \\
+        t &= I * 0.01 \\
+        p_{oxonium} &= \{p_i \leftarrow |ppmerror(mass(p_j), mass(f_g))| < e,
+                         f_g \in oxonium(g), f_g \ne \text{Fucose}, intensity(p_i) > t\}\\
+        p_{edges} &= \{(p_i, p_j) \leftarrow |ppmerror(mass(p_j) - mass(p_i), mass(f_g))| < e,\\
+                  &\phantom{{}=1} oxonium(f_g) \in g , intensity(p_i) > t, intensity(p_j) > t\} \notag\\
+        s_{oxonium} &= \frac{1}{|p_{oxonium}|}\sum_{p_i}^{p_{oxonium}}{
+                \left(\frac{intensity(p_i)}{I}\right)
+            } * min(log_4|p_{oxonium}|, 1)\\
+        s_{edges} &= \frac{1}{|p_{edges}|}\sum_{p_i, p_j}^{p_{edges}}{
+                \left(\frac{intensity(p_i) + intensity(p_j)}{I}\right)
+            } * min(log_4|p_{edges}|, 1)\\
+        s_g &= max(s_{oxonium}, s_{edges})\\
+    \end{align}
+
+    Where $p$ is the set of peaks in the scan, $g$ is the glycan compostion, $e$ the
+    required parts-per-million mass accuracy. $oxonium()$ is a function that given
+    a glycan composition $g$, produces fragments $f_g$ of $g$ composed of between one
+    and three monosaccharides, commonly observed as oxonium ions alone, or as the mass
+    difference between two peaks formed from consecutive fragmentation of a glycosidic
+    bond. This method is not intended to identify a glycan structure, just detect patterns in
+    the signal peaks of the \msn scan that could indicate the fragmentation of a glycan.

@@ -1,0 +1,15 @@
+\section{Differences in Assigned Glycans for \rpserum}
+
+    Of the compositions assigned by our algorithm that were not
+    mentioned in \cite{Yu2013} but were annotated in the original publication
+    of this dataset in \cite{Hu2012} include \textbf{HexNAc3 Hex4},
+    \textbf{HexNAc3 Hex4 NeuAc1}, and \textbf{HexNAc5 Hex3}. Because our database
+    was constructed based on combinatorial rules that did not take into account
+    all biosynthetic constraints, we include infeasible compositions in our search
+    space, such as \textbf{HexNAc2 Hex10 Fuc1} and \textbf{HexNAc5 Hex3 Fuc1 NeuAc2}.
+    Future work could be done to restrict the database to only biosynthetically
+    feasible glycan compositions. This would also have benefits for the construction
+    of the composition network where only those compositions which have an enzymatic
+    reaction to from one to the other would have an edge connecting them, such that
+    \textbf{HexNAc5 Hex6 NeuAc2} would not have an edge to \textbf{HexNAc5 Hex7 NeuAc2}
+    as in our current model.

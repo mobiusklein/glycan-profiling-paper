@@ -1,0 +1,233 @@
+
+\section{Algorithmic Performance on All Datasets}\label{sec:algorithm_performance}
+    For more details on each sample, please see Table \ref{P-tab:sample_overview} in
+    the main text.
+
+\subsection{Results for AGP}
+    
+    We analyzed three different sample workups of \nglycans released from Alpha 1 Acid
+    Glycoprotein. See Table~\ref{tab:agp_parameter_estimates} for a comparison of estimated $\tau$
+    values for each sample. For \dpagp and \rpagp, we used an $MS^n$ Signature Ion Criterion
+    threshold of 0.17 to filter out large contaminants that may be introduced by permethylation
+    reagents.
+
+    The estimate of $\gamma$ for \agp was larger than the score for the larger penta-antennary 
+
+    \begin{table}
+        \centering
+        \small
+        \begin{tabular}{l SSS}
+            \toprule
+            $\tau_i$ & {\agp} & {\dpagp} & {\rpagp}\\
+            \midrule
+            high-mannose & 0.000 & 0.000 & 0.000\\
+            hybrid & 11.520 & 7.240 & 21.092\\
+            bi-antennary & 15.691 & 12.859 & 20.627\\
+            asialo-bi-antennary & 0.000 & 0.000 & 13.253\\
+            tri-antennary & 21.752 & 21.693 & 21.550\\
+            asialo-tri-antennary & 0.000 & 0.000 & 6.792\\
+            tetra-antennary & 15.993 & 15.276 & 17.452\\
+            asialo-tetra-antennary & 0.000 & 0.000 & 0.000\\
+            penta-antennary & 11.446 & 10.127 & 7.282\\
+            asialo-penta-antennary & 0.000 & 0.000 & 0.000\\
+            hexa-antennary & 2.211 & 0.000 & 0.000\\
+            asialo-hexa-antennary & 0.000 & 0.000 & 0.000\\
+            hepta-antennary & 0.000 & 0.000 & 0.000\\
+            asialo-hepta-antennary & 0.000 & 0.000 & 0.000\\
+            \midrule
+            ${\hat \lambda}$ & 0.99 & 0.99 & 0.99\\
+            ${\hat \gamma}$ & 15.74 & 16.22 & 17.64\\
+            \bottomrule
+        \end{tabular}
+        \caption{Estimated values of smoothing parameters $\tau$, $\lambda$, and $\gamma$ for each
+                 AGP-based dataset and using a combinatorial database \label{tab:agp_parameter_estimates}}
+    \end{table}
+
+    \begin{figure}[tb]
+        \centering
+        \begin{minipage}{1\linewidth}
+            \centering
+            \begin{subfigure}[b]{0.49\linewidth}
+                \includegraphics[width=1\linewidth, valign=t]{figure/native_agp_chromatograms.pdf}
+                \subcaption{
+                    \label{fig:agp_assignment:a}
+                }
+            \end{subfigure}
+            \vspace{0pt}
+            \begin{subfigure}[b]{0.49\linewidth}
+                \includegraphics[width=1\linewidth, valign=b]{figure/native_agp_abundances.pdf}
+                \subcaption{
+                    \label{fig:agp_assignment:b}
+                }
+            \end{subfigure}
+        \end{minipage}
+        \begin{minipage}{1\linewidth}
+            \centering
+            \begin{subfigure}[b]{0.49\linewidth}
+                \includegraphics[width=1\linewidth, valign=t]{figure/dp_agp_chromatograms.pdf}
+                \subcaption{
+                    \label{fig:agp_assignment:c}
+                }
+            \end{subfigure}
+            \vspace{0pt}
+            \begin{subfigure}[b]{0.49\linewidth}
+                \includegraphics[width=1\linewidth, valign=b]{figure/dp_agp_abundances.pdf}
+                \subcaption{
+                    \label{fig:agp_assignment:d}
+                }
+            \end{subfigure}
+        \end{minipage}
+        \begin{minipage}{1\linewidth}
+            \centering
+            \begin{subfigure}[b]{0.49\linewidth}
+                \includegraphics[width=1\linewidth, valign=t]{figure/rp_agp_chromatograms.pdf}
+                \subcaption{
+                    \label{fig:agp_assignment:e}
+                }
+            \end{subfigure}
+            \vspace{0pt}
+            \begin{subfigure}[b]{0.49\linewidth}
+                \includegraphics[width=1\linewidth, valign=b]{figure/rp_agp_abundances.pdf}
+                \subcaption{
+                    \label{fig:agp_assignment:f}
+                }
+            \end{subfigure}
+        \end{minipage}
+        \caption{Chromatogram Assignments for \agp (a, b), \dpagp (c, d) and \rpagp (e, f)
+            \label{fig:agp_assignments}
+        }
+    \end{figure}
+
+
+\subsection{Results for Phil-82}
+
+    We analyzed native and deutero-reduced and permethylated \nglycans released from
+    virions of Influenza-A Virus strain Phillipines 1982. See Table~\ref{tab:phil82_parameter_estimates}
+    for a comparison of estimated $\tau$ values for each sample.
+
+    \begin{table}
+        \centering
+        \small
+        \begin{tabular}{l SS}
+            \toprule
+            $\tau_i$ & {\phil} & {\dpphil}\\
+            \midrule
+            high-mannose & 17.070 & 19.395\\
+            hybrid & 14.039 & 17.147\\
+            bi-antennary & 0.000 & 0.000\\
+            asialo-bi-antennary & 16.287 & 17.689\\
+            tri-antennary & 0.000 & 0.000\\
+            asialo-tri-antennary & 15.220 & 18.865\\
+            tetra-antennary & 0.000 & 0.000\\
+            asialo-tetra-antennary & 7.103 & 7.660\\
+            penta-antennary & 0.000 & 0.000\\
+            
+
+            asialo-penta-antennary & 0.000 & 3.365\\
+            hexa-antennary & 0.000 & 0.000\\
+            asialo-hexa-antennary & 0.000 & 0.000\\
+            hepta-antennary & 0.000 & 0.000\\
+            asialo-hepta-antennary & 0.000 & 0.000\\
+            \midrule
+            ${\hat \lambda}$ & 0.99 & 0.99\\
+            ${\hat \gamma}$ & 16.51 & 15.50\\
+            \bottomrule
+        \end{tabular}
+        \caption{Estimated values of smoothing parameters $\tau$, $\lambda$, and $\gamma$ for each
+                 Phil-82-based dataset and using a combinatorial database \label{tab:phil82_parameter_estimates}}
+    \end{table}
+
+    \begin{figure}[tb]
+        \centering
+        \begin{minipage}{1\linewidth}
+            \centering
+            \begin{subfigure}[b]{0.49\linewidth}
+                \includegraphics[width=1\linewidth, valign=t]{figure/native_phil82_chromatograms.pdf}
+                \subcaption{
+                    \label{fig:phil82_assignment:a}
+                }
+            \end{subfigure}
+            \vspace{0pt}
+            \begin{subfigure}[b]{0.49\linewidth}
+                \includegraphics[width=1\linewidth, valign=b]{figure/native_phil82_abundances.pdf}
+                \subcaption{
+                    \label{fig:phil82_assignment:b}
+                }
+            \end{subfigure}
+        \end{minipage}
+        \begin{minipage}{1\linewidth}
+            \centering
+            \begin{subfigure}[b]{0.49\linewidth}
+                \includegraphics[width=1\linewidth, valign=t]{figure/dp_phil82_chromatograms.pdf}
+                \subcaption{
+                    \label{fig:phil82_assignment:c}
+                }
+            \end{subfigure}
+            \vspace{0pt}
+            \begin{subfigure}[b]{0.49\linewidth}
+                \includegraphics[width=1\linewidth, valign=b]{figure/dp_phil82_abundances.pdf}
+                \subcaption{
+                    \label{fig:phil82_assignment:d}
+                }
+            \end{subfigure}
+        \end{minipage}
+        \caption{Chromatogram Assignments for \phil (a, b) and \dpphil (c, d)
+            \label{fig:phil82_assignments}
+        }
+    \end{figure}
+
+
+\subsection{Results for IGG}
+    
+    \begin{table}
+        \centering
+        \small
+        \begin{tabular}{l S}
+            \toprule
+            $\tau_i$ & {\igg}\\
+            \midrule
+            high-mannose & 0.000\\
+            hybrid & 15.737\\
+            bi-antennary & 12.594\\
+            asialo-bi-antennary & 13.614\\
+            tri-antennary & 7.657\\
+            asialo-tri-antennary & 15.724\\
+            tetra-antennary & 4.252\\
+            asialo-tetra-antennary & 0.000\\
+            penta-antennary & 0.000\\
+            asialo-penta-antennary & 0.000\\
+            hexa-antennary & 0.000\\
+            asialo-hexa-antennary & 0.000\\
+            hepta-antennary & 0.000\\
+            asialo-hepta-antennary & 0.000\\
+            \midrule
+            ${\hat \lambda}$ & 0.99\\
+            ${\hat \gamma}$ & 14.12\\
+            \bottomrule
+        \end{tabular}
+        \caption{Estimated values of smoothing parameters $\tau$, $\lambda$, and $\gamma$ for
+                 IGG using a combinatorial database \label{tab:igg_parameter_estimates}}
+    \end{table}
+
+    \begin{figure}[tb]
+        \centering
+        \begin{minipage}{1\linewidth}
+            \centering
+            \begin{subfigure}[b]{0.49\linewidth}
+                \includegraphics[width=1\linewidth, valign=t]{figure/native_igg_chromatograms.pdf}
+                \subcaption{
+                    \label{fig:igg_assignment:a}
+                }
+            \end{subfigure}
+            \vspace{0pt}
+            \begin{subfigure}[b]{0.49\linewidth}
+                \includegraphics[width=1\linewidth, valign=b]{figure/native_igg_abundances.pdf}
+                \subcaption{
+                    \label{fig:igg_assignment:b}
+                }
+            \end{subfigure}
+        \end{minipage}
+        \caption{Chromatogram Assignments for \igg
+            \label{fig:igg_assignments}
+        }
+    \end{figure}

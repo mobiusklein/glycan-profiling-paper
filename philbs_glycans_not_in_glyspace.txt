@@ -1,0 +1,20 @@
+{@sulfate:1; Fuc:4; Hex:9; HexNAc:8}
+{@sulfate:1; Fuc:1; Hex:4; HexNAc:5}
+{@sulfate:1; Fuc:2; Hex:4; HexNAc:5}
+{Fuc:3; Hex:8; HexNAc:7}
+{@sulfate:1; Fuc:4; Hex:8; HexNAc:7}
+{Hex:10; HexNAc:9}
+{@sulfate:1; Fuc:1; Hex:5; HexNAc:5}
+{@sulfate:1; Fuc:4; Hex:6; HexNAc:5}
+{@sulfate:1; Fuc:1; Hex:5; HexNAc:4}
+{@sulfate:1; Fuc:2; Hex:6; HexNAc:5}
+{@sulfate:1; Fuc:3; Hex:4; HexNAc:5}
+{@sulfate:1; Fuc:3; Hex:6; HexNAc:5}
+{@sulfate:1; Fuc:2; Hex:9; HexNAc:8}
+{Fuc:2; Hex:8; HexNAc:7}
+{@sulfate:1; Fuc:3; Hex:9; HexNAc:8}
+{@sulfate:1; Hex:10; HexNAc:9}
+{@sulfate:1; Hex:5; HexNAc:4}
+{Fuc:4; Hex:8; HexNAc:7}
+{Fuc:3; Hex:7; HexNAc:6}
+{@sulfate:1; Hex:4; HexNAc:5}

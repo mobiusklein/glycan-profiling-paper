@@ -1,0 +1,76 @@
+\section{A more complete derivation of ${\hat \phi}$}\label{sec:phi_hat_derivation}
+
+    To obtain the optimal $\mathbf{\phi}$, we take the partial
+        derivative of $\ell$ w.r.t $\phi_m$
+
+        \begin{align}
+            0 &= \frac{\partial\ell}{\partial\phi_m}\left((\mathbf{s} - \mathbf{\phi_o})^t(\mathbf{s} - \mathbf{\phi_o}) + \lambda
+                \begin{bmatrix}
+                    \phi_o - \tau_o, & \phi_m - \tau_m
+                \end{bmatrix}
+                \begin{bmatrix}
+                    \mathbf{L_{oo}} & \mathbf{L_{om}} \\ \mathbf{L_{mo}} & \mathbf{L_{mm}}
+                \end{bmatrix}
+                \begin{bmatrix}
+                    \phi_o - \tau_o \\ \phi_m - \tau_m
+                \end{bmatrix}\right)\\
+            &= \lambda(\phi_o - \tau_o)^t\mathbf{L_{om}} + \lambda\mathbf{L_{mo}}(\phi_o - \tau_o)
+                 + \lambda(\phi_m - \tau_m)^t(\mathbf{L_{mm}}^t+ \mathbf{L_{mm}}) \nonumber\\
+            &= 2\lambda\mathbf{L_{mo}}(\phi_o - \tau_o) + 2\lambda\mathbf{L_{mm}}(
+                \phi_m - \tau_m) \nonumber\\
+            -\mathbf{L_{mm}}(\phi_m - \tau_m) &= \mathbf{L_{mo}}(\phi_o - \tau_o) \nonumber\\
+            (\phi_m - \tau_m) &= -\mathbf{L_{mm}}^{-1}\mathbf{L_{mo}}(\phi_o - \tau_o) \nonumber\\
+            {\hat \phi_m} &= -\mathbf{L_{mm}}^{-1}\mathbf{L_{mo}}(\phi_o - \tau_o) + \tau_m
+            \label{eqn:estimate_of_phi_m_complete}
+        \end{align}
+
+        \noindent and w.r.t. $\phi_o$
+
+        \begin{align}
+            0 &= \frac{\partial\ell}{\partial\phi_o}\left((\mathbf{s} - \mathbf{\phi_o}
+                )^t(\mathbf{s} - \mathbf{\phi_o}) + \lambda
+                \begin{bmatrix}
+                    \phi_o - \tau_o, & \phi_m - \tau_m
+                \end{bmatrix}
+                \begin{bmatrix}
+                    \mathbf{L_{oo}} & \mathbf{L_{om}} \\ \mathbf{L_{mo}} & \mathbf{L_{mm}}
+                \end{bmatrix}
+                \begin{bmatrix}
+                    \phi_o - \tau_o \\ \phi_m - \tau_m
+                \end{bmatrix}\right)\\
+            &= -2\mathbf{s} + 2\phi_o +\lambda\left(\mathbf{L_{oo}} + \mathbf{L_{oo}}^t\right)(
+                \phi_o - \tau_o) + \lambda\mathbf{L_{om}}(\phi_m - \tau_m) + \lambda\mathbf{
+                L_{mo}}^t(\phi_m - \tau_m) \nonumber\\
+            &= -2\mathbf{s} + 2\phi_o + 2\lambda\mathbf{L_{oo}}( \phi_o - \tau_o) + 2\lambda
+                \mathbf{L_{om}}(\phi_m - \tau_m) \nonumber\\
+            \mathbf{s} &= \phi_o + \lambda\left(\mathbf{L_{oo}}( \phi_o - \tau_o) +
+                \mathbf{L_{om}}(\phi_m - \tau_m)\right) \nonumber\\
+            &= \phi_o + \lambda\left(\mathbf{L_{oo}}( \phi_o - \tau_o) +
+                \mathbf{L_{om}}(-\mathbf{L_{mm}}^{-1}\mathbf{L_{mo}}(
+                \phi_o - \tau_o) + \tau_m - \tau_m)\right) \nonumber\\
+            &= \phi_o + \lambda\left(\mathbf{L_{oo}}(\phi_o - \tau_o) -
+                \mathbf{L_{om}}\mathbf{L_{mm}^{-1}}\mathbf{L_{mo}}(\phi_o - \tau_o)
+                \right) \nonumber\\
+            \mathbf{s} - \tau_o &= \phi_o - \tau_o + \lambda\left(\mathbf{L_{oo}}(\phi_o - \tau_o) -
+                \mathbf{L_{om}}\mathbf{L_{mm}^{-1}}\mathbf{L_{mo}}(\phi_o - \tau_o)
+                \right) \nonumber\\
+            &= \mathbf{I}(\phi_o - \tau_o) + \lambda\left(\mathbf{L_{oo}}(\phi_o - \tau_o) -
+                \mathbf{L_{om}}\mathbf{L_{mm}^{-1}}\mathbf{L_{mo}}(\phi_o - \tau_o)
+                \right) \nonumber\\
+            &= \left[
+                \mathbf{I} + \lambda\left(\mathbf{L_{oo}} -
+                    \mathbf{L_{om}}\mathbf{L_{mm}^{-1}}\mathbf{L_{mo}}
+                \right)
+            \right](\phi_o - \tau_o) \nonumber\\
+            (\phi_o - \tau_o) &= \left[
+                \mathbf{I} + \lambda\left(\mathbf{L_{oo}} -
+                    \mathbf{L_{om}}\mathbf{L_{mm}^{-1}}\mathbf{L_{mo}}
+                \right)
+            \right]^{-1}(\mathbf{s} - \tau_o) \nonumber\\
+            {\hat \phi_o} &= \left[
+                \mathbf{I} + \lambda\left(\mathbf{L_{oo}} -
+                    \mathbf{L_{om}}\mathbf{L_{mm}^{-1}}\mathbf{L_{mo}}
+                \right)
+            \right]^{-1}(\mathbf{s} - \tau_o) + \tau_o
+            \label{eqn:estimate_of_phi_o_complete}
+        \end{align}
