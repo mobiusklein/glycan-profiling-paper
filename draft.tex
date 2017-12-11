@@ -22,7 +22,7 @@
 \hypersetup{
     colorlinks=true,
     linkcolor=blue,
-    filecolor=magenta,      
+    filecolor=magenta,
     urlcolor=cyan,
     citecolor=darkgray
 }
@@ -47,7 +47,7 @@
 
 \newcommand{\reviewfootnote}[1]{\footnote{#1}}
 \externaldocument[S-]{supplement}[supplement.pdf]
- 
+
 \urlstyle{same}
 \usepackage{newfloat}
 \DeclareFloatingEnvironment[placement={!ht},name=List]{ordlist}
@@ -72,16 +72,20 @@ transformations before it can be used to identify biological molecules,
 requiring automated tools to analyze samples in a high throughput setting.
 Existing tools for interpreting the resulting data do not take into account
 related glycans when evaluating individual observations, limiting their sensitivity.
+
 \textbf{Results:} We developed an algorithm for assigning glycan compositions
-from LC-MS data that can use information encoding biosynthetic network
-relationships among glycans using Laplacian regularized least squares,
-and optionally prior information about expected glycan families, built atop
-a set of scoring functions that use glycan chemical properties. Our method
-was able to identify as many, or more glycan compositions compared to
-previous approaches, and demonstrated greater sensitivity with regularization.
-Our network definition was tailored to \nglycans but the method may be applied
-to glycomics data from other glycan families like \textit{O}-glycans or heparan
-sulfate where the relationships between compositions can be expressed as a graph.
+from LC-MS data by exploring biosynthetic network relationships among glycans.
+Our algorithm optimizes a set of likelihood scoring functions based on glycan
+chemical properties but uses network Laplacian regularization and optionally
+prior information about expected glycan families to smooth the likelihood and
+thus achieve a consistent and more representative solution. Our method was able
+to identify as many, or more glycan compositions compared to previous approaches,
+and demonstrated greater sensitivity with regularization. Our network definition
+was tailored to \nglycans but the method may be applied to glycomics data from
+other glycan families like \textit{O}-glycans or heparan sulfate where the
+relationships between compositions can be expressed as a graph.
+
+
 % \textbf{Availability:}
 %     Built Executable: \href{http://www.bumc.bu.edu/msr/glycresoft/} \\
 %     Source Code: \href{https://github.com/BostonUniversityCBMS/glycresoft}

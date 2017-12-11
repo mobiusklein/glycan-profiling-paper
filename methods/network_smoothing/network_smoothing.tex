@@ -1,13 +1,15 @@
 \subsection{Glycan Composition Network Smoothing}
-    Often, the experimental evidence an available for an individual glycan is
-    sufficient to claim that the glycan. Glycan compositions with lower abundances
-    may not present strong evidence, leading to those glycan compositions being
-    discarded. Others have demonstrated that it is advantageous to use relationships
-    between glycans based on biosynthetic or structural rules to adjust the score
-    of a single glycan assignment (\cite{Goldberg2009, Kronewitter2014}). To improve
-    performance, we propose a method based on Laplacian regularized least squares
-    (\cite{Belkin2006}) to use evidence from glycan compositions related over a
-    network to smooth it's evaluation of glycan composition feature matching.
+
+    Ideally, each glycan present in a sample under analysis would produce sufficient
+    experimental evidence that they can be identified. In practice, glycan
+    compositions with lower abundances may not present strong evidence, leading
+    to those glycan compositions being discarded. Others have demonstrated that
+    it is advantageous to use relationships between glycans based on biosynthetic
+    or structural rules to adjust the score of a single glycan assignment
+    (\cite{Goldberg2009, Kronewitter2014}). To improve performance, we propose
+    a method based on Laplacian regularized least squares (\cite{Belkin2006})
+    to use evidence from glycan compositions related over a network to smooth
+    its evaluation of glycan composition feature matching.
 
     \input{methods/network_smoothing/graph_definition}
 
@@ -16,4 +18,4 @@
     \input{methods/network_smoothing/laplacian_regularization}
 
     % \input{methods/network_smoothing/parameter_estimation}
-    
+
