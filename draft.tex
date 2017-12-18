@@ -26,7 +26,7 @@
     urlcolor=cyan,
     citecolor=darkgray
 }
-
+\usepackage{authblk}
 \newcommand{\monosaccharide}[1]{{\bf #1}\xspace}
 \newcommand{\nglycan}[0]{\textit{N}-glycan\xspace}
 \newcommand{\nglycans}[0]{\textit{N}-glycans\xspace}
@@ -57,10 +57,19 @@
 \DeclareMathAlphabet\mathbfcal{OMS}{cmsy}{b}{n}
 \DeclareMathOperator*{\argmin}{arg\,min}
 
-\begin{document}
 
 \title{Application of Network Smoothing to Glycan LC-MS Profiling}
-\author{Joshua Klein, Luis Carvalho, Joseph Zaia}
+\author[1]{Joshua Klein}
+\author[1,2]{Luis Carvalho}
+\author[1,3]{Joseph Zaia}
+\affil[1]{Program for Bioinformatics, Boston University}
+\affil[2]{Department of Math and Statistics, Boston University}
+\affil[3]{Department of Biochemistry, Boston University}
+
+\begin{document}
+
+\maketitle
+
 \begin{abstract}
 \textbf{Motivation:} Glycosylation is one of the most heterogeneous
 and complex protein post-translational modifications. Liquid chromatography
@@ -85,15 +94,15 @@ was tailored to \nglycans but the method may be applied to glycomics data from
 other glycan families like \textit{O}-glycans or heparan sulfate where the
 relationships between compositions can be expressed as a graph.
 
+\textbf{Availability:}
+    Built Executable: \href{http://www.bumc.bu.edu/msr/glycresoft/}{http://www.bumc.bu.edu/msr/glycresoft/} \\
+    Source Code: \href{https://github.com/BostonUniversityCBMS/glycresoft}{
+    https://github.com/BostonUniversityCBMS/glycresoft}
 
-% \textbf{Availability:}
-%     Built Executable: \href{http://www.bumc.bu.edu/msr/glycresoft/} \\
-%     Source Code: \href{https://github.com/BostonUniversityCBMS/glycresoft}
-% \textbf{Contact:}
-%     \href{mailto:jzaia@bu.edu}{jzaia@bu.edu}
+\textbf{Contact:}
+    \href{mailto:jzaia@bu.edu}{jzaia@bu.edu}
 \end{abstract}
 
-\maketitle
 
 \input{introduction/introduction}
 
@@ -102,6 +111,9 @@ relationships between compositions can be expressed as a graph.
 \input{results/results}
 
 \input{discussion/discussion}
+
+\section{Acknowledgements}
+    This work was supported by National Institute of Health 1U01CA221234
 
 
 \bibliographystyle{natbib}

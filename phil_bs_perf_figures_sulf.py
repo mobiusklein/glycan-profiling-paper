@@ -38,7 +38,7 @@ deserializers = {
 
 print("Loading Datasets")
 gcs_map = {
-    key: trace.ChromatogramFilter(value.query(serialize.GlycanCompositionChromatogram))
+    key: chromatogram_tree.ChromatogramFilter(value.query(serialize.GlycanCompositionChromatogram))
     for key, value in deserializers.items()
 }
 
@@ -124,7 +124,7 @@ plt.savefig("figure/sulfated_phil_bs_native_prec_rec.pdf", bbox_inches='tight')
 
 
 print("Drawing EIC")
-und = trace.ChromatogramFilter(
+und = chromatogram_tree.ChromatogramFilter(
     deserializers['combinatorial_partial'].query(serialize.UnidentifiedChromatogram).filter(
         serialize.UnidentifiedChromatogram.analysis_id == deserializers['combinatorial_partial'].analysis_id).all())
 
@@ -144,7 +144,12 @@ composition_abundance_plot.ax.set_title("Total Abundance", fontsize=18)
 composition_abundance_plot.ax.set_xlabel(
     composition_abundance_plot.ax.get_xlabel().replace("@sulfate", 'SO3'), fontsize=16)
 composition_abundance_plot.ax.set_ylabel(
-    composition_abundance_plot.ax.get_ylabel(), fontsize=16)
+    "Relative Abundance", fontsize=16)
+xtick_labels = composition_abundance_plot.ax.get_xticklabels()
+for label in xtick_labels:
+    label.set_fontsize(7.5)
+composition_abundance_plot.ax.set_xticklabels(xtick_labels)
+
 fig = composition_abundance_plot.ax.figure
 fig.savefig("figure/sulfated_phil_bs_native_abundances.pdf", bbox_inches='tight')
 

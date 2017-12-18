@@ -88,29 +88,13 @@
         overlap to express broad relationships between groups.
 
         We define a matrix $\mathbf{A}$ as an $n \times k$ matrix where
-        $A_{i, k}$ to be the degree to which $g_i$ belongs $k$th neighborhood:
-
+        $A_{i, k}$ is the degree to which $g_i$ belongs $k$th neighborhood:
         \begin{align}
             A_{i, k} &= \frac{1}{|\text{neighborhood}_k|}\sum_{
                 g^* \in \text{neighborhood}_k}{L_1(g_i, g^*)}
         \end{align}
-
-        % The stated reduction is not well tested, and the change
-        % may well be minimal because all that really happens is
-        % the weight of the column for each row is weighted by a
-        % shrinking function of column size. It may be better if
-        % we don't manipulate A at all.
-
         To reduce the impact of neighborhood size on the elements
         of $\mathbf{A}$, the columns of $\mathbf{A}$ are first
         normalized to sum to 1, and then the rows of $\mathbf{A}$
-        are normalized to sum to 1\reviewfootnote{
-            The stated reduction is not well tested, and the change
-            may well be minimal because all that really happens is
-            the weight of the column for each row is weighted by a
-            shrinking function of column size. It may be better if
-            we don't manipulate A at all.
-        }.
-
-        We assume that members of the same neighborhood will
-        share a central tendency, $\mathbf{\tau}$.
+        are normalized to sum to 1. We assume that members of the
+        same neighborhood will share a central tendency $\mathbf{\tau}$.

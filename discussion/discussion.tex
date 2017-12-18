@@ -38,7 +38,7 @@
     matches, but also lacked some of these more fucosylated and complex compositions. Some of the
     compositions included by the \glyspace-derived database were lower scoring, but the chosen
     value of $\gamma$ for that database was greater than 18, causing the fitted values of $\mathbf{\tau}$
-    omit the larger, less abundant complex-type \nglycans. This caused smoothing to lower the scores
+    to omit the larger, less abundant complex-type \nglycans. This caused smoothing to lower the scores
     of these real matches rather than raise them, as with the \textit{Combinatorial + Sulfate} database.
 
     As we show in Figure~\ref{fig:rpserum_perf}, regularization improves the
@@ -47,12 +47,12 @@
     caused by ammonium adduction as shown in Figure~\ref{fig:rpserum_assignment:c} makes a
     direct comparison of composition assignment lists difficult. Our algorithm requires a minimum
     amount of MS1 information in order to compute a score, which some of the assignments in the
-    original published results do not possess, which are omitted from the count in Table~
+    original published results do not possess, and are omitted from the count in Table~
     \ref{tab:serum_statistics}. After accounting for ambiguity, we were able to assign all
     of the compositions previously reported using the Krambeck database, which was used
     by \cite{Yu2013}, and with the combinatorial database. The \glyspace-derived database did not
     contain all of these compositions, but performed competitively with the combinatorial
-    database's ROC AUC. The combinatorial database contained a small number of glycan compositions
+    database's ROC AUC. The combinatorial database matched a small number of glycan compositions
     which were not in Krambeck but which were consistent with other glycan compositions
     observed nearby in retention time. The combinatorial database also benefited most
     substantially from smoothing, discarding many false positives while retaining many more
