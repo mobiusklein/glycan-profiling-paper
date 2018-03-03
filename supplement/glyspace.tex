@@ -1,4 +1,32 @@
+
 \section{glySpace Integration and Upload}\label{sec:glyspace_integration_and_upload}
+
+    We extracted \nglycan structures from GlyTouCan Query Endpoint (http://ts.glytoucan.org/sparql) using the SPARQL query
+
+    \begin{verbatim}
+    SELECT DISTINCT ?saccharide ?glycoct ?motif WHERE {
+        ?saccharide a glycan:saccharide .
+        ?saccharide glycan:has_glycosequence ?sequence .
+        ?saccharide skos:exactMatch ?gdb .
+        ?gdb glycan:has_reference ?ref .
+        ?ref glycan:is_from_source ?source .
+        ?source glycan:has_taxon ?taxon
+        FILTER CONTAINS(str(?sequence), "glycoct") .
+        ?sequence glycan:has_sequence ?glycoct .
+        ?saccharide glycan:has_motif ?motif .
+        FILTER(?motif in (glycoinfo:G00026MO))
+    }
+    \end{verbatim} and converted each structure into a glycan composition, followed
+    by substituent separation for sulfated and phosphorylated monosaccharides, and
+    filtering out compositions containing units not in \textbf{[Hex, HexNAc, Fuc, Neu5Ac, sulfate]}.
+    This procedure is implemented in Python in the included ``glyspace\_extract\_nglycans.py'' script.
+
+    Note that lines 4-7 restricts the query to only compositions which were in Glycome-DB which came
+    from externally curated sources with taxonomic information, though it is not limited to human \nglycans
+    specifically. If these lines are omitted, the query will return over 800 compositions, compared to
+    the expected 275, but the additional compositions will not have been curated. The precise number of
+    compositions returned by this modified query is not fixed as GlyTouCan is a living database, accepting new
+    submissions.
 
     We converted our \nglycan compositions into partially determined topologies
     assuming that the chitobios core was present to ensure that they were classified

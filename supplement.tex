@@ -18,16 +18,8 @@
 \usepackage{xspace}
 \usepackage{siunitx}
 % \usepackage{xr}
+% \usepackage{hyperref}
 \usepackage{xr-hyper}
-\usepackage{hyperref}
-\hypersetup{
-    colorlinks=true,
-    linkcolor=blue,
-    filecolor=magenta,
-    urlcolor=cyan,
-    citecolor=darkgray
-}
-\urlstyle{same}
 \usepackage{newfloat}
 \DeclareFloatingEnvironment[placement={!ht},name=List]{ordlist}
 
@@ -56,10 +48,12 @@
 
 \newcommand{\reviewfootnote}[1]{\footnote{#1}}
 
-\externaldocument[P-]{draft}[draft.pdf]
+\externaldocument[P-]{formatted}[formatted.pdf]
 \begin{document}
 
 \tableofcontents
+
+\include{supplement/sample_description}
 
 \include{supplement/chromatographic_feature_evaluation}
 
@@ -74,6 +68,8 @@
 \include{supplement/serum_differences_commentary}
 
 \include{supplement/glyspace}
+
+\include{supplement/simulation_of_thresholds}
 
 \bibliographystyle{natbib}
 \bibliography{bibliography}

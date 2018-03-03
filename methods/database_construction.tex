@@ -14,12 +14,17 @@
 
     Starting with the core motif \textbf{HexNAc2 Hex3}, we generated all combinations of
     monosaccharides ranging between the limits in Table~\ref{tab:glycan_composition_rules}
-    to build a glycan composition database, which produced 1240 distinct compositions. To
-    perform a side-by-side comparison we also extracted the glycan list from \cite{Yu2013}
+    to build a human \nglycan composition database, which produced 1240 distinct compositions.
+    \reviewchange{
+    These rules are able to efficiently generate all glycan compositions from canonical branching
+    patterns and lactosamine extensions, as well as rarer constructs such as LacdiNAc} \cite{Goldberg2009}
+    \reviewchange{at the cost of including some wholly improbable compositions.
+    }
+    To perform a side-by-side comparison we also extracted the glycan list from \cite{Yu2013}
     derived from the biosynthetic rules in \cite{Krambeck2005} with 319 compositions, and
-    another database using all \nglycans from GlyTouCan (\cite{Tiemeyer2017}) containing only
-    \textbf{[Hex, HexNAc, Fuc, Neu5Ac, sulfate]}, with 275 distinct compositions. As previous
-    analysis of Influenza A virus samples detected sulfated \nglycans (\cite{Khatri2016a}),
+    another database using all curated \nglycans from \glyspace via GlyTouCan (\cite{Tiemeyer2017})
+    containing only \textbf{[Hex, HexNAc, Fuc, Neu5Ac, sulfate]}, with 275 distinct compositions. As
+    previous analysis of Influenza A virus samples detected sulfated \nglycans (\cite{Khatri2016a}),
     we also created a combinatorial database with up to one sulfate included, for a total
     of 2480 compositions. As our algorithm treats \textbf{HexNAc} and \textbf{HexNAc(S)}
     as distinct entities, for all monosaccharides with post-attachment substituents such
@@ -29,9 +34,9 @@
     wide range of possible glycan compositions.
 
     \begin{table}[tb]
-        \small
+        \scriptsize
         \centering
-        \caption{Glycan Composition Rule Table}\label{tab:glycan_composition_rules}
+        \caption{\reviewchange{Human} \nglycan Composition Bounds \cite{Stanley2009}}\label{tab:glycan_composition_rules}
         \begin{threeparttable}
         \begin{tabular}{c | c | c | c}
             \toprule

@@ -6,79 +6,43 @@
         shown in Table~\ref{tab:neighborhood_definitions}. These neighborhoods are
         arranged to span particular epitopes or biosynthetically related
         subtypes of \nglycans, such as sialylation state or branching
-        pattern.
+        pattern. \reviewchange{Neighborhoods overlap sets of glycan compositions which are also
+        biosynthetically related. Each neighborhood spans the eponymous class of
+        glycan compositions, as well as the preceding class and proceeding class.
+        For example, For example, the Tri-Antennary neighborhood spans Bi-Antennary
+        Tetra-Antennary compositions. This helps to channel the estimation of}
+        $\mathbf{\tau}$ \reviewchange{among related groups.
+        The Hybrid, Bi-Antennary and Asialo-Bi-Antennary neighborhoods introduce
+        complications because they are biosynthetically close to each other. For the
+        simplicity, we chose to include all of Hybrid in Asialo-Bi-Antennary
+        and permit up to one NeuAc in it.}
 
         \begin{table}[tb]
-            \centering
-            \small
-            \begin{tabular}[h]{l p{8cm}}
+            \scriptsize
+            \begin{tabular}{l |S|S| S|S| S|S| S}
                 \toprule
-                Name & Bounds \\
+                \multirow{3}{*}{Name} & \multicolumn{2}{c|}{HexNAC} & \multicolumn{2}{c|}{Hex} & \multicolumn{2}{c|}{NeuAc} & \reviewchange{Size} \\
+                                      &  {Min}        &    {Max}   &     {Min}   &    {Max}  &     {Min}     &    {Max}  &      \\
                 \midrule
-                High Mannose & $\monosaccharide{HexNAc} = 2 \land
-                                \monosaccharide{Hex} \in [3, 10]
-                                \land \monosaccharide{NeuAc} = 0$\\
-                Hybrid & $\monosaccharide{HexNAc} \in [2, 4] \land
-                          \monosaccharide{Hex} \in [2, 6]
-                          \land \monosaccharide{NeuAc} \in [0, 2]$\\
-                Bi-Antennary & $\monosaccharide{HexNAc} \in [3, 5]
-                                \land \monosaccharide{Hex} \in [3, 6]
-                                \land \monosaccharide{NeuAc} \in [1, 3]$\\
-                Asialo-Bi-Antennary & $\monosaccharide{HexNAc} \in [3, 5]
-                                \land \monosaccharide{Hex} \in [3, 6]
-                                \land \monosaccharide{NeuAc} \in [0, 1]$\\
-                Tri-Antennary & $
-                    \monosaccharide{HexNAc} \in [4, 6]
-                    \land \monosaccharide{Hex} \in [4, 7]
-                    \land \monosaccharide{NeuAc} \in [1, 4]
-                $\\
-                Asialo-Tri-Antennary & $
-                    \monosaccharide{HexNAc} \in [4, 6]
-                    \land \monosaccharide{Hex} \in [4, 7]
-                    \land \monosaccharide{NeuAc} \in [0, 0]
-                $\\
-                Tetra-Antennary & $
-                    \monosaccharide{HexNAc} \in [5, 7]
-                    \land \monosaccharide{Hex} \in [5, 8]
-                    \land \monosaccharide{NeuAc} \in [1, 5]
-                $\\
-                Asialo-Tetra-Antennary & $
-                    \monosaccharide{HexNAc} \in [5, 7]
-                    \land \monosaccharide{Hex} \in [5, 8]
-                    \land \monosaccharide{NeuAc} \in [0, 0]
-                $\\
-                Penta-Antennary & $
-                    \monosaccharide{HexNAc} \in [6, 8]
-                    \land \monosaccharide{Hex} \in [6, 9]
-                    \land \monosaccharide{NeuAc} \in [1, 5]
-                $\\
-                Asialo-Penta-Antennary & $
-                    \monosaccharide{HexNAc} \in [6, 8]
-                    \land \monosaccharide{Hex} \in [6, 9]
-                    \land \monosaccharide{NeuAc} \in [0, 0]
-                $\\
-                Hexa-Antennary & $
-                    \monosaccharide{HexNAc} \in [7, 9]
-                    \land \monosaccharide{Hex} \in [7, 10]
-                    \land \monosaccharide{NeuAc} \in [1, 6]
-                $\\
-                Asialo-Hexa-Antennary & $
-                    \monosaccharide{HexNAc} \in [7, 9]
-                    \land \monosaccharide{Hex} \in [7, 10]
-                    \land \monosaccharide{NeuAc} \in [0, 0]
-                $\\
-                Hepta-Antennary & $
-                    \monosaccharide{HexNAc} \in [8, 10]
-                    \land \monosaccharide{Hex} \in [8, 11]
-                    \land \monosaccharide{NeuAc} \in [1, 7]
-                $\\
-                Asialo-Hepta-Antennary & $
-                    \monosaccharide{HexNAc} \in [8, 10]
-                    \land \monosaccharide{Hex} \in [8, 11]
-                    \land \monosaccharide{NeuAc} \in [0, 0]
-                $
+                High Mannose          &     2         &     2      &       3     &     10    &       0       &      0    &  16 \\
+                Hybrid                &     2         &     4      &       2     &     6     &       0       &      2    &  80 \\
+                Bi-Antennary          &     3         &     5      &       3     &     6     &       1       &      3    &  104\\
+                Asialo-Bi-Antennary   &     3         &     5      &       3     &     6     &       0       &      1    &  96 \\
+                Tri-Antennary         &     4         &     6      &       4     &     7     &       1       &      4    &  172\\
+                Asialo-Tri-Antennary  &     4         &     6      &       4     &     7     &       0       &      0    &  56 \\
+                Tetra-Antennary       &     5         &     7      &       5     &     8     &       1       &      5    &  240\\
+                Asialo-Tetra-Antennary&     5         &     7      &       5     &     8     &       0       &      0    &  60\\
+                Penta-Antennary       &     6         &     8      &       6     &     9     &       1       &      5    &  280\\
+                Asialo-Penta-Antennary&     6         &     8      &       6     &     9     &       0       &      0    &  60\\
+                Hexa-Antennary        &     7         &     9      &       7     &     10    &       1       &      6    &  300\\
+                Asialo-Hexa-Antennary &     7         &     9      &       7     &     10    &       0       &      0    &  60\\
+                Hepta-Antennary       &     8         &     10     &       8     &     11    &       1       &      7    &  150\\
+                Asialo-Hepta-Antennary&     8         &     10     &       8     &     11    &       0       &      0    &  30\\
+                \bottomrule
             \end{tabular}
-            \caption{N-Glycan Neighborhoods}
+            \caption{N-Glycan Neighborhood Definitions. These define the ranges of monosaccharides which
+            will be used to classify a glycan composition as being a member of each neighborhood, and the number
+            of \textit{Combinatorial} \nglycan compositions in each neighborhood.}
             \label{tab:neighborhood_definitions}
         \end{table}
 

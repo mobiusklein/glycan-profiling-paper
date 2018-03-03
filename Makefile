@@ -17,6 +17,14 @@ draft: $(FIGURES) supplement.pdf
 	pdflatex draft.tex
 	pdflatex draft.tex
 
+
+formatted:
+	pdflatex formatted.tex
+	bibtex formatted
+	pdflatex formatted.tex
+	pdflatex formatted.tex
+
+
 layout:
 	pdflatex draft.tex
 
@@ -30,5 +38,6 @@ sup:
 clean:
 	@rm -f draft.pdf draft.aux draft.blg draft.bbl draft.log draft.out
 	@rm -f supplement.pdf supplement.aux supplement.blg supplement.bbl supplement.log supplement.out
+	@rm -f formatted.pdf formatted.aux formatted.blg formatted.bbl formatted.log formatted.out
 
 FIGURES =

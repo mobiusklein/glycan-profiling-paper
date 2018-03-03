@@ -1,4 +1,14 @@
     \subsubsection{Laplacian Regularization}
+        \reviewchange{
+        To accomplish our goal, we can use Laplacian regularized
+        least squares to find a new score $\phi$, based upon $s$
+        and relationships among the observed glycans described by
+        our biosynthetic graph $\mathcal{G}$. These relationships
+        can be directed to move towards some central tendency $\tau$
+        using the Laplacian of $\mathcal{G}$ and some definitions of
+        broad groups in $\mathcal{G}$.
+        }
+
         % Lacking citations for the fundamentals of this material
         We combine the observed score $\mathbf{s}$ and the structure
         of $\mathcal{G}$ to estimate a smoothed score $\mathbf{\phi}$
@@ -36,7 +46,7 @@
         placed on the network structure and $\tau$.
 
         To obtain the optimal $\mathbf{\phi}$, we take the partial
-        derivative of $\ell$ w.r.t $\phi_m$
+        derivative of $\ell$ w.r.t $\phi_m$:
 
         \begin{align}
             0 &= \frac{\partial\ell}{\partial\phi_m}\left((\mathbf{s} - \mathbf{\phi_o})^t(\mathbf{s} - \mathbf{\phi_o}) + \lambda
@@ -63,7 +73,7 @@
         To use this method, we must provide values for $\lambda$ and $\mathbf{\tau}$.
         While these values could be chosen based on the expectations of the user for
         a given experiment, we provide an algorithm for selecting their values in Section
-        S~\ref{S-sec:laplacian_regularization_parameter_estimation}.
+        S~\sref{S-sec:laplacian_regularization_parameter_estimation}.
         These methods use the topology of the glycan composition graph and the
         distribution of observed scores, and cannot fully capture boundary cases
         or related but disconnected parts of the graph.

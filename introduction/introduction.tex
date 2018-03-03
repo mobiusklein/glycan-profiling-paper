@@ -31,7 +31,7 @@ vocabulary of possible monosaccharides to just those commonly found in that subg
 (\cite{Yu2013,Kronewitter2014,Peltoniemi2013,Goldberg2009}). Often, these tools are
 tailored for analysis of a particular derivatization state, adduction conditions, or
 neutral loss pattern (\cite{Yu2013,Peltoniemi2013,Maxwell2012}). Work has been done
-to construct a standardized namespace and representation for glycans, including both
+to construct a standardized namespace and representation for glycans, \glyspace, including both
 structures and compositions (\cite{Tiemeyer2017,Campbell2014}). This data is publicly
 accessible, including a programmatic query interface using SPARQL over HTTPS (
 \cite{Aoki-Kinoshita2015}). Tools that can communicate with these services have the
@@ -67,4 +67,7 @@ landscape which we term ``neighborhoods'', and present an algorithm for learning
 importance of each neighborhood from observed data, which can in turn be used to
 improve glycan composition assignment performance. We also apply our method using
 three different glycan composition search spaces to show how the underlying database
-can influence results.
+can influence results. We present our method on typical \nglycans in humans, though our
+method can be applied to any variety of glycan composition whose monosaccharides can be
+described using IUPAC trivial names or or whose components can be described in terms of
+chemical formulae.

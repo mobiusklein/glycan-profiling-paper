@@ -1,0 +1,126 @@
+\documentclass{bioinfo}
+\usepackage{amsmath}
+\usepackage{breakcites}
+\usepackage{natbib}
+\usepackage{mathtools}
+\usepackage{mathrsfs}
+\usepackage{graphicx}
+\usepackage{subcaption}
+% \usepackage[bottom]{footmisc}
+\usepackage[export]{adjustbox}
+\usepackage{soul}
+\usepackage{multicol}
+\usepackage{threeparttable}
+\usepackage{booktabs}
+\usepackage{xspace}
+\usepackage{siunitx}
+\usepackage{multirow}
+\usepackage{xr-hyper}
+\usepackage{authblk}
+
+\DeclareRobustCommand{\reviewchange}[1]{\hl{#1}}
+\newcommand{\monosaccharide}[1]{{\bf #1}\xspace}
+\newcommand{\nglycan}[0]{\textit{N}-glycan\xspace}
+\newcommand{\nglycans}[0]{\textit{N}-glycans\xspace}
+
+\newcommand{\msn}[0]{$MS^n$}
+\newcommand{\glyspace}[0]{glySpace\xspace}
+
+% Sample Name Shortcuts
+\newcommand{\agp}[0]{\textit{20150930-06-AGP}\xspace}
+\newcommand{\phil}[0]{\textit{20141031-07-Phil-82}\xspace}
+\newcommand{\philbs}[0]{\textit{20141103-02-Phil-BS}\xspace}
+\newcommand{\igg}[0]{\textit{20151002-02-IGG}\xspace}
+\newcommand{\dpphil}[0]{\textit{20141128-11-Phil-82}\xspace}
+\newcommand{\dpagp}[0]{\textit{AGP-DR-Perm-glycans-1}\xspace}
+\newcommand{\rpagp}[0]{\textit{AGP-permethylated-2ul-inj-55-SLens}\xspace}
+\newcommand{\rphumanserum}[0]{\textit{Perm-BS-070111-04-Serum}\xspace}
+\newcommand{\rpserum}[0]{\textit{Perm-BS-070111-04-Serum}\xspace}
+
+\newcommand{\sref}[1]{\ref{#1}}
+
+\externaldocument[S-]{supplement}[supplement.pdf]
+
+\usepackage{newfloat}
+\DeclareFloatingEnvironment[placement={!ht},name=List]{ordlist}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\DeclareMathAlphabet\mathbfcal{OMS}{cmsy}{b}{n}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\copyrightyear{2018} \pubyear{2018}
+
+\access{Advance Access Publication Date: Day Month Year}
+\appnotes{Original Paper}
+
+\begin{document}
+\firstpage{1}
+
+\subtitle{Systems Biology}
+
+\title{Application of Network Smoothing to Glycan LC-MS Profiling}
+\author[1]{Joshua Klein}
+\author[1,2]{Luis Carvalho}
+\author[1,3,$\ast$]{Joseph Zaia}
+\affil[1]{Program for Bioinformatics, Boston University}
+\affil[2]{Department of Math and Statistics, Boston University}
+\affil[3]{Department of Biochemistry, Boston University}
+\address{$^{\text{\sf 1}}$Program for Bioinformatics, Boston University, Boston, Post Code, USA}
+
+\corresp{$^\ast$To whom correspondence should be addressed.}
+
+\history{Received on XXXXX; revised on XXXXX; accepted on XXXXX}
+
+\editor{Associate Editor: XXXXXXX}
+
+
+\abstract{\textbf{Motivation:} Glycosylation is one of the most heterogeneous
+and complex protein post-translational modifications. Liquid chromatography
+coupled mass spectrometry (LC-MS) is a common high throughput method for
+analyzing complex biological samples. Accurate study of glycans require
+high resolution mass spectrometry. Mass spectrometry data contains
+intricate sub-structures that encode mass and abundance, requiring several
+transformations before it can be used to identify biological molecules,
+requiring automated tools to analyze samples in a high throughput setting.
+Existing tools for interpreting the resulting data do not take into account
+related glycans when evaluating individual observations, limiting their sensitivity.\\
+\textbf{Results:} We developed an algorithm for assigning glycan compositions
+from LC-MS data by exploring biosynthetic network relationships among glycans.
+Our algorithm optimizes a set of likelihood scoring functions based on glycan
+chemical properties but uses network Laplacian regularization and optionally
+prior information about expected glycan families to smooth the likelihood and
+thus achieve a consistent and more representative solution. Our method was able
+to identify as many, or more glycan compositions compared to previous approaches,
+and demonstrated greater sensitivity with regularization. Our network definition
+was tailored to \nglycans but the method may be applied to glycomics data from
+other glycan families like \textit{O}-glycans or heparan sulfate where the
+relationships between compositions can be expressed as a graph.\\
+\textbf{Availability:}\\
+Built Executable: \href{http://www.bumc.bu.edu/msr/glycresoft/}{http://www.bumc.bu.edu/msr/glycresoft/} \\
+Source Code: \href{https://github.com/BostonUniversityCBMS/glycresoft}{
+https://github.com/BostonUniversityCBMS/glycresoft}\\
+\textbf{Contact:}\\
+\href{mailto:jzaia@bu.edu}{jzaia@bu.edu}
+}
+
+\maketitle
+
+
+\input{introduction/introduction}
+
+\input{methods/methods}
+
+\input{results/results}
+
+\input{discussion/discussion}
+
+
+\section{Acknowledgements}
+    This work was supported by National Institute of Health 1U01CA221234
+
+
+\bibliographystyle{natbib}
+\bibliography{bibliography}
+
+\end{document}

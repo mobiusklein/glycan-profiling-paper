@@ -1,0 +1,7 @@
+Hex 3   10
+HexNAc  2   9
+Fuc 0   4
+NeuAc   0   5
+
+HexNAc > Fuc
+HexNAc - 1 > NeuAc

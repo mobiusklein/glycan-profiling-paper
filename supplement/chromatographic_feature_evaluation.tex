@@ -1,5 +1,5 @@
 \section{Chromatographic Feature Evaluation}\label{sec:feature_evaluation}
-    For each candidate feature, we computed several statistics to estimate how distinguishable
+    For each candidate feature, we computed several metrics to estimate how distinguishable
     the observed signal was from random noise. We use the following quantities from each LC-MS
     feature:
 
@@ -32,8 +32,8 @@
     \end{table}
     \renewcommand{\arraystretch}{1.0}
 
-    All features are penalized by an $\epsilon = 1e-6$ to prevent scores from actually achieving
-    a value of 1.0 which would make the logit value infinite. If a feature's value would be less
+    All metrics are penalized by an $\epsilon = 1e-6$ to prevent scores from actually achieving
+    a value of 1.0 which would make the logit value infinite. If a metric's value would be less
     than $0 + \epsilon$, it is given a value of $\epsilon$ instead to prevent the logit value from
     being undefined.
 
@@ -69,7 +69,7 @@
         pair of maxima to split the feature at. The strategy which produces the maximum $\mathscr{L}_i$
         is chosen. $\mathscr{L}_i$ is bounded in $(-\infty, 1]$, where $1$ corresponds to a perfect
         fit, and 0 would correspond to the peak shape fit being no better than the OLS straight line
-        fit. This feature is thresholded at 0.15, with any chromatogram scoring below 0.15 being
+        fit. This metric is thresholded at 0.15, with any chromatogram scoring below 0.15 being
         discarded as having insufficient peak shape evidence to interpret.
 
     \subsection{Composition Dependent Charge State Distribution}
@@ -94,14 +94,14 @@
             \mathscr{C}_i &= \sum_{c_{i, j} \in \mathbf{c}_i}{P(c_{i, j}, m_i)}
         \end{align}
         where $w$ is the width of the mass bin divided by 10 and $P(c, m)$ is defined as
-        part of the model estimation procedure. If the model is complete, then this feature is
+        part of the model estimation procedure. If the model is complete, then this metric is
         bounded within $[0, 1]$ where 0 corresponds to having no observed charge states and 1
         corresponds to all expected charge states being observed. In practice, the model is not
         complete, where an existing mass range may be missing a charge state in which case
         $P(c, m)$ is the average over all known values of $c$ in $m$. When a mass range is
         required but missing from the model, the model will fall back to a naive model where
-        $P(c, m) = 0.4 \ \forall \ c$ and as such this feature must be clamped to not exceed
-        1.0. This feature has no minimum value threshold below which chromatograms are discarded.
+        $P(c, m) = 0.4 \ \forall \ c$ and as such this metric must be clamped to not exceed
+        1.0. This metric has an exceptional threshold of 0.05 instead of 0.15.
 
         \begin{figure}
             \centering
@@ -126,10 +126,10 @@
         \end{align}
         We fit an ammonium adduction model on \textit{AGP-permethylated-2ul-inj-55-SLens}
         in order to make our comparison to third-party data less biased given limited sample data.
-        This feature is bounded within $[0, 1]$ where 0 corresponds to having no observed adduction
+        This metric is bounded within $[0, 1]$ where 0 corresponds to having no observed adduction
         states within the model and 1 corresponds to all observing all adduction states in the model.
-        This feature follows the same behavior as the charge state distribution feature w.r.t. missing
-        information within the model, but will reject chromatograms when this feature score is below 0.15.
+        This metric follows the same behavior as the charge state distribution metric w.r.t. missing
+        information within the model, but will reject chromatograms when this metric score is below 0.15.
 
         We fit a sialylation-aware formate adduction model on a collection of sialylated and unsialylated
         native \nglycan samples from replicates of the \agp, \igg, and \phil datasets. This model was used
@@ -156,10 +156,10 @@
         or an averagine interpolated for $\mathcal{M}_i$ if ${\hat g}_i =$ \O and any mass shifting molecular
         adduct or neutral loss for the matched peak. This computes a per-peak intensity weighted mean
         G-test comparing the goodness of fit between the experimental envelope and the theoretical
-        isotopic pattern. This feature is bounded within $(-\infty, \infty)$ as the G-test achieves
+        isotopic pattern. This metric is bounded within $(-\infty, \infty)$ as the G-test achieves
         its optimal value at 0, and can take on extreme values towards either signed $\infty$, however
         because of the previous deconvolution process, in practice it cannot take on such extreme
-        values and is bounded within $(-\infty, 1]$. This feature is thresholded at 0.15, with any
+        values and is bounded within $(-\infty, 1]$. This metric is thresholded at 0.15, with any
         chromatogram scoring below 0.15 being discarded as having insufficient isotopic consistency
         to interpret.
 
@@ -171,17 +171,17 @@
             \mathscr{T}_i &= 1 - 2\mathbfcal{I}_i^{-t}\mathbf{I}_i\sum_{j=1}^J\mathbfcal{I}_{i, j}
                              f\left(d_i\left(\mathbf{t}_{i, j} - \mathbf{t}_{i, j - 1}\right)\right)
         \end{align}
-        As this feature depends heavily on the speed of the mass spectrometer, a scaling function $f$
+        As this metric depends heavily on the speed of the mass spectrometer, a scaling function $f$
         must be estimated from the total ion chromatogram to reduce the penalty on slower instruments.
         When $\frac{1}{J}\sum_{j}^{J}{T_j - T_{j - 1}} > 0.2$, $f(x) = x / \left(\frac{1}{J}
-        \sum_{j}^{J}{T_j - T_{j - 1}} * 15\right)$, otherwise $f(x) = x$. This feature is bounded within
+        \sum_{j}^{J}{T_j - T_{j - 1}} * 15\right)$, otherwise $f(x) = x$. This metric is bounded within
         $(-\infty, 1]$ as $\left(\mathbf{t}_{i, j} - \mathbf{t}_{i, j - 1}\right)$ is always positive.
-        This feature is thresholded at 0.15, with any chromatogram scoring below 0.15 being discarded
+        This metric is thresholded at 0.15, with any chromatogram scoring below 0.15 being discarded
         as having insufficient detection consistency to interpret.
 
     \subsection{Summarization Score}
-        Each scoring feature $\in \left[\mathscr{L}_i, \mathscr{C}_i, \mathscr{I}_i,
-        \mathscr{T}_i\right]$ is penalized by $\epsilon = 1\mathrm{e}{-6}$ bounded in
+        Each scoring metric $\in \left[\mathscr{L}_i, \mathscr{C}_i, \mathscr{I}_i,
+        \mathscr{T}_i, \mathscr{A}_i\right]$ is penalized by $\epsilon = 1\mathrm{e}{-6}$ bounded in
         the range $[0, 1)$, with values below 0 set to $\epsilon$.
         \begin{align}
             s_i &= \sum_{f_{i,j} \in \text{features}_i}{\ln{
@@ -190,5 +190,18 @@
             }
         \end{align}
         producing a value between $(-\infty, \infty)$. $s_i < 8$ reflects multiple
-        poor feature scores and is unexpected to be real, while $s_i > 15$ is
+        poor scores and is unexpected to be real, while $s_i > 15$ is
         consistent with model expectations.
+
+\begin{table}
+        \caption{Score Thresholds}\label{tbl:feature_score_thresholds}
+        \centering
+        \begin{tabular}{l | S}
+            \hline
+            Chromatographic Peak Shape & 0.15 \\
+            Charge State Distribution & 0.05 \\
+            Adduction Frequency & 0.15 \\
+            Isotopic Pattern Consistency & 0.15 \\
+            Observation Spacing & 0.15 \\
+        \end{tabular}
+    \end{table}

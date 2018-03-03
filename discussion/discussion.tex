@@ -44,7 +44,7 @@
     As we show in Figure~\ref{fig:rpserum_perf}, regularization improves the
     predictive performance of the identification algorithm on \rpserum for all databases.
     We reproduce the majority of the glycan assignments from \cite{Yu2013}, but the ambiguity
-    caused by ammonium adduction as shown in Figure~\ref{fig:rpserum_assignment:c} makes a
+    caused by ammonium adduction as shown in Figure~\ref{fig:rpserum_assignments} makes a
     direct comparison of composition assignment lists difficult. Our algorithm requires a minimum
     amount of MS1 information in order to compute a score, which some of the assignments in the
     original published results do not possess, and are omitted from the count in Table~
@@ -75,12 +75,12 @@
     too large a database, but not a too small one.
 
     In this work, we used the same network neighborhood imposed over different underlying sets of
-    composition nodes, and the connectivity of those networks did not take into account the biosynthetic
-    process. It may be possible to obtain better performance by defining network connectivity according
-    to enzymatic relationships. This may also alter how the neighborhoods are defined and how $\mathbf{A}$
-    is parameterized, and in turn how $\mathbf{\tau}$ is learned. Similarly, this procedure depends upon
-    the scoring functions used, so selecting another set of functions for the data to fit may lead
-    to different parameter values.
+    composition nodes, and the connectivity of those networks did not take into account the constraints
+    of the biosynthetic process. It may be possible to obtain better performance by defining network
+    connectivity according to concrete enzymatic relationships. This may also alter how the neighborhoods
+    are defined and how $\mathbf{A}$ is parameterized, and in turn how $\mathbf{\tau}$ is learned.
+    Similarly, this procedure depends upon the scoring functions used, so selecting another set of
+    functions for the data to fit may lead to different parameter values.
 
     Lastly, while these case studies have demonstrated the algorithm's ability to learn network parameters
     from the data, an expert can define $\mathbf{\tau}$ and $\mathbf{A}$ themselves or obtain a model fitted
@@ -93,7 +93,7 @@
     including producing standard-compliant textual representations of these structures and compositions.
     We produced a text file containing all of the glycan compositions found in the Krambeck and Combinatorial
     database but not the \glyspace-derived database in the above samples (see supplemental information
-    \ref{S-sec:glyspace_integration_and_upload}),
+    \sref{S-sec:glyspace_integration_and_upload}),
     and have submit it to GlyTouCan (\cite{Tiemeyer2017}) for registration so that future researchers can
     use these structures.
 

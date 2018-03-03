@@ -1,7 +1,7 @@
 \section{Results}
 We demonstrated the performance of our algorithm using released influenza hemagglutinin
-data set \philbs \ and a serum glycan data set\rphumanserum. Please refer to section
-S\ref{S-sec:algorithm_performance} for all other datasets. For each comparison, the
+data set \philbs \ and a serum glycan data set \rphumanserum. Please refer to section
+S\sref{S-sec:algorithm_performance} for all other datasets. For each comparison, the
 unregularized case is not smoothed, effectively $\lambda = 0$, the partially regularized
 case uses the grid search fitted values of $\mathbf{\tau}$ but uses a fixed $\lambda = 0.2$,
 and the fully regularized case uses the grid search fitted values of both $\mathbf{\tau}$
@@ -18,14 +18,14 @@ and $\lambda$.
     (\cite{Stanley2009,Khatri2016a}).
 
     \begin{table}[tb]
-        \centering
-        \small
+        \tiny
         \begin{tabular}{l SSSSSS}
             \toprule
-            \multirow{2}{*}{Neighborhood $\tau$} &
+            \multirow{3}{*}{Neighborhood $\tau$} &
                 \multicolumn{3}{c}{Phil-BS} &
                 \multicolumn{3}{c}{Serum} \\
-                & {Combinatorial + Sulfate} & {\glyspace} & {Krambeck} & {Combinatorial} & {\glyspace} & {Krambeck}\\
+                & {Combinatorial +} & {\glyspace} & {Krambeck} & {Combinatorial} & {\glyspace} & {Krambeck}\\
+                & {Sulfate}                 &             &            &                 &             & \\
             \midrule
             high-mannose           & 18.008 & 15.061 & 17.089 & 20.328 & 19.392 & 19.720\\
             hybrid                 & 13.440 & 12.435 & 12.503 & 20.997 & 18.610 & 20.056\\
@@ -49,31 +49,49 @@ and $\lambda$.
         \caption{Estimated values of smoothing parameters $\tau$, $\lambda$, and $\gamma$ for each
                  dataset and database\label{tab:parameter_estimates}}
     \end{table}
-
+    \hfill
     \begin{figure}[tb]
         \caption{Chromatogram Assignments and Quantification
                  for \philbs Using the \textit{Combinatorial + Sulfate} database.
-                 \label{fig:philbs_assignments}}
+                 \label{fig:philbs_assignments}. The Retention Time (Min) axis shows
+                 the retention time in minutes from the experiment, and the Relative
+                 Abundance axis shows the intensity of the signal from the particular
+                 aggregated ion species for each analyte. The identified glycan compositions
+                 are labeled with a tuple describing the number of each component of the form
+                 [\monosaccharide{HexNAc}, \monosaccharide{Hex}, \monosaccharide{Fuc},
+                  \monosaccharide{NeuAc}, \monosaccharide{SO3}]}
         \centering
         \includegraphics[width=0.45\textwidth,valign=t]{figure/sulfated_phil_bs_native_chromatograms.pdf}
         \includegraphics[width=0.45\textwidth,valign=t]{figure/sulfated_phil_bs_native_abundances.pdf}
     \end{figure}
-
-    \begin{figure}[tb]
+    \hfill
+    \begin{figure}[htb]
         \caption{Performance Comparison with and without Network Smoothing for \philbs
-                 \label{fig:philbs_perf}}
+                 \label{fig:philbs_perf}. The Receiver Operator Characteristic Curve (ROC)
+                 comparing True Positive Rate (TPR) to False Positive Rate (FPR) shows how
+                 each database performed under different regularization conditions, summarized
+                 with the Area Under the Curve (AUC) in the legend. The \textit{Combinatorial + Sulfate}
+                 database showed the best performance, and improved with regularization.}
         \centering
         \includegraphics[width=0.45\textwidth,valign=t]{figure/sulfated_phil_bs_native_roc.pdf}
-        \includegraphics[width=0.45\textwidth,valign=t]{figure/sulfated_phil_bs_native_prec_rec.pdf}
+        % \includegraphics[width=0.45\textwidth,valign=t]{figure/sulfated_phil_bs_native_prec_rec.pdf}
     \end{figure}
 
-    \begin{table}[tb]
-        \small
+    The comparison of assignment performance with differing degrees of smoothing for each database
+    are shown in Figure~\ref{fig:philbs_perf} and Table \ref{tab:philbs_statistics}. \reviewchange{We used
+    the Receiver Operator Characteristic (ROC) Area Under the Curver (AUC) to measure performance,
+    using manually validated compositions as ground truth}. We observed the greatest number of
+    assignments using the \textit{Combinatorial + Sulfate} database, and the greatest ROC AUC in
+    the partially regularized condition.
+
+    \begin{table}[!htb]
+        \scriptsize
         \centering
         \begin{threeparttable}
-            \begin{tabular}{l S c}
+            \begin{tabular}{p{4.1cm} S c}
                 \toprule
-                Name & {ROC AUC} & True Matches \tnote{1} \\
+                Name & ROC\ AUC & True Matches\tnote{1} \\
+                     % & AUC & Matches\\
                 \midrule
                 Combinatorial Unregularized & \PhilBSStatsCombinatorialUnregularizedROCAUC &
                                               \PhilBSStatsCombinatorialUnregularizedTotal \\
@@ -99,51 +117,36 @@ and $\lambda$.
             \begin{tablenotes}
                 \item[1] Selected at $\phi_o > 5.0$
             \end{tablenotes}
-            \caption{Performance Comparison for \philbs\label{tab:philbs_statistics}}
+            \captionof{table}{Performance Comparison for \philbs\label{tab:philbs_statistics}, using
+            \reviewchange{Receiver Operator Characteristic (ROC) Area Under the Curver (AUC)}. The Combinatorial Partial
+            Regularization approach performed best.}
         \end{threeparttable}
     \end{table}
-
-    The comparison of assignment performance with differing degrees of smoothing for each database
-    are shown in Figure~\ref{fig:philbs_perf} and Table \ref{tab:philbs_statistics}. We observed the
-    greatest number of assignments using the combinatorial database including sulfate.
 
 \subsection{Chromatogram Assignment Performance for \rpserum}
     The fitted parameters for the network constructed for \rpserum are shown in
     Table~\ref{tab:parameter_estimates}. The assigned chromatograms are shown in
     Figure~\ref{fig:rpserum_assignments}.
 
-    \begin{figure}[tb]
+    \begin{figure}[htb]
+        \caption{Performance Comparison with and without Network Smoothing for \rpserum
+                 \label{fig:rpserum_perf}. The Receiver Operator Characteristic Curve (ROC)
+                 comparing True Positive Rate (TPR) to False Positive Rate (FPR) shows how
+                 each database performed under different regularization conditions, summarized
+                 with the Area Under the Curve (AUC) in the legend}
         \centering
-        \begin{minipage}{1\linewidth}
-            \centering
-            \includegraphics[width=1\linewidth, valign=t]{figure/rp_serum_chromatograms.pdf}
-            \subcaption{
-                % Features Assigned After Grid Regularization of \rpserum.
-                \label{fig:rpserum_assignment:a}
-            }
-        \end{minipage}
-        \begin{minipage}{1\linewidth}
-            \centering
-            \begin{subfigure}[t]{0.49\linewidth}
-                \includegraphics[width=1\linewidth, valign=b]{figure/fucosylated_tetra_antennary_structures.pdf}
-                \subcaption{
-                    % Low scoring features which may be discarded based on individual evidence alone
-                    % may be more reasonable to accept given evidence from related composition, such
-                    % as our network smoothing method.
-                    \label{fig:rpserum_assignment:b}
-                }
-            \end{subfigure}
-            \vspace{0pt}
-            \begin{subfigure}[t]{0.49\linewidth}
-                \includegraphics[width=1\linewidth, valign=b]{figure/ammonium_adduct_ambiguity.pdf}
-                \subcaption{
-                    % This sample contains heavy ammonium adduction which introduces ambiguity
-                    % in intact mass based assignments.
-                    \label{fig:rpserum_assignment:c}
-                }
-            \end{subfigure}
-        \end{minipage}
-        \caption{Chromatogram Assignments for \rpserum
+        \includegraphics[width=0.45\textwidth,valign=t]{figure/serum_roc.pdf}
+        % \includegraphics[width=0.45\textwidth,valign=t]{figure/serum_prec_rec.pdf}
+    \end{figure}
+
+    \begin{figure}[tb]
+        \includegraphics[width=0.5\textwidth, valign=t]{figure/rp_serum_chromatogram_details.pdf}
+        \caption{Chromatogram Assignments for \rpserum. In all panels, the Retention Time (Min) axis shows
+            the retention time in minutes from the experiment, and the Relative
+            Abundance axis shows the intensity of the signal from the particular
+            aggregated ion species for each analyte. The identified glycan compositions
+            are labeled with a tuple describing the number of each component of the form
+            [\monosaccharide{HexNAc}, \monosaccharide{Hex}, \monosaccharide{Fuc}, \monosaccharide{NeuAc}]
             (a) Features Assigned After Grid Regularization of \rpserum (b) Low scoring features
             which may be discarded based on individual evidence alone may be more reasonable to accept
             given evidence from related composition, such as our network smoothing method (c) This sample
@@ -152,30 +155,12 @@ and $\lambda$.
         }
     \end{figure}
 
-    \begin{figure}[htb]
-        \caption{Performance Comparison with and without Network Smoothing for \rpserum
-                 \label{fig:rpserum_perf}}
-        \centering
-        \includegraphics[width=0.45\textwidth,valign=t]{figure/serum_roc.pdf}
-        \includegraphics[width=0.45\textwidth,valign=t]{figure/serum_prec_rec.pdf}
-    \end{figure}
-
-    The comparison of assignment performance with differing degrees of smoothing is
-    shown in Figure~\ref{fig:rpserum_perf}. We observe the greatest number of total true
-    identifications using the partially regularized Combinatorial database. However, the
-    Combinatorial database also has many more false positives, with a ROC AUC of \SerumCombinatorialPartialROCAUC.
-    These false positives do not appear in the biosynthetically constraind Krambeck database
-    which maximizes its ROC AUC in the partially regularized condition at \SerumKrambeckPartialROCAUC.
-    After removing all ambiguous matches, the Krambeck database also has nearly the same
-    number of true matches as the Combinatorial database.
-
-    \begin{table}
-        \small
-        \centering
+    \begin{table}[!htb]
+        \scriptsize
         \begin{threeparttable}
-            \begin{tabular}{l S c c}
+            \begin{tabular}{p{3cm} S c c}
                 \toprule
-                Name & {ROC AUC} & True Matches \tnote{1} & Non-Ambiguous Matches\\
+                Name & ROC AUC & True Matches\tnote{1} & Non-Ambiguous Matches\\
                 \midrule
                 Combinatorial Unregularized & \SerumCombinatorialUnregularizedROCAUC &
                                               \SerumCombinatorialUnregularizedTotal &
@@ -209,9 +194,21 @@ and $\lambda$.
             \end{tabular}
             \begin{tablenotes}
                 \item[1] Selected at $\phi_o > 5.0$
-                \item[2] This count only includes those cases where sufficient MS1 scans were available
-                         for a direct comparison
+                \item[2] Only includes cases with sufficient MS1 scans available
+                         for comparison
             \end{tablenotes}
-            \caption{Performance Comparison for \rpserum\label{tab:serum_statistics}}
         \end{threeparttable}
+        \captionof{table}{Performance Comparison for \rpserum\label{tab:serum_statistics}, using
+            \reviewchange{Receiver Operator Characteristic (ROC) Area Under the Curver (AUC)} and number of non-ambiguous
+            matches. While the Krambeck database had a better ROC AUC, the Combinatorial database had more
+            true matches.}
     \end{table}
+
+    The comparison of assignment performance with differing degrees of smoothing is
+    shown in Figure~\ref{fig:rpserum_perf}. We observe the greatest number of total true
+    identifications using the partially regularized Combinatorial database. However, the
+    Combinatorial database also has many more false positives, with a ROC AUC of \SerumCombinatorialPartialROCAUC.
+    These false positives do not appear in the biosynthetically constraind Krambeck database
+    which maximizes its ROC AUC in the partially regularized condition at \SerumKrambeckPartialROCAUC.
+    After removing all ambiguous matches, the Krambeck database also has nearly the same
+    number of true matches as the Combinatorial database.

@@ -11,10 +11,30 @@
     to use evidence from glycan compositions related over a network to smooth
     its evaluation of glycan composition feature matching.
 
+    % new material per reviewer request
+    \reviewchange{
+    Previous approaches to using information regarding identification of one
+    glycan composition to increase the confidence in another have been proposed
+    by} \cite{Goldberg2009} and \cite{Kronewitter2014} \reviewchange{using different techniques.
+    Goldberg et al. used random walks along the biosynthetic network between identified
+    glycan compositions to increase the confidence of those connected compositions. This
+    method works well but requires that the parameters of the random walk be properly tuned
+    for the biosynthetic network being used. Laplacian regularized least squares is more
+    robust to small changes to the network and is able to use the entire network. Kronwitter
+    et al. included a term in their criterion for detection requiring the presence of another
+    glycan composition with one more or one less monosaccharide to permit identification. This
+    puts substantial weight on a boolean term, giving it the ability to overrule other
+    experimental evidence. Similar methods could be devised using methods like ant colony
+    optimization to traverse the biosynthetic graph, or a a database-specific belief network,
+    but these methods would require considerable manual tuning for each new database to be
+    tested.}
+
     \input{methods/network_smoothing/graph_definition}
 
     \input{methods/network_smoothing/neighborhood_definition}
 
     \input{methods/network_smoothing/laplacian_regularization}
 
+    % this section is far too long to include in the main text
+    % so it is included in the supplement instead
     % \input{methods/network_smoothing/parameter_estimation}

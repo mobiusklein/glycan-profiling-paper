@@ -1,6 +1,13 @@
 \documentclass{article}
 \usepackage{amsmath}
-\usepackage[margin=0.5in]{geometry}
+% \usepackage[margin=0.5in]{geometry}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
 \usepackage{breakcites}
 \usepackage{natbib}
 \usepackage{mathtools}
@@ -17,8 +24,8 @@
 \usepackage{xspace}
 \usepackage{siunitx}
 \usepackage{multirow}
-\usepackage{xr-hyper}
 \usepackage{hyperref}
+\usepackage{xr-hyper}
 \hypersetup{
     colorlinks=true,
     linkcolor=blue,
@@ -46,6 +53,7 @@
 \newcommand{\rpserum}[0]{\textit{Perm-BS-070111-04-Serum}\xspace}
 
 \newcommand{\reviewfootnote}[1]{\footnote{#1}}
+\newcommand{\sref}[1]{\ref{#1}}
 \externaldocument[S-]{supplement}[supplement.pdf]
 
 \urlstyle{same}

@@ -1,42 +1,14 @@
 \subsection{LC-MS Data Preprocessing}
-    We analyzed samples from several sources, including both QTOF and Orbitrap
-    instruments as shown in Table \ref{tab:sample_overview}. For details on sample preparation
-    and data acquisition, please see the source citations. We converted all
-    datasets to mzML format (\cite{Martens2011}) using Proteowizard
-    (\cite{Kessner2008}) without any data transforming filters. We applied a background reduction
-    method based upon (\cite{Kaur2006}), using a window length of 2 m/z. Next, we picked peaks using
-    a simple Gaussian model and iteratively charge state deconvoluted and deisotoped using an
-    averagine (\cite{Senko1995}) formula appropriate to the molecule under study. For native
-    glycans, the formula was \textbf{H 1.690 C 1.0 O 0.738 N 0.071}, for permethylated glycans,
-    the formula was \textbf{H 1.819 C 1.0 O 0.431 N 0.042}. We used an iterative approach which combines
-    aspects of the dependence graph method (\cite{Liu2010}) and with subtraction. All samples
-    were processed using a minimum isotopic fit score of 20 with an isotopic strictness penalty
+    We analyzed samples from several sources, including both Quadrupole Time-of-Flight (QTOF) and
+    Orbitrap instruments as shown in Table S\sref{S-tab:sample_overview}. For details on sample preparation
+    and data acquisition, please see the source citations in the referenced table. We converted all
+    datasets to mzML format (\cite{Martens2011}) using Proteowizard (\cite{Kessner2008}) without
+    any data transforming filters. We applied a background reduction method based upon (\cite{Kaur2006}),
+    using a window length of 2 m/z. Next, we picked peaks using a Gaussian model and iteratively charge
+    state deconvoluted and deisotoped using an averagine (\cite{Senko1995}) formula appropriate to the
+    molecule under study. For native glycans, the formula was \textbf{H 1.690 C 1.0 O 0.738 N 0.071},
+    for permethylated glycans, the formula was \textbf{H 1.819 C 1.0 O 0.431 N 0.042}. We used an iterative
+    approach which combines aspects of the dependence graph method (\cite{Liu2010}) and with subtraction.
+    All samples were processed using a minimum isotopic fit score of 20 with an isotopic strictness penalty
     of 2.
 
-    \begin{table}
-        \caption{Samples Used}\label{tab:sample_overview}
-        \small
-        \centering
-        \begin{threeparttable}
-        \begin{tabular}{p{4.1cm} | c | p{3cm} | p{3cm} | c}
-            \toprule
-            Sample Name & Instrument & Derivatization & Adduction & Source\\
-            \midrule
-            20150930-06-AGP & QTOF & Native & Formate (1) & \cite{Khatri2016a}\\
-            20141031-07-Phil-82 & QTOF & Native & Formate (3) & \cite{Khatri2016a}\\
-            20141103-02-Phil-BS & QTOF & Native & Formate (3) & \cite{Khatri2016a}\\
-            20151002-02-IGG & QTOF & Native & Formate (2) & \cite{Khatri2016b}\\
-            20141128-11-Phil-82\tnote{1} & QTOF &
-                Deutero-reduced and Permethylated & Ammonium (3) & \cite{Khatri2016a}\\
-            AGP-DR-Perm-glycans-1\tnote{1} & Orbitrap &
-                Deutero-reduced and Permethylated & Ammonium (3) & \cite{Khatri2016a}\\
-            AGP-permethylated-2ul-inj-55-SLens\tnote{1} & Orbitrap &
-                Reduced and Permethylated & Ammonium (3) & \cite{Khatri2016a}\\
-            Perm-BS-070111-04-Serum\tnote{1} & Orbitrap &
-                Reduced and Permethylated & Ammonium (3) & \cite{Yu2013,Hu2012}\\
-        \end{tabular}
-        \begin{tablenotes}
-            \item[1] Included $MS^n$ Scans
-        \end{tablenotes}
-        \end{threeparttable}
-    \end{table}
