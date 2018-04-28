@@ -6,16 +6,15 @@
     to those glycan compositions being discarded. Others have demonstrated that
     it is advantageous to use relationships between glycans based on biosynthetic
     or structural rules to adjust the score of a single glycan assignment
-    (\cite{Goldberg2009, Kronewitter2014}). To improve performance, we propose
-    a method based on Laplacian regularized least squares (\cite{Belkin2006})
+    (\citealp{Goldberg2009, Kronewitter2014}). To improve performance, we propose
+    a method based on Laplacian regularized least squares (\citealp{Belkin2006})
     to use evidence from glycan compositions related over a network to smooth
     its evaluation of glycan composition feature matching.
 
     % new material per reviewer request
-    \reviewchange{
     Previous approaches to using information regarding identification of one
     glycan composition to increase the confidence in another have been proposed
-    by} \cite{Goldberg2009} and \cite{Kronewitter2014} \reviewchange{using different techniques.
+    by \citealp{Goldberg2009} and \citealp{Kronewitter2014} using different techniques.
     Goldberg et al. used random walks along the biosynthetic network between identified
     glycan compositions to increase the confidence of those connected compositions. This
     method works well but requires that the parameters of the random walk be properly tuned
@@ -27,7 +26,7 @@
     experimental evidence. Similar methods could be devised using methods like ant colony
     optimization to traverse the biosynthetic graph, or a a database-specific belief network,
     but these methods would require considerable manual tuning for each new database to be
-    tested.}
+    tested.
 
     \input{methods/network_smoothing/graph_definition}
 

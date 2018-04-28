@@ -6,22 +6,22 @@
         shown in Table~\ref{tab:neighborhood_definitions}. These neighborhoods are
         arranged to span particular epitopes or biosynthetically related
         subtypes of \nglycans, such as sialylation state or branching
-        pattern. \reviewchange{Neighborhoods overlap sets of glycan compositions which are also
+        pattern. Neighborhoods overlap sets of glycan compositions which are also
         biosynthetically related. Each neighborhood spans the eponymous class of
         glycan compositions, as well as the preceding class and proceeding class.
-        For example, For example, the Tri-Antennary neighborhood spans Bi-Antennary
-        Tetra-Antennary compositions. This helps to channel the estimation of}
-        $\mathbf{\tau}$ \reviewchange{among related groups.
+        For example, the Tri-Antennary neighborhood spans Bi-Antennary and
+        Tetra-Antennary compositions. This helps to channel the estimation of
+        $\mathbf{\tau}$ among related groups.
         The Hybrid, Bi-Antennary and Asialo-Bi-Antennary neighborhoods introduce
         complications because they are biosynthetically close to each other. For the
         simplicity, we chose to include all of Hybrid in Asialo-Bi-Antennary
-        and permit up to one NeuAc in it.}
+        and permit up to one NeuAc  \reviewchange{in its members.}
 
         \begin{table}[tb]
             \scriptsize
             \begin{tabular}{l |S|S| S|S| S|S| S}
                 \toprule
-                \multirow{3}{*}{Name} & \multicolumn{2}{c|}{HexNAC} & \multicolumn{2}{c|}{Hex} & \multicolumn{2}{c|}{NeuAc} & \reviewchange{Size} \\
+                \multirow{3}{*}{Name} & \multicolumn{2}{c|}{HexNAC} & \multicolumn{2}{c|}{Hex} & \multicolumn{2}{c|}{NeuAc} & {Size} \\
                                       &  {Min}        &    {Max}   &     {Min}   &    {Max}  &     {Min}     &    {Max}  &      \\
                 \midrule
                 High Mannose          &     2         &     2      &       3     &     10    &       0       &      0    &  16 \\
@@ -42,7 +42,7 @@
             \end{tabular}
             \caption{N-Glycan Neighborhood Definitions. These define the ranges of monosaccharides which
             will be used to classify a glycan composition as being a member of each neighborhood, and the number
-            of \textit{Combinatorial} \nglycan compositions in each neighborhood.}
+            of \textit{combinatorial} \nglycan compositions in each neighborhood.}
             \label{tab:neighborhood_definitions}
         \end{table}
 

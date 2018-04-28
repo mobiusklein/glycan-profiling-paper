@@ -1,49 +1,49 @@
 \section{Introduction}
 
 Glycosylation modulates the structures and functions of proteins and lipids
-in a broad class of biological processes (\cite{Varki2017}). Accurate mass
+in a broad class of biological processes (\citealp{Varki2017}). Accurate mass
 measurement defines monosaccharide composition given assumptions regarding
-glycan class and biosynthesis (\cite{Zaia2008}). For unseparated mixtures,
+glycan class and biosynthesis (\citealp{Zaia2008}). For unseparated mixtures,
 mass spectrometry analysis determines the mass-to-charge ratio values for
 only the most abundant glycans; dynamic range for detection of glycans is
-poor because of ion suppression (\cite{Peltoniemi2013}). By contrast, online
+poor because of ion suppression (\citealp{Peltoniemi2013}). By contrast, online
 separations coupled with mass spectrometry improve dynamic range and
 reproducibility of glycan analysis, at the cost of increased analysis time
 and workflow complexity.
 
-There are many tools for interpreting glycan mass spectral datasets (
-\cite{Yu2013,Peltoniemi2013,Kronewitter2014,Goldberg2009,Maxwell2012,Ceroni2008,Frank2010})
+There are many tools for interpreting glycan mass spectral datasets
+(\citealp{Yu2013,Peltoniemi2013,Kronewitter2014,Goldberg2009,Maxwell2012,Ceroni2008,Frank2010})
 for both unseparated and separated experimental protocols. These programs address
 instrument-specific signal processing requirements. For example SysBioWare
-(\cite{Frank2010}) performs sophisticated baseline removal prior to fitting
-peaks, while GlyQ-IQ (\cite{Kronewitter2014}) was written for cleaner Fourier Transform
+(\citealp{Frank2010}) performs sophisticated baseline removal prior to fitting
+peaks, while GlyQ-IQ (\citealp{Kronewitter2014}) was written for cleaner Fourier Transform
 MS (FTMS) that does not require such a baseline removal step. Tools that build on
-the THRASH implementation from Decon2LS (\cite{Jaitly2009,Yu2013,Maxwell2012})
+the THRASH implementation from Decon2LS (\citealp{Jaitly2009,Yu2013,Maxwell2012})
 are unable to deal with variable baseline noise or extreme dynamic range.
 
 Each tool also has its own format for defining glycan structures or compositions,
 some even bundling a large database with their software to remove the burden from
-the user to build a list of candidates themselves (\cite{Yu2013,Kronewitter2014,Goldberg2009})
+the user to build a list of candidates themselves (\citealp{Yu2013,Kronewitter2014,Goldberg2009})
 while others define methods for building glycan databases as part of the program (
-\cite{Maxwell2012,Ceroni2008}). Many of these tools are designed for specific glycan
+\citealp{Maxwell2012,Ceroni2008}). Many of these tools are designed for specific glycan
 subclass such as \nglycans or glycosaminoglycans and/or organisms, limiting their
 vocabulary of possible monosaccharides to just those commonly found in that subgroup
-(\cite{Yu2013,Kronewitter2014,Peltoniemi2013,Goldberg2009}). Often, these tools are
+(\citealp{Yu2013,Kronewitter2014,Peltoniemi2013,Goldberg2009}). Often, these tools are
 tailored for analysis of a particular derivatization state, adduction conditions, or
-neutral loss pattern (\cite{Yu2013,Peltoniemi2013,Maxwell2012}). Work has been done
+neutral loss pattern (\citealp{Yu2013,Peltoniemi2013,Maxwell2012}). Work has been done
 to construct a standardized namespace and representation for glycans, \glyspace, including both
-structures and compositions (\cite{Tiemeyer2017,Campbell2014}). This data is publicly
+structures and compositions (\citealp{Tiemeyer2017,Campbell2014}). This data is publicly
 accessible, including a programmatic query interface using SPARQL over HTTPS (
-\cite{Aoki-Kinoshita2015}). Tools that can communicate with these services have the
+\citealp{Aoki-Kinoshita2015}). Tools that can communicate with these services have the
 potential to lead researchers to find deeper connections from cross-referenced information,
 and other researchers can more readily find and use their work.
 
 These spectral processing and glycan library properties are reflected in the
 scoring function that each program uses to discriminate glycan signal from
 the background noise and contaminants. Several methods have been developed
-using different facets of the observed data. \cite{Yu2013} used the isotopic pattern
-goodness-of-fit while \cite{Peltoniemi2013} used intensity features of associated \msn
-scans to evaluate partial structure and composition match quality. \cite{Kronewitter2014} combined
+using different facets of the observed data. \citealp{Yu2013} used the isotopic pattern
+goodness-of-fit while \citealp{Peltoniemi2013} used intensity features of associated \msn
+scans to evaluate partial structure and composition match quality. \citealp{Kronewitter2014} combined
 several features of the $MS^1$ evidence, including elution profile peak shape goodness-of-fit,
 isotopic fit, mass accuracy, scan count, and in-source fragmentation correlation. Some of these methods
 are well-defined and invariant from instrument to instrument in this era of high resolution
@@ -53,13 +53,13 @@ or facility in acquiring adducts, which can increase the number of spurious assi
 considered. We propose a new scoring function which is able to combine those properties which
 are independent of experimental setup with these glycan-aware features.
 
-As observed by \cite{Goldberg2009}, there is also value in including related glycan
+As observed by \citealp{Goldberg2009}, there is also value in including related glycan
 composition identifications in how much confidence one assigns to a given glycan
 composition assignment. They used a method to exploit the known biosynthetic rules of
-\nglycans to connect peaks in a MALDI spectrum assigned to a particular \nglycan by
+\nglycans to connect peaks in a MALDI mass spectrum assigned to a particular \nglycan by
 intact mass alone. Their method using the maximum weighted subgraph of the biosynthetic
 network had demonstrably better performance than chance with their expert system annotation
-method. \cite{Kronewitter2014} considered a similar idea with more emphasis on handling
+method. \citealp{Kronewitter2014} considered a similar idea with more emphasis on handling
 in-source fragmentation observed in LC-MS and LC-MS/MS experiments.
 
 We extend this notion of a glycan family to cover more sectors of the biosynthetic
@@ -69,5 +69,32 @@ improve glycan composition assignment performance. We also apply our method usin
 three different glycan composition search spaces to show how the underlying database
 can influence results. We present our method on typical \nglycans in humans, though our
 method can be applied to any variety of glycan composition whose monosaccharides can be
-described using IUPAC trivial names or or whose components can be described in terms of
+described using IUPAC trivial names or whose components can be described in terms of
 chemical formulae.
+
+\reviewchange{This method is implemented as part of, \texttt{GlycReSoft},
+a collection of open source tools for interpretation of glycans and glycopeptides from
+LC-MS or LC-MS/MS data. It includes programs to construct glycan databases from either
+a text file enumerating all compositions, combinatorial constraints describing the space
+of glycan compositions, and by querying GlyTouCan. These glycans can be combined with
+arbitrary reduction and derivatization modifications. \texttt{GlycReSoft} can also combine these
+glycan databases with peptides to produce glycopeptide databases. \texttt{GlycReSoft} also
+contains a deconvolution program to convert raw mass spectra stored in mzML or mzXML from
+an LC-MS or LC-MS/MS experiment files into a mzML file containing monoisotopic
+peak and charge states for each observed isotopic pattern. The deconvolution algorithm
+is able to handle both the noise commonly found in TOF spectra as well as the isotopic
+pattern truncation characteristic of Orbitrap spectra. Lastly it includes a search
+engine for identifying these fitted neutral masses as either glycans or glycopeptides
+from a database with combinatorial composition shifts to detect adducts,
+neutral losses, or other chemical modifications not already part of the database. We
+further incorporate adduction into the scoring process, treating it as another
+feature of the data as it is unavoidable, rather than treating it purely as a confounding
+factor. These features make the program more flexible and robust than the
+previously cited works} (\citealp{Yu2013,Peltoniemi2013,Kronewitter2014}) \reviewchange{
+and we demonstrate these abilities by interpreting native, permethylated, reduced, and
+deutero-reduced samples from both QTOF and Orbitrap instruments. \texttt{GlycReSoft} is
+composed of a set of command line tools and provides a GUI that composes them. The GUI
+is powered by a web server which can be deployed on a network to allow multiple users
+to access its features and can leverage multiple CPUs. The tools are all written in
+Python and C, licensed under the Apache2 Common License. For more details, please see
+the documentation at }\href{http://www.bumc.bu.edu/msr/glycresoft/}{http://www.bumc.bu.edu/msr/glycresoft/}

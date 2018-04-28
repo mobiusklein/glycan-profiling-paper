@@ -64,11 +64,11 @@
     the predicted residual error sum of squares (PRESS) statistic.
 
     \begin{align}
-        \argmin_{\tilde \lambda} & \frac{\mathbf{s - {\hat \phi_o}}}{\left(
-            1 - \left(
+        \mathbf{e} &= \mathbf{s - {\hat \phi_o}}\\
+        \mathbf{H} &= \left(
                 \mathbf{I} + {\tilde \lambda}\mathbf{L}
-            \right)^{-1}
-        \right)^2}
+            \right)^{-1}\\
+        \argmin_{\tilde \lambda} & \sum_{i}^{n}{\left(\frac{e_i}{1 - h_{i,i}}\right)^2}
     \end{align}
 
         This formulation depends upon the value of \textbf{s} and is

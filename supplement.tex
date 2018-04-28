@@ -21,6 +21,7 @@
 % \usepackage{hyperref}
 \usepackage{xr-hyper}
 \usepackage{newfloat}
+\usepackage[section]{placeins}
 \DeclareFloatingEnvironment[placement={!ht},name=List]{ordlist}
 
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
@@ -51,9 +52,18 @@
 \externaldocument[P-]{formatted}[formatted.pdf]
 \begin{document}
 
+\title{Application of Network Smoothing to Glycan LC-MS Profiling}
+\author{Joshua Klein, Luis Carvalho, Joseph Zaia}
+
+\maketitle
+
 \tableofcontents
 
+\clearpage
+
 \include{supplement/sample_description}
+
+\include{supplement/database_comparison}
 
 \include{supplement/chromatographic_feature_evaluation}
 

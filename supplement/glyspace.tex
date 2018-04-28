@@ -4,6 +4,10 @@
     We extracted \nglycan structures from GlyTouCan Query Endpoint (http://ts.glytoucan.org/sparql) using the SPARQL query
 
     \begin{verbatim}
+    PREFIX glycan: <http://purl.jp/bio/12/glyco/glycan#>
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    PREFIX glycoinfo: <http://rdf.glycoinfo.org/glycan/>
+
     SELECT DISTINCT ?saccharide ?glycoct ?motif WHERE {
         ?saccharide a glycan:saccharide .
         ?saccharide glycan:has_glycosequence ?sequence .

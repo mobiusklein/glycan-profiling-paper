@@ -51,3 +51,6 @@ matplotlib_venn.venn3((combinatorial, krambeck, glyspace), set_labels=("Combinat
 ax = plt.gca()
 ax.set_title("$N$-Glycan Database Overlaps")
 fig.savefig("venndiagram.pdf")
+
+import IPython
+IPython.embed()

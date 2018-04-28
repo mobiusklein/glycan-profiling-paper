@@ -1,5 +1,4 @@
     \subsubsection{Laplacian Regularization}
-        \reviewchange{
         To accomplish our goal, we can use Laplacian regularized
         least squares to find a new score $\phi$, based upon $s$
         and relationships among the observed glycans described by
@@ -7,7 +6,6 @@
         can be directed to move towards some central tendency $\tau$
         using the Laplacian of $\mathcal{G}$ and some definitions of
         broad groups in $\mathcal{G}$.
-        }
 
         % Lacking citations for the fundamentals of this material
         We combine the observed score $\mathbf{s}$ and the structure
@@ -30,9 +28,13 @@
 
         We find the $\mathbf{\phi}$ that minimizes the expression
         \begin{align}
-            \mathcal{S}(\mathbf{L}, \phi, \tau) &= \begin{bmatrix}
-                    \phi_o - \tau_o, & \phi_m - \tau_m
-                \end{bmatrix}
+            \mathcal{S}(\mathbf{L}, \phi, \tau) &= 
+                % \begin{bmatrix}
+                %     \phi_o - \tau_o, & \phi_m - \tau_m
+                % \end{bmatrix}
+                \begin{bmatrix}
+                    \phi_o - \tau_o \\ \phi_m - \tau_m
+                \end{bmatrix}^t
                 \begin{bmatrix}
                     \mathbf{L_{oo}} & \mathbf{L_{om}} \\ \mathbf{L_{mo}} & \mathbf{L_{mm}}
                 \end{bmatrix}

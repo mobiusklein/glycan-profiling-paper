@@ -1,7 +1,6 @@
 
 \section{Algorithmic Performance on All Datasets}\label{sec:algorithm_performance}
-    For more details on each sample, please see Table \ref{P-tab:sample_overview} in
-    the main text.
+    For more details on each sample, please see Table \ref{tab:sample_overview}.
 
 \subsection{Results for AGP}
     
@@ -13,7 +12,7 @@
 
     The estimate of $\gamma$ for \agp was larger than the score for the larger penta-antennary 
 
-    \begin{table}
+    \begin{table}[h]
         \centering
         \small
         \begin{tabular}{l SSS}
@@ -43,19 +42,19 @@
                  AGP-based dataset and using a combinatorial database \label{tab:agp_parameter_estimates}}
     \end{table}
 
-    \begin{figure}[tb]
+    \begin{figure}[htb]
         \centering
         \begin{minipage}{1\linewidth}
             \centering
             \begin{subfigure}[b]{0.49\linewidth}
-                \includegraphics[width=1\linewidth, valign=t]{figure/native_agp_chromatograms.pdf}
+                \includegraphics[width=1\linewidth, valign=t]{figure/native_agp_chromatograms.eps}
                 \subcaption{
                     \label{fig:agp_assignment:a}
                 }
             \end{subfigure}
             \vspace{0pt}
             \begin{subfigure}[b]{0.49\linewidth}
-                \includegraphics[width=1\linewidth, valign=b]{figure/native_agp_abundances.pdf}
+                \includegraphics[width=1\linewidth, valign=b]{figure/native_agp_abundances.eps}
                 \subcaption{
                     \label{fig:agp_assignment:b}
                 }
@@ -64,14 +63,14 @@
         \begin{minipage}{1\linewidth}
             \centering
             \begin{subfigure}[b]{0.49\linewidth}
-                \includegraphics[width=1\linewidth, valign=t]{figure/dp_agp_chromatograms.pdf}
+                \includegraphics[width=1\linewidth, valign=t]{figure/dp_agp_chromatograms.eps}
                 \subcaption{
                     \label{fig:agp_assignment:c}
                 }
             \end{subfigure}
             \vspace{0pt}
             \begin{subfigure}[b]{0.49\linewidth}
-                \includegraphics[width=1\linewidth, valign=b]{figure/dp_agp_abundances.pdf}
+                \includegraphics[width=1\linewidth, valign=b]{figure/dp_agp_abundances.eps}
                 \subcaption{
                     \label{fig:agp_assignment:d}
                 }
@@ -80,14 +79,14 @@
         \begin{minipage}{1\linewidth}
             \centering
             \begin{subfigure}[b]{0.49\linewidth}
-                \includegraphics[width=1\linewidth, valign=t]{figure/rp_agp_chromatograms.pdf}
+                \includegraphics[width=1\linewidth, valign=t]{figure/rp_agp_chromatograms.eps}
                 \subcaption{
                     \label{fig:agp_assignment:e}
                 }
             \end{subfigure}
             \vspace{0pt}
             \begin{subfigure}[b]{0.49\linewidth}
-                \includegraphics[width=1\linewidth, valign=b]{figure/rp_agp_abundances.pdf}
+                \includegraphics[width=1\linewidth, valign=b]{figure/rp_agp_abundances.eps}
                 \subcaption{
                     \label{fig:agp_assignment:f}
                 }
@@ -97,15 +96,26 @@
             \label{fig:agp_assignments}
         }
     \end{figure}
-
+    \FloatBarrier
 
 \subsection{Results for Phil-82}
 
     We analyzed native and deutero-reduced and permethylated \nglycans released from
-    virions of Influenza-A Virus strain Phillipines 1982. See Table~\ref{tab:phil82_parameter_estimates}
-    for a comparison of estimated $\tau$ values for each sample.
+    virions of Influenza-A Virus strain Phillipines 1982, both samples acquired on a QTOF
+    mass spectrometer. See Table~\ref{tab:phil82_parameter_estimates}
+    for a comparison of estimated $\tau$ values for each sample. In the case of \dpphil,
+    \msn scans were acquired, resulting in lower resolution chromatographic peaks. We observed
+    little ammonium adduction in \dpphil. As expected, we observed abundant formate adduction in
+    \phil, particularly on the high mannose glycans. \dpphil also displays considerable in-source
+    fragmentation of the high mannose series, defined by the multimodal chromatographic peaks of
+    smaller high mannose glycans appearing in lower abundance directly under larger peaks for
+    high mannose glycans. This fragmentation, combined with permethylation altering the ionization
+    efficiency of these analytes, makes a direct comparison of glycan composition abundance between
+    \phil and \dpphil inadvisable. We observe markedly different peak shapes between \phil and \dpphil
+    but the relative order of elution is preserved, with the largest high mannose glycans eluting
+    later than the largest observed complex type.
 
-    \begin{table}
+    \begin{table}[h]
         \centering
         \small
         \begin{tabular}{l SS}
@@ -142,14 +152,14 @@
         \begin{minipage}{1\linewidth}
             \centering
             \begin{subfigure}[b]{0.49\linewidth}
-                \includegraphics[width=1\linewidth, valign=t]{figure/native_phil82_chromatograms.pdf}
+                \includegraphics[width=1\linewidth, valign=t]{figure/native_phil82_chromatograms.eps}
                 \subcaption{
                     \label{fig:phil82_assignment:a}
                 }
             \end{subfigure}
             \vspace{0pt}
             \begin{subfigure}[b]{0.49\linewidth}
-                \includegraphics[width=1\linewidth, valign=b]{figure/native_phil82_abundances.pdf}
+                \includegraphics[width=1\linewidth, valign=b]{figure/native_phil82_abundances.eps}
                 \subcaption{
                     \label{fig:phil82_assignment:b}
                 }
@@ -158,14 +168,14 @@
         \begin{minipage}{1\linewidth}
             \centering
             \begin{subfigure}[b]{0.49\linewidth}
-                \includegraphics[width=1\linewidth, valign=t]{figure/dp_phil82_chromatograms.pdf}
+                \includegraphics[width=1\linewidth, valign=t]{figure/dp_phil82_chromatograms.eps}
                 \subcaption{
                     \label{fig:phil82_assignment:c}
                 }
             \end{subfigure}
             \vspace{0pt}
             \begin{subfigure}[b]{0.49\linewidth}
-                \includegraphics[width=1\linewidth, valign=b]{figure/dp_phil82_abundances.pdf}
+                \includegraphics[width=1\linewidth, valign=b]{figure/dp_phil82_abundances.eps}
                 \subcaption{
                     \label{fig:phil82_assignment:d}
                 }
@@ -176,10 +186,17 @@
         }
     \end{figure}
 
-
+\FloatBarrier
 \subsection{Results for IGG}
+    We analyzed native \nglycans released from IgG. The estimated $\tau$ values shown in
+    Table~\ref{tab:igg_parameter_estimates}are consistent with the expectation that IgG
+    glycans will be either hybrid or small complex-type structures. These findings are
+    consistent with the results from \citealp{Peltoniemi2013}, though their study used
+    different sample preparation and instrumentation, and their data were not available
+    for side-by-side comparison. The EICs and integrated abundances for this sample are
+    shown in Figure~\ref{fig:igg_assignments}.
     
-    \begin{table}
+    \begin{table}[h]
         \centering
         \small
         \begin{tabular}{l S}
@@ -209,19 +226,19 @@
                  IGG using a combinatorial database \label{tab:igg_parameter_estimates}}
     \end{table}
 
-    \begin{figure}[tb]
+    \begin{figure}[htb]
         \centering
         \begin{minipage}{1\linewidth}
             \centering
             \begin{subfigure}[b]{0.49\linewidth}
-                \includegraphics[width=1\linewidth, valign=t]{figure/native_igg_chromatograms.pdf}
+                \includegraphics[width=1\linewidth, valign=t]{figure/native_igg_chromatograms.eps}
                 \subcaption{
                     \label{fig:igg_assignment:a}
                 }
             \end{subfigure}
             \vspace{0pt}
             \begin{subfigure}[b]{0.49\linewidth}
-                \includegraphics[width=1\linewidth, valign=b]{figure/native_igg_abundances.pdf}
+                \includegraphics[width=1\linewidth, valign=b]{figure/native_igg_abundances.eps}
                 \subcaption{
                     \label{fig:igg_assignment:b}
                 }

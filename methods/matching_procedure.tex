@@ -10,11 +10,13 @@
 \subsection{Glycan Composition Matching}
     For each chromatogram, we searched each glycan database for compositions
     whose masses were within $\delta_{mass} = 10$ PPM for QTOF data, $5$ PPM
-    for FTMS data. We merged all chromatograms matching the same composition. Then, for
-    each mass shift combination, we searched each glycan database for compositions
-    whose neutral mass were within $\delta_{mass}$ of the observed neutral mass - mass shift
-    combination mass, followed by another round of merging chromatograms with the same
-    assigned composition. We reduced the data by splitting each feature where the time
+    for FTMS data. \reviewchange{These values are commonly used for data from these instruments
+    based upon information from their manufacturers}. We merged all chromatograms
+    matching the same composition. Then, for each mass shift combination \reviewchange{expected for
+    each sample}, we searched each glycan database for compositions whose neutral
+    mass were within $\delta_{mass}$ of the observed neutral mass - mass shift
+    combination mass, followed by another round of merging chromatograms with the
+    same assigned composition. We reduced the data by splitting each feature where the time
     between sequential observation was greater than $\delta_{rt} = 0.25$ minutes and
     removed chromatograms with fewer than $k = 5$ data points. The same chromatogram may be
     given multiple assignments and designated multiple mass shifts, and chromatograms

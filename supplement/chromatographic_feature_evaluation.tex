@@ -1,10 +1,10 @@
 \section{Chromatographic Feature Evaluation}\label{sec:feature_evaluation}
     For each candidate feature, we computed several metrics to estimate how distinguishable
-    the observed signal was from random noise. We use the following quantities from each LC-MS
-    feature:
+    the observed signal was from random noise. We use the quantities described in Table
+    S~\ref{tbl:chromatogram_feature_definitions} from each LC-MS feature.
 
     \renewcommand{\arraystretch}{1.5}
-    \begin{table}
+    \begin{table}[!h]
         \caption{Chromatogram Feature Definitions}\label{tbl:chromatogram_feature_definitions}
         \centering
         \begin{tabular}{l | p{9cm}}
@@ -75,7 +75,7 @@
     \subsection{Composition Dependent Charge State Distribution}
         % Does this principle need a citation?
         As the number of monosaccharides composing a glycan increases, the number of possible sites
-        for charge localization increases. This relationship is visualized in Figure~\ref{fig:charge_trend_plot}.
+        for charge localization increases. This relationship is visualized in Figure S~\ref{fig:charge_trend_plot}.
         Under normal conditions, we would expect to observe the same molecule in multiple charge states
         (\cite{Maxwell2012}). Which charge states are expected would depend upon the size of the molecule
         and it's constituent units' electronegativity. In it's native state, \monosaccharide{NeuAc}'s
@@ -105,7 +105,7 @@
 
         \begin{figure}
             \centering
-            \includegraphics[width=0.75\linewidth]{figure/charge_trend_plot}
+            \includegraphics[width=0.75\linewidth]{figure/charge_trend_plot.eps}
             \caption{The trend of charge state relative abundance for acidic glycans}
             \label{fig:charge_trend_plot}
         \end{figure}

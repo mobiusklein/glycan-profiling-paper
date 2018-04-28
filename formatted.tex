@@ -5,6 +5,7 @@
 \usepackage{mathtools}
 \usepackage{mathrsfs}
 \usepackage{graphicx}
+\usepackage{xcolor}
 \usepackage{subcaption}
 % \usepackage[bottom]{footmisc}
 \usepackage[export]{adjustbox}
@@ -17,8 +18,10 @@
 \usepackage{multirow}
 \usepackage{xr-hyper}
 \usepackage{authblk}
-
-\DeclareRobustCommand{\reviewchange}[1]{\hl{#1}}
+\usepackage{placeins}
+\definecolor{softred}{rgb}{0.8,0.6,0.6}
+% \DeclareRobustCommand{\reviewchange}[1]{\sethlcolor{softred}\hl{#1}}
+\DeclareRobustCommand{\reviewchange}[1]{#1}
 \newcommand{\monosaccharide}[1]{{\bf #1}\xspace}
 \newcommand{\nglycan}[0]{\textit{N}-glycan\xspace}
 \newcommand{\nglycans}[0]{\textit{N}-glycans\xspace}
@@ -66,7 +69,7 @@
 \affil[1]{Program for Bioinformatics, Boston University}
 \affil[2]{Department of Math and Statistics, Boston University}
 \affil[3]{Department of Biochemistry, Boston University}
-\address{$^{\text{\sf 1}}$Program for Bioinformatics, Boston University, Boston, Post Code, USA}
+\address{$^{\text{\sf 1}}$Program for Bioinformatics, Boston University, Boston, MA, 02215, USA}
 
 \corresp{$^\ast$To whom correspondence should be addressed.}
 

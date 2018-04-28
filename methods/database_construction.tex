@@ -5,9 +5,9 @@
     the oligosaccharyl transferase protein complex.  This glycan is trimmed to
     \textbf{HexNAc2 Hex9} during protein folding and quality control.  As the glycoprotein
     transits the Golgi apparatus, \nglycans are trimmed to \textbf{HexNAc2 Hex5} before
-    being elaborated into hybrid and complex \nglycan classes (\cite{Stanley2009}).
+    being elaborated into hybrid and complex \nglycan classes (\citealp{Stanley2009}).
     Glycan structures are refined by a series of reactions that yield over a million
-    possible \nglycan topologies, as shown in \cite{Akune2016}. These topologies define
+    possible \nglycan topologies, as shown in \citealp{Akune2016}. These topologies define
     the glycan's geometry and protein binding properties. Neither $MS^1$ nor collisional
     tandem $MS$ of glycans can capture the full tree or graph structure of an \nglycan,
     so we reduced the topology to a count of each type of residue, a composition.
@@ -15,16 +15,14 @@
     Starting with the core motif \textbf{HexNAc2 Hex3}, we generated all combinations of
     monosaccharides ranging between the limits in Table~\ref{tab:glycan_composition_rules}
     to build a human \nglycan composition database, which produced 1240 distinct compositions.
-    \reviewchange{
     These rules are able to efficiently generate all glycan compositions from canonical branching
-    patterns and lactosamine extensions, as well as rarer constructs such as LacdiNAc} \cite{Goldberg2009}
-    \reviewchange{at the cost of including some wholly improbable compositions.
-    }
-    To perform a side-by-side comparison we also extracted the glycan list from \cite{Yu2013}
-    derived from the biosynthetic rules in \cite{Krambeck2005} with 319 compositions, and
-    another database using all curated \nglycans from \glyspace via GlyTouCan (\cite{Tiemeyer2017})
+    patterns and lactosamine extensions, as well as rarer constructs such as LacdiNAc \citealp{Goldberg2009}
+    at the cost of including some wholly improbable compositions.
+    To perform a side-by-side comparison we also extracted the glycan list from \citealp{Yu2013}
+    derived from the biosynthetic rules in \citealp{Krambeck2005} with 319 compositions, and
+    another database using all curated \nglycans from \glyspace via GlyTouCan (\citealp{Tiemeyer2017})
     containing only \textbf{[Hex, HexNAc, Fuc, Neu5Ac, sulfate]}, with 275 distinct compositions. As
-    previous analysis of Influenza A virus samples detected sulfated \nglycans (\cite{Khatri2016a}),
+    previous analysis of Influenza A virus samples detected sulfated \nglycans (\citealp{Khatri2016a}),
     we also created a combinatorial database with up to one sulfate included, for a total
     of 2480 compositions. As our algorithm treats \textbf{HexNAc} and \textbf{HexNAc(S)}
     as distinct entities, for all monosaccharides with post-attachment substituents such
@@ -36,7 +34,6 @@
     \begin{table}[tb]
         \scriptsize
         \centering
-        \caption{\reviewchange{Human} \nglycan Composition Bounds \cite{Stanley2009}}\label{tab:glycan_composition_rules}
         \begin{threeparttable}
         \begin{tabular}{c | c | c | c}
             \toprule
@@ -48,4 +45,5 @@
             \monosaccharide{NeuAc} & 0 & 5 & $(\monosaccharide{HexNAc} - 1) > \monosaccharide{NeuAc}$\\
         \end{tabular}
         \end{threeparttable}
+        \caption{Human \nglycan Composition Bounds \citealp{Stanley2009}}\label{tab:glycan_composition_rules}
     \end{table}
